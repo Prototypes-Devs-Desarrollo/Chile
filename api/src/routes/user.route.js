@@ -1,23 +1,55 @@
-const { loginUser, registerUser, recoverPassword } = require('../controllers/userController');
+const {
+  loginUser,
+  registerUser,
+  recoverPassword,
+} = require('../controllers/userController');
+
 const UserModel = require('../models/user.model');
-const response = require('../utils/response');
+const { response } = require('../utils');
 const { ClientError } = require('../utils/errors');
 
-const user = {
+module.exports = {
   get_my_data: async (req, res) => {
     const { userId } = req.user;
-    const user = await UserModel.findOne({ _id: userId });
+    const user = await UserModel.findById(userId);
     if (!user) throw new ClientError('Usuario no encontrado', 500);
-    response(res, 200, user);
+    const { userType, firstName, lastName, email, profilePic, pets, id } = user;
+    const userPets = await filterByOwner(id)
+    response(res, 200, userPets, { userType, firstName, lastName, email, profilePic, pets, id });
   },
 
   register_new: async (req, res, next) => {
-    const { email, password, firstName } = req.body;
+    const {
+      email,
+      password,
+      firstName,
+      lastName,
+      phone,
+      country,
+      province,
+      zipcode,
+    } = req.body;
     if (!firstName) throw new ClientError('firstName is missing', 500);
+    if (!lastName) throw new ClientError('lastName is missing', 500);
     if (!email) throw new ClientError('email is missing', 500);
     if (!password) throw new ClientError('password is missing', 500);
+    if (!phone) throw new ClientError('phone is missing', 500);
+    if (!country) throw new ClientError('country is missing', 500);
+    if (!province) throw new ClientError('province is missing', 500);
+    if (!zipcode) throw new ClientError('zipcode is missing', 500);
+    //if (!city ) throw new ClientError('city is missing', 500);
+    //if (!address ) throw new ClientError('address is missing', 500);
 
-    const result = await registerUser(email, password, firstName);
+    const result = await registerUser(
+      email,
+      password,
+      firstName,
+      lastName,
+      phone,
+      country,
+      province,
+      zipcode
+    );
 
     response(res, 200, result);
   },
@@ -42,21 +74,7 @@ const user = {
     const user = await UserModel.findOne({ email });
     if (!user) throw new ClientError('Usuario no encontrado', 500);
     // Obtener el array de notificaciones del usuario
-    const notifications = user.notifications;
+    const notifications = user.Notifications;
     response(res, 200, notifications);
   },
-  logout: async (req, res) => {
-    const { userId } = req.user;
-    const user = await UserModel.findOne({ _id: userId });
-    if (!user) throw new ClientError('Usuario no encontrado', 500);
-
-    // Eliminar el token actual del usuario
-    user.tokens = user.tokens.filter((token) => token.token !== req.token);
-    await user.save();
-
-    response(res, 200, { message: 'Logout exitoso' });
-  },
-
 };
-
-module.exports = user;

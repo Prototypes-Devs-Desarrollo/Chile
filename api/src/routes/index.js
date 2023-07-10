@@ -3,20 +3,28 @@ const express = require('express');
 const user = require('./user.route');
 
 
-const  catchedAsync  = require('../utils/catchedAsync');
+const { limit5cada30minutos } = require('../utils/rate-limiters');
+
+const { catchedAsync } = require('../utils');
 const { checkJwt } = require('../utils/jwtUtils');
+
 const isLoggedIn = checkJwt
 
 
 const router = express.Router();
-//notifications
+/* Explicón  catchedAsync
+  catchedAsync(argumento) espera que "argumento" sea una funcion asyncrona que tome (req, res).
+  ¿Para qué? porque, al pasar a través de es función, le pone un .catch automaticamente y maneja el error. 
+*/
 
-//user GET?   Tiene q estar logeado?==checkJwt    siempre abrazarlo con catchedAsync
-router.get('/api/user/user',isLoggedIn, catchedAsync(user.get_my_data));
+//user GET
+router.get('/v1/user/data', isLoggedIn, catchedAsync(user.get_my_data));
+
 //login not required in those:
-router.post('/api/user/login', catchedAsync(user.login));
-router.post('/api/user/register', catchedAsync(user.register_new));
-router.post('/api/user/recovery', catchedAsync(user.recover_my_password));
+router.post('/v1/user/login', catchedAsync(user.login));
+router.post('/v1/user/register', catchedAsync(user.register));
+router.post('/v1/user/recover', catchedAsync(user.recover_my_password));
+
 
 
 

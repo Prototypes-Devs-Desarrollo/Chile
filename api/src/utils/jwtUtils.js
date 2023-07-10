@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { ClientError } = require('./errors');
 
 const jwtSecretKey = 'MySuperSecretKey123!@';
 
@@ -8,39 +9,28 @@ const generateToken = (payload) => {
 };
 
 const verifyToken = (token) => {
-  try {
     return jwt.verify(token, jwtSecretKey);
-  } catch (error) {
-    throw new Error('Invalid token!');
-  }
 };
 
 const checkJwt = (req, res, next) => {
   const token = req.headers.authorization?.split('Bearer ')[1];
-  if (!token) {
-    return res.status(401).json({ msg: 'Missing token! Provide the token in the Authorization header.', res: {}, con: false });
-  }
-
+  if (!token)
+    throw new ClientError('Missing token! Authorization=undefined', 400);
   try {
     const decodedToken = verifyToken(token);
     req.user = decodedToken;
     next();
   } catch (error) {
-    return res.status(401).json({ msg: 'Invalid token!', res: {}, con: false });
+    throw new ClientError('Token falló al decodificarse!', 400);
   }
 };
 
 const checkAdmin = async (req, res, next) => {
   const { email } = req.user; // Assuming the user's email is present in the decoded token
-
   // Check if the user has admin privileges based on your custom logic
-  const isAdmin = true; // Replace this with your admin check logic
-
-  if (isAdmin) {
-    next();
-  } else {
-    return res.status(403).send({ msg: 'Access denied! You do not have admin privileges.', res: {}, con: false });
-  }
+  //const isAdmin = true; // Replace this with your admin check logic
+  if (!isAdmin) throw new ClientError('You are not an admin!', 400);
+  next();
 };
 
 module.exports = {

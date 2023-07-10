@@ -9,8 +9,10 @@
   },
   "scripts": {
     "test": "jest --detectOpenHandles",
-    "start:dev": "npm run lint && npm run start",
-    "start": "nodemon node api/index.js",
+    "postinstall": "npm run tsc",
+    "tsc": "tsc",
+    "dev": "ts-node-dev --respawn --pretty --transpile-only ./src/index.ts",
+    "start": "npm run tsc && NODE_ENV=PRODUCTION node dist/index.js",
     "lint": "eslint src/**/*.js --fix"
   },
   "keywords": [],
@@ -28,9 +30,15 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.4.2",
-    "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
-    "prettier": "^2.1.2"
+    "prettier": "^2.1.2",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.1.6",
+    "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.2",
+    "@types/node": "^20.4.1",
+    "@typescript-eslint/parser": "^5.61.0"
   },
   "dependencies": {
     "async": "^3.2.4",
@@ -43,16 +51,18 @@
     "express-jwt": "^8.3.0",
     "express-openid-connect": "^2.11.0",
     "express-rate-limit": "^6.7.0",
+    "firebase-admin": "^11.9.0",
     "jsonwebtoken": "^9.0.0",
     "jwks-rsa": "^3.0.1",
     "mongodb": "^3.6.2",
     "mongoose": "^6.8.3",
+    "morgan": "^1.10.0",
     "serve-static": "^1.14.1",
     "stripe": "^12.10.0",
     "validator": "^13.7.0"
   },
   "prettier": {
-    "printWidth": 800,
+    "printWidth": 900,
     "semi": true,
     "singleQuote": true,
     "trailingComma": "es5"
