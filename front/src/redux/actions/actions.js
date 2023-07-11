@@ -9,7 +9,7 @@ export const BYEMAIL_USER = "BYEMAIL_USER";
 
 export const getUser = () => {
   return async function (dispatch) {
-    const adminRes = await axios.get("user/data");
-    dispatch({ type: GET_ADMIN, payload: adminRes.data[0] });
+    const userData = await axios.get("user/data");
+    dispatch({ type: GET_USER, payload: userData.data[0] });
   };
 };
