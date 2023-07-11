@@ -46,7 +46,7 @@ export const editUser = ({ id }) => {
     export const recoverUser = ({ email }) => {
     return async function (dispatch) {
     try {
-    const recoverUser = await axios.post("user/recover", { email });
+    const recoverUser = await axios.post("user/recovery", { email });
     dispatch({ type: RECOVER_USER, payload: recoverUser.data });
     } catch (error) {
     console.log(error);
@@ -55,7 +55,7 @@ export const editUser = ({ id }) => {
     export const byEmailUser = ({ email }) => {
     return async function (dispatch) {
     try {
-    const byEmailUser = await axios.get("user/byEmail", { email });
+    const byEmailUser = await axios.get("user/byemail", { email });
     dispatch({ type: BYEMAIL_USER, payload: byEmailUser.data });
     } catch (error) {
     console.log(error);
