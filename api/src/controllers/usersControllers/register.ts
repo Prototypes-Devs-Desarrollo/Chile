@@ -14,16 +14,17 @@ export default async (req, res, next) => {
       password,
       phone,
     } = req.body;
+    console.log(req.body)
 
-    if (!name || !email || !password || !phone) throw new ClientError('name or email or password or phone is missing', 500);
+   if (!name || !email || !password || !phone) throw new ClientError('name or email or password or phone is missing', 500);
     const user = await users.findOne({ email: req.body.email }).maxTimeMS(15000); // Increase timeout to 15 seconds
     if (user) throw new ClientError('Este usuario ya existe ' +user.email, 500);
-    const hashedPassword = await bcrypt.hash(password, 10);
+   const hashedPassword = await bcrypt.hash(password, 10);
     users.create({...req.body})
         const newUser = new users({
                 name,
                 email,
-                password: hashedPassword,
+                password,
                 phone,
         });
         
