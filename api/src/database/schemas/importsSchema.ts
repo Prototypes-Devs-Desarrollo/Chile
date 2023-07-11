@@ -6,17 +6,57 @@ const importsSchema = new Schema({
   name: String,
   fecha_RDM: Date,
   fecha_EDC: Date,
-  productos: [{ type: String, ref: "products" }],
-  responsables:[{ type: String, ref: "users" }],
-  clientes:[{ type: String, ref: "clients" }],
+  productos: [{
+    type: Schema.Types.ObjectId,
+    ref: "products"
+  }],
+  responsables: [{
+    type: Schema.Types.ObjectId,
+    ref: "users"
+  }],
+  importType: {
+    type: String,
+    required: true
+  },
+  packageType: {
+    type: String,
+    required: true
+  },
+  destino: {
+    bodega: {
+      type: Schema.Types.ObjectId,
+      ref: "bodegas"
+    },
+    cliente: {
+      type: Schema.Types.ObjectId,
+      ref: "clients"
+    },
+    otro: {
+      type: Object
+    }
+  },
+  package: {
+    container: {
+      type: Schema.Types.ObjectId,
+      ref: "containers"
+    },
+
+    otro: {
+      type: Object
+    }
+  }
+
+
+
 });
 
 // function y no arrow, porque vamos a usar el this.
 importsSchema.statics.list = async function () {
   return await this.find()
-  .populate("productos", ["_id", "name","cantidad","peso","volumen"])
-  .populate("clientes", ["_id", "name"])
-  .populate("responsables", ["_id", "name"])
+    .populate("productos", ["_id", "name"])
+    .populate("responsables", ["_id", "name"])
+    .populate("destino.bodega", ["_id", "name"])
+    .populate("destino.cliente", ["_id", "name"]);
 }
 
 importsSchema.plugin(toJSON);
