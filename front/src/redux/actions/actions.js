@@ -1,4 +1,5 @@
 import axios from "axios";
+axios.defaults.baseURL= 'http://localhost:8080/v1/'
 
 export const GET_USER = "GET_USER";
 export const EDIT_USER = "EDIT_USER";
@@ -29,7 +30,7 @@ export const loginUser = ({ email, password }) => {
     return async function (dispatch) {
         try {
             const loginUser = await axios.post("user/login", { email, password });
-            dispatch({ type: LOGIN_USER, payload: loginUser.data });
+            dispatch({ type: LOGIN_USER, payload: loginUser });
         } catch (error) {
             console.log(error);
         }};
