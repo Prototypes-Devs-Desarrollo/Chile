@@ -18,10 +18,10 @@ const productsSchema = new Schema({
   adelanto_proveedor: String,
   cuenta_por_pagar:String,
   pago_cliente: String,
-  import: { type: String, ref: "imports" }, //seria contenedor en algunos casos
-  client: { type: String, ref: "clients" },
-  provider: { type: String, ref: "providers" },
-  responsable: { type: String, ref: "users" },
+  import: { type: Schema.Types.ObjectId, ref: "imports" }, //seria contenedor en algunos casos
+  client: { type: Schema.Types.ObjectId, ref: "clients" },
+  provider: { type: Schema.Types.ObjectId, ref: "providers" },
+  responsable: { type: Schema.Types.ObjectId, ref: "users" },
   estado_producto: String,
   estado_entrega: String,
   soportes_proveedor: String,
@@ -29,6 +29,7 @@ const productsSchema = new Schema({
   volumen: String,
   swift_pago_recibido: String,
 });
+
 productsSchema.plugin(toJSON);
 // function y no arrow, porque vamos a usar el this.
 productsSchema.statics.list = async function () {
