@@ -1,9 +1,10 @@
 import mongoose from "mongoose"
-import  {MONGO_URI} from "../config/env"
 import usersSchema from "./schemas/usersSchema";
 mongoose.set('strictQuery', true); //ver sies necesario
-const conn = mongoose.createConnection(MONGO_URI);
 
+const deploy = 'mongodb://mongo:2SCyrbD7AwV4tITrjbOA@containers-us-west-186.railway.app:7092'
+
+const conn = mongoose.createConnection(deploy);
 
  const users= conn.model("users", usersSchema)
  const products= conn.model("products", require("./schemas/productsSchema"))

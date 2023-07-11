@@ -8,7 +8,7 @@ const usersSchema = new mongoose.Schema(
     /* _id:String, */
     name: {
       type: String,
-      required: true,
+      //required: true,
       minlength: 1,
       maxlength: 30,
     },
@@ -19,7 +19,7 @@ const usersSchema = new mongoose.Schema(
     puesto: String, //Repositor Ambulante, Vendedor Ambulante, etc.
     email: {
       type: String,
-      required: true,
+      //required: true,
       // unique: true,
       trim: true,
       lowercase: true,
@@ -31,11 +31,11 @@ const usersSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+      //required: true,
     },
     phone: {
       type: String,
-      required: true,
+      //required: true,
     },
     profilePic: {
       type: String,
