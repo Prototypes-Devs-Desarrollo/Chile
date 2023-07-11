@@ -5,13 +5,19 @@ mongoose.set('strictQuery', true); //ver sies necesario
 const conn = mongoose.createConnection(MONGO_URI);
 
 
-export const users= conn.model("users", usersSchema)
-export const products= conn.model("products", require("./schemas/productsSchema"))
-export const providers= conn.model("providers", require("./schemas/providersSchema"))
-export const clients= conn.model("clients", require("./schemas/clientsSchema"))
-export const imports= conn.model("imports", require("./schemas/importsSchema"))
+ const users= conn.model("users", usersSchema)
+ const products= conn.model("products", require("./schemas/productsSchema"))
+ const providers= conn.model("providers", require("./schemas/providersSchema"))
+ const clients= conn.model("clients", require("./schemas/clientsSchema"))
+ const imports= conn.model("imports", require("./schemas/importsSchema"))
 
-
+module.exports = {
+    users,
+    products,
+    providers,
+    clients,
+    imports
+} 
 
 //characters.find().populate("films", ["_id", "title"]).then(log);
 

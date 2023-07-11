@@ -1,5 +1,5 @@
 import { JWT_RANDOM_PASSWORD } from "../../config/env";
-import database from "../../database";
+const {users} = require('../../database');
 import { response } from "../../utils";
 import { ClientError } from "../../utils/errors";
 import bcrypt from 'bcrypt'
@@ -11,7 +11,7 @@ export default async (req, res) => {
     const {email,password}=req.body
     if (!email) throw new ClientError('email or password is missing', 400);
 
-    const user = await database.users.findOne({ email });
+    const user = await users.findOne({ email });
     if (!user) throw new ClientError('Usuario ' + email + ' no registrado', 400);
 
     const hashedPassword = await bcrypt.hash(password, 10);
