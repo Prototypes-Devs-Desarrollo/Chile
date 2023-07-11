@@ -1,26 +1,22 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
-const { toJSON /* , paginate */ } = require('./plugins');
-const { ClientError } = require('../utils/errors');
-const userSchema = mongoose.Schema(
+import  mongoose from 'mongoose'
+import validator from 'validator'
+import { toJSON /* , paginate */ } from './plugins'
+import { ClientError } from '../../utils/errors'
+
+const usersSchema = new mongoose.Schema(
   {
-    userType: {
-      type: String,
-      enum: ['user', 'admin'],
-      default: 'user',
-    },
-    firstName: {
+    /* _id:String, */
+    name: {
       type: String,
       required: true,
       minlength: 1,
       maxlength: 30,
     },
-    lastName: {
+    privileges: {
       type: String,
-      required: true,
-      minlength: 1,
-      maxlength: 30,
+      default: 'user', //user, empleado, gerente, admin, etc.
     },
+    puesto: String, //Repositor Ambulante, Vendedor Ambulante, etc.
     email: {
       type: String,
       required: true,
@@ -35,6 +31,7 @@ const userSchema = mongoose.Schema(
     },
     password: {
       type: String,
+      required: true,
     },
     phone: {
       type: String,
@@ -49,9 +46,13 @@ const userSchema = mongoose.Schema(
         }
       },
     },
-    token: {
-        type: String,
+    tokens: [
+      {
+        token: {
+          type: String,
+        },
       },
+    ],
   },
   {
     timestamps: {
@@ -60,16 +61,20 @@ const userSchema = mongoose.Schema(
     },
   }
 );
-//userSchema.index({Location: '2dsphere' });
 
-userSchema.plugin(toJSON);
-//userSchema.plugin(paginate);
+usersSchema.plugin(toJSON);
+//usersSchema.plugin(paginate);
 
-userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
-  const user = await this.findOne({ email, _id: { $ne: excludeUserId } });
-  return !!user;
-};
+usersSchema.statics.list = async function () {
+  return await this.find()
+}
 
-const User = mongoose.model('User', userSchema);
+usersSchema.statics.get = async function (id) {
+  return await this.findById(id)
+}
 
-module.exports = User;
+usersSchema.statics.insert = async function (char) {
+  return await this.create(char)
+}
+
+export default usersSchema;

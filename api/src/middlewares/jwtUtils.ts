@@ -1,15 +1,13 @@
+import { JWT_RANDOM_PASSWORD } from "../config/env";
 const jwt = require('jsonwebtoken');
-const { ClientError } = require('./errors');
+const { ClientError } = require('../utils/errors');
 
-const jwtSecretKey = 'MySuperSecretKey123!@';
-
-require('dotenv').config();
 const generateToken = (payload) => {
-  return jwt.sign(payload, jwtSecretKey, { expiresIn: '1h' });
+  return jwt.sign(payload, JWT_RANDOM_PASSWORD, { expiresIn: '1h' });
 };
 
 const verifyToken = (token) => {
-    return jwt.verify(token, jwtSecretKey);
+    return jwt.verify(token, JWT_RANDOM_PASSWORD);
 };
 
 const checkJwt = (req, res, next) => {
@@ -28,12 +26,12 @@ const checkJwt = (req, res, next) => {
 const checkAdmin = async (req, res, next) => {
   const { email } = req.user; // Assuming the user's email is present in the decoded token
   // Check if the user has admin privileges based on your custom logic
-  //const isAdmin = true; // Replace this with your admin check logic
+  const isAdmin = true; // Replace this with your admin check logic
   if (!isAdmin) throw new ClientError('You are not an admin!', 400);
   next();
 };
 
-module.exports = {
+export default {
   generateToken,
   verifyToken,
   checkJwt,
