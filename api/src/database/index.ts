@@ -1,5 +1,10 @@
 import mongoose from "mongoose"
 import usersSchema from "./schemas/usersSchema";
+import productsSchema from "./schemas/productsSchema";
+import clientsSchema from "./schemas/clientsSchema";
+import importsSchema from "./schemas/importsSchema";
+import providersSchema from "./schemas/providersSchema";
+
 mongoose.set('strictQuery', true); //ver sies necesario
 
 const deploy = 'mongodb://mongo:2SCyrbD7AwV4tITrjbOA@containers-us-west-186.railway.app:7092'
@@ -7,10 +12,10 @@ const deploy = 'mongodb://mongo:2SCyrbD7AwV4tITrjbOA@containers-us-west-186.rail
 const conn = mongoose.createConnection(deploy);
 
  const users= conn.model("users", usersSchema)
- const products= conn.model("products", require("./schemas/productsSchema"))
- const providers= conn.model("providers", require("./schemas/providersSchema"))
- const clients= conn.model("clients", require("./schemas/clientsSchema"))
- const imports= conn.model("imports", require("./schemas/importsSchema"))
+ const products= conn.model("products", productsSchema)
+ const providers= conn.model("providers", providersSchema)
+ const clients= conn.model("clients", clientsSchema)
+ const imports= conn.model("imports", importsSchema)
 
 module.exports = {
     users,

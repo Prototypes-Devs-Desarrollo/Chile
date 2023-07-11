@@ -20,13 +20,13 @@ export default async (req, res, next) => {
     const user = await users.findOne({ email: req.body.email }).maxTimeMS(15000); // Increase timeout to 15 seconds
     if (user) throw new ClientError('Este usuario ya existe ' +user.email, 500);
    const hashedPassword = await bcrypt.hash(password, 10);
-    users.create({...req.body})
-        const newUser = new users({
-                name,
-                email,
-                password,
-                phone,
-        });
+  
+      const newUser = new users({
+              name,
+              email,
+              password: hashedPassword,
+              phone,
+      });
         
         await newUser.save();
         const token = jwt.sign({ id: newUser._id, email}, JWT_RANDOM_PASSWORD, {

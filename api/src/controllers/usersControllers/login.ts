@@ -15,7 +15,7 @@ export default async (req, res) => {
 
     const user = await users.findOne({ email });
     if (!user) throw new ClientError('El usuario no se encuentra registrado', 500);
-
+   
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) throw new ClientError('Contraseña incorrecta', 500);
 
