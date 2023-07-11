@@ -1,4 +1,5 @@
-const {users} = require('../../database');
+
+import { users } from "../../database";
 import { response } from "../../utils";
 
 export default async (req, res) => {

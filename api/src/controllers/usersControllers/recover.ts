@@ -1,5 +1,6 @@
 import { JWT_RANDOM_PASSWORD } from "../../config/env";
-const {users} = require('../../database');
+import { users } from "../../database";
+
 import { response } from "../../utils";
 import { ClientError } from "../../utils/errors";
 import bcrypt from 'bcrypt'

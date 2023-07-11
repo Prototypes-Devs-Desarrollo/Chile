@@ -4,8 +4,8 @@ import { ClientError } from "../../utils/errors";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { JWT_RANDOM_PASSWORD } from "../../config/env";
-const {users} = require('../../database');
- "../../database";
+import { users } from "../../database";
+
 
 export default async (req, res, next) => {
     const {

@@ -1,4 +1,4 @@
-const {users} = require('../../database');
+import { users } from "../../database";
 import { response } from "../../utils";
 import { ClientError } from "../../utils/errors";
 

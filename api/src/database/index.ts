@@ -1,9 +1,10 @@
 import mongoose from "mongoose"
-import usersSchema from "./schemas/usersSchema";
-import productsSchema from "./schemas/productsSchema";
-import clientsSchema from "./schemas/clientsSchema";
-import importsSchema from "./schemas/importsSchema";
-import providersSchema from "./schemas/providersSchema";
+
+import usersSchema from "./schemas/usersSchema"; //1
+import productsSchema from "./schemas/productsSchema"; //2
+import providersSchema from "./schemas/providersSchema"; //3
+import clientsSchema from "./schemas/clientsSchema"; //4
+import importsSchema from "./schemas/importsSchema"; //5
 
 mongoose.set('strictQuery', true); //ver sies necesario
 
@@ -11,20 +12,12 @@ const deploy = 'mongodb://mongo:2SCyrbD7AwV4tITrjbOA@containers-us-west-186.rail
 
 const conn = mongoose.createConnection(deploy);
 
- const users= conn.model("users", usersSchema)
- const products= conn.model("products", productsSchema)
- const providers= conn.model("providers", providersSchema)
- const clients= conn.model("clients", clientsSchema)
- const imports= conn.model("imports", importsSchema)
+export const users = conn.model("users", usersSchema) //1
+export const products = conn.model("products", productsSchema) //2
+export const providers = conn.model("providers", providersSchema) //3
+export const clients = conn.model("clients", clientsSchema) //4
+export const imports = conn.model("imports", importsSchema) //5
 
-module.exports = {
-    users,
-    products,
-    providers,
-    clients,
-    imports
-} 
 
 //characters.find().populate("films", ["_id", "title"]).then(log);
 
- 
