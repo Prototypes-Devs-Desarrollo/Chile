@@ -1,0 +1,110 @@
+.form_container {
+        background-color: #15172b;
+        border-radius: 20px;
+        box-sizing: border-box;
+        height: 500px;
+        padding: 20px;
+        width: 320px;
+  }
+
+.title {
+    display: flex;
+    justify-content: center;
+    color: #eee;
+    font-size: 36px;
+    font-weight: 600;
+    margin-top: 30px;
+}
+
+.subtitle {
+    display: flex;
+    justify-content: center;
+    color: #eee;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+.input {
+    background-color: #303245;
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    font-size: 20px;
+    height: 100%;
+    outline: 0;
+    padding: 4px 20px 4px;
+    width: 100%;
+  }
+  
+  .form label {
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+  
+  .form button:hover {
+    box-shadow: 2px 2px 12px white;
+  }
+
+  .labeltxt {
+    color: white;
+    display: flex;
+    margin-bottom: .7rem;
+  }
+
+  .input_cont01{
+    margin-top: 30px;
+  }
+
+  .input_cont02{
+    margin-top: 30px;
+  }
+
+  .button_login{
+    background-color: rgb(6, 150, 240);
+    border-radius: 12px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 18px;
+    height: 50px;
+    margin-top: 38px;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .register {
+    display: flex;
+    justify-content: center;
+    outline: none;
+    border: none;
+    background: #06b909;
+    padding: 0.8rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 15px;
+    color: #fff;
+    width: 75%;
+    margin: 0 auto;
+  }
+  
+   .register:hover {
+    background: #03ad06;
+    cursor: pointer;
+  }
+
+  .button_login:hover {
+    background-color: rgb(40, 140, 221);
+  }
+
+  .button_login:active,
+  .register:active{
+    background-color: #303245;
+  }
+
+    .hr {
+    background: #f7f7f7;
+    margin: 1rem;
+  }
+  
