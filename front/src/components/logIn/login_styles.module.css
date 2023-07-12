@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   background: linear-gradient(30deg, #0ecda0 0%, #3583db 100%);
-  animation: adjustHue 10s infinite;
+  animation: adjustHue 25s infinite;
 }
 
 @keyframes adjustHue {
@@ -20,6 +20,7 @@
         height: 500px;
         padding: 20px;
         width: 320px;
+        box-shadow: 10px -8px teal;
   }
 
 .title {
