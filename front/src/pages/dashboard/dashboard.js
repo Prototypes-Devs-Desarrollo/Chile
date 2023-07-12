@@ -1,13 +1,13 @@
-import { Sidebar } from "@/components/sidebar/sidebar"
+import React from 'react';
+import { Sidebar } from '@/components/sidebar/sidebar';
 
- const dashboard = () =>{
+const Dashboard = () => {
+  return (
+    <>
+      <Sidebar />
+      <p className='z-1'>dashboard</p>
+    </>
+  );
+};
 
-    return(
-        <>
-        {/* <Sidebar/> */}
-        <p className="bg-red">dashboard</p>
-        </>
-    )
-}
-
-export default dashboard
+export default Dashboard;
