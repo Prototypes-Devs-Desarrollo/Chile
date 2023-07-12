@@ -1,4 +1,5 @@
 import axios from "axios";
+
 axios.defaults.baseURL= 'http://localhost:8080/v1/'
 
 export const GET_USER = "GET_USER";
@@ -26,13 +27,21 @@ export const editUser = ({ id }) => {
     };
   };
 
-export const loginUser = ({ email, password }) => {
+export const loginUser = ({ email, password, loading, error, success }) => {
     return async function (dispatch) {
         try {
+            loading(true)
             const loginUser = await axios.post("user/login", { email, password });
-            dispatch({ type: LOGIN_USER, payload: loginUser });
-        } catch (error) {
-            console.log(error);
+            
+            dispatch({ type: LOGIN_USER, payload: loginUser.data.payload.user });
+            let token = loginUser.data.payload.token
+            localStorage.setItem("Token", token)
+            success("Login okey")
+            loading(false)
+        } catch (err) {
+            error(err)
+            loading(false)
+
         }};
 };
 
