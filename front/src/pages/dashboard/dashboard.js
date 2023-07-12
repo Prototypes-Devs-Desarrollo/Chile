@@ -1,12 +1,17 @@
 import React from 'react';
 import { Sidebar } from '@/components/sidebar/sidebar';
 
+
 const Dashboard = () => {
   return (
-    <>
-      <Sidebar />
-      <p className='z-1'>dashboard</p>
-    </>
+  /*  <>
+    <div className='flex flex-nowrap'>
+    <Sidebar />
+    <div className=''> */
+    <p >dashboard</p>
+    /*</div>
+    </div>
+    </>*/
   );
 };
 

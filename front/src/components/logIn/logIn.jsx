@@ -1,17 +1,15 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { loginUser } from "../../redux/actions/actions";
+import React from "react";
 import style from './login_styles.module.css'
 import { useAuth } from "@/customHooks/useAuth";
 
  //falta onClick a /register en su respectivo botón
-
 
 const Login = () => {
 
   const {handleSubmit,  email, setEmail, password, setPassword} = useAuth()
 
   return (
+    <div className={style.container}>
     <div className={style.form_container}>
     <div className={style.title}>Bienvenido</div>
     <div className={style.subtitle}>Ingrese!</div>
@@ -39,7 +37,7 @@ const Login = () => {
       <button className={style.button_login} type="submit">Login</button>
     </form>
     <hr className={style.hr}/>
-    <button className={style.register}>Regístrate</button>
+    </div>
     </div>
   );
 };
