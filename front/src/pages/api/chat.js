@@ -4,7 +4,7 @@ import { PineconeStore } from "langchain/vectorstores/pinecone";
 import {
   PINECONE_INDEX_NAME,
   PINECONE_NAME_SPACE,
-} from "../../../config/pinecone";
+} from "../../../../Client/config/pinecone";
 import { getPineconeClient } from "../../../utils/pinecone-client";
 import { makeChain } from "../../../utils/makechain";
 

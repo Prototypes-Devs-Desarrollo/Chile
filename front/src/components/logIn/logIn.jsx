@@ -2,18 +2,14 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/actions/actions";
 import style from './login_styles.module.css'
+import { useAuth } from "@/customHooks/useAuth";
 
  //falta onClick a /register en su respectivo botón
 
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(loginUser({ email, password }));
-  };
+
+  const {handleSubmit,  email, setEmail, password, setPassword} = useAuth()
 
   return (
     <div className={style.form_container}>
