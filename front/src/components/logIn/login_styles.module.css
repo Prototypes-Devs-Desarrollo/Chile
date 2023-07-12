@@ -89,25 +89,6 @@
     text-align: center;
     width: 100%;
   }
-  
-  .register {
-    display: flex;
-    justify-content: center;
-    outline: none;
-    border: none;
-    background: #06b909;
-    padding: 0.8rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 15px;
-    color: #fff;
-    width: 75%;
-    margin: 0 auto;
-  }
-  
-   .register:hover {
-    background: #03ad06;
-    cursor: pointer;
-  }
 
   .button_login:hover {
     background-color: rgb(40, 140, 221);
