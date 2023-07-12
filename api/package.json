@@ -23,6 +23,12 @@
   },
   "homepage": "https://github.com/diberry/js-e2e-express-mongo#readme",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.2",
+    "@types/node": "^20.4.1",
+    "@types/validator": "^13.7.17",
+    "@typescript-eslint/parser": "^5.61.0",
     "eslint": "^7.9.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-airbnb-base": "^14.2.0",
@@ -34,11 +40,7 @@
     "prettier": "^2.1.2",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.1.6",
-    "@types/express": "^4.17.17",
-    "@types/jest": "^29.5.2",
-    "@types/node": "^20.4.1",
-    "@typescript-eslint/parser": "^5.61.0"
+    "typescript": "^5.1.6"
   },
   "dependencies": {
     "async": "^3.2.4",

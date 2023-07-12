@@ -5,8 +5,8 @@ import recover from "./recover"
 import register from "./register"
 import update from "./update"
 
-
-export default {
+const usersControllers =
+{
     findByEmail,
     login,
     recover,
@@ -15,3 +15,5 @@ export default {
     getOwnData
 
 }
+
+export default usersControllers

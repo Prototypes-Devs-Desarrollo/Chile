@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { JWT_RANDOM_PASSWORD } from "../../config/env";
 import { users } from "../../database";
- "../../database";
+
 
 export default async (req, res, next) => {
     const {
@@ -14,18 +14,19 @@ export default async (req, res, next) => {
       password,
       phone,
     } = req.body;
+    console.log(req.body)
 
-    if (!name || !email || !password || !phone) throw new ClientError('name or email or password or phone is missing', 500);
+   if (!name || !email || !password || !phone) throw new ClientError('name or email or password or phone is missing', 500);
     const user = await users.findOne({ email: req.body.email }).maxTimeMS(15000); // Increase timeout to 15 seconds
     if (user) throw new ClientError('Este usuario ya existe ' +user.email, 500);
-    const hashedPassword = await bcrypt.hash(password, 10);
-    users.create({...req.body})
-        const newUser = new users({
-                name,
-                email,
-                password: hashedPassword,
-                phone,
-        });
+   const hashedPassword = await bcrypt.hash(password, 10);
+  
+      const newUser = new users({
+              name,
+              email,
+              password: hashedPassword,
+              phone,
+      });
         
         await newUser.save();
         const token = jwt.sign({ id: newUser._id, email}, JWT_RANDOM_PASSWORD, {

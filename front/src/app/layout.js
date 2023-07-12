@@ -1,7 +1,10 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
+import axios from 'axios';
 
 const inter = Inter({ subsets: ['latin'] })
+
+axios.defaults.baseURL = "http://localhost:8080/v1/";
 
 export const metadata = {
   title: 'Create Next App',

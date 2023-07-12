@@ -4,7 +4,7 @@ import morgan from 'morgan'
 import bodyParser from "body-parser";
 import cors from 'cors'
 import routes from "./routes";
-import { clients, users } from "./database";
+const {users, clients} = require('./database')
 const { globalLimit } = require('./utils/rate-limiters');
 
 
