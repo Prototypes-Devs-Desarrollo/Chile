@@ -1,8 +1,12 @@
+import { Sidebar } from "@/components/sidebar/sidebar"
 
  const dashboard = () =>{
 
     return(
-        <p>dashboard</p>
+        <>
+        {/* <Sidebar/> */}
+        <p className="bg-red">dashboard</p>
+        </>
     )
 }
 
