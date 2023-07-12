@@ -1,5 +1,5 @@
 import { applyMiddleware, createStore, compose, } from "redux";
-import reducer from "../reducer/reducerIndex";
+import reducer from "../reducer/reducer";
 import thunk from "redux-thunk";
 
 const composeEnhancers =
