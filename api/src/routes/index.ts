@@ -19,7 +19,7 @@ const router = express.Router();
 */
 //USER------------------    siempre abrazar controllers con catchedAsync
 router.get('/v1/user/data', isLoggedIn, catchedAsync(usersControllers.getOwnData));
-router.put('/v1/user/edit', catchedAsync(usersControllers.update));
+router.put('/v1/user/edit', isLoggedIn, catchedAsync(usersControllers.update));
 router.post('/v1/user/login', catchedAsync(usersControllers.login));
 router.post('/v1/user/register', catchedAsync(usersControllers.register));
 router.post('/v1/user/recovery', catchedAsync(usersControllers.recover));
