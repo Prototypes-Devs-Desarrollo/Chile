@@ -3,8 +3,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(30deg, #0ecda0 0%, #3583db 100%);
-  animation: adjustHue 25s infinite;
+  background: linear-gradient(30deg, #3e52c4 0%, #3583db 100%);
+  animation: adjustHue 15s infinite;
 }
 
 @keyframes adjustHue {
@@ -20,7 +20,7 @@
         height: 500px;
         padding: 20px;
         width: 320px;
-        box-shadow: 10px -8px teal;
+        box-shadow: 10px -8px rgb(88, 88, 109);
   }
 
 .title {
@@ -78,7 +78,7 @@
   }
 
   .button_login{
-    background-color: rgb(6, 150, 240);
+    background-color: #3583db;
     border-radius: 12px;
     border: 0;
     box-sizing: border-box;
@@ -95,8 +95,7 @@
     background-color: rgb(40, 140, 221);
   }
 
-  .button_login:active,
-  .register:active{
+  .button_login:active{
     background-color: #303245;
   }
 
