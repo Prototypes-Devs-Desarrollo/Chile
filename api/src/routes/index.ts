@@ -12,8 +12,8 @@ import product from './product'
 */
 //USER------------------    siempre abrazar controllers con catchedAsync
 router.use('/v1/user', user);
+
 //PRODUCT---------------
 router.use('/v1/product', product);
-
 
 export default router;
