@@ -1,5 +1,4 @@
 import { Router } from 'express'
-//agregar mas importaciones de ruta aca:
 import productsControllers from '../controllers/productsControllers';
 import jwtUtils from '../middlewares/jwtUtils';
 
