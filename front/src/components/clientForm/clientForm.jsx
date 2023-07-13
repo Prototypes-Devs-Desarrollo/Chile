@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createClient } from "../../redux/actions/actions"; //no existe ruta para esto a la fecha de creacion del componente
 import style from "../productForm/productForm.module.css"; //pongo los estilos del productForm en caso de querer usas Tailwind
 import { useClient } from "@/customHooks/useClient";
 
 export default function ClientForm() {
 
-  const {
-    dispatch, input, setInput, handleChange, handleSubmit
-} = useClient()
+  
+  const {  input, setInput, handleSubmit, handleChange } = useClient()
+
 
   //es muy probable que falten campos, el modelo hoy sólo tiene name
   return (

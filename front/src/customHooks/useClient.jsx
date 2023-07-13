@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+
 import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { createClient } from "../../redux/actions/actions"; //no existe ruta para esto a la fecha de creacion del componente
 
 export const useClient = () => {
 
@@ -26,5 +28,6 @@ export const useClient = () => {
 
     return{
         dispatch, input, setInput, handleChange, handleSubmit
+
     }
 }
