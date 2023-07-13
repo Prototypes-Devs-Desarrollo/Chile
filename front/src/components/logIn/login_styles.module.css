@@ -1,3 +1,18 @@
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(30deg, #0ecda0 0%, #3583db 100%);
+  animation: adjustHue 25s infinite;
+}
+
+@keyframes adjustHue {
+  50% {
+    filter: saturate(150%) hue-rotate(-35deg);
+  }
+}
+
 .form_container {
         background-color: #15172b;
         border-radius: 20px;
@@ -5,6 +20,7 @@
         height: 500px;
         padding: 20px;
         width: 320px;
+        box-shadow: 10px -8px teal;
   }
 
 .title {
@@ -73,25 +89,6 @@
     margin-top: 38px;
     text-align: center;
     width: 100%;
-  }
-  
-  .register {
-    display: flex;
-    justify-content: center;
-    outline: none;
-    border: none;
-    background: #06b909;
-    padding: 0.8rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 15px;
-    color: #fff;
-    width: 75%;
-    margin: 0 auto;
-  }
-  
-   .register:hover {
-    background: #03ad06;
-    cursor: pointer;
   }
 
   .button_login:hover {
