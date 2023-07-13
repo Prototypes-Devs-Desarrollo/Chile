@@ -26,11 +26,11 @@ router.post('/v1/user/recovery', catchedAsync(usersControllers.recover));
 router.post('/v1/user/byemail', catchedAsync(usersControllers.findByEmail));
 
 //PRODUCT------------------  
-router.get('/v1/product/:productId', isLoggedIn, catchedAsync(productsControllers.findById));
-router.get('/v1/product/byimport/:importId', isLoggedIn, catchedAsync(productsControllers.findByImportId));
-router.post('/v1/product/create', isLoggedIn, catchedAsync(productsControllers.createOne));
-router.put('/v1/product/create', isLoggedIn, catchedAsync(productsControllers.editOne));
-router.delete('/v1/product/delete', isLoggedIn, catchedAsync(productsControllers.deleteOne));
+router.get('/v1/product/:productId', isLoggedIn, catchedAsync(productsControllers.findById)); //busca un producto por id
+router.get('/v1/product/byimport/:importId', isLoggedIn, catchedAsync(productsControllers.findByImportId)); //busca un producto adentro de una importacion
+router.post('/v1/product/create', isLoggedIn, catchedAsync(productsControllers.createOne)); //crea un producto
+router.put('/v1/product/create', isLoggedIn, catchedAsync(productsControllers.editOne)); //edita un producto
+router.delete('/v1/product/delete', isLoggedIn, catchedAsync(productsControllers.deleteOne));  //elimina un producto
 
 
 

@@ -9,23 +9,6 @@ export const REGISTER_USER = "REGISTER_USER";
 export const RECOVER_USER = "RECOVER_USER";
 export const BYEMAIL_USER = "BYEMAIL_USER";
 
-export const getUser = () => {
-  return async function (dispatch) {
-    const userData = await axios.get("user/data");
-    dispatch({ type: GET_USER, payload: userData.data[0] });
-  };
-};
-
-export const editUser = ({ id }) => {
-    return async function (dispatch) {
-      try {
-        const editUser = await axios.put("user/edit", { id });
-        dispatch({ type: EDIT_USER, payload: editUser.data.password });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  };
 
 export const loginUser = ({ email, password, loading, error, success }) => {
     return async function (dispatch) {
@@ -74,3 +57,21 @@ export const byEmailUser = ({ email }) => {
             console.log(error);
     }};
 };
+export const getUser = () => {
+    return async function (dispatch) {
+      const userData = await axios.get("user/data");
+      dispatch({ type: GET_USER, payload: userData.data[0] });
+    };
+  };
+  
+  export const editUser = ({ id }) => {
+      return async function (dispatch) {
+        try {
+          const editUser = await axios.put("user/edit", { id });
+          dispatch({ type: EDIT_USER, payload: editUser.data.password });
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    };
+  
