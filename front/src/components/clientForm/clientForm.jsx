@@ -3,8 +3,10 @@ import style from "../productForm/productForm.module.css"; //pongo los estilos d
 import { useClient } from "@/customHooks/useClient";
 
 export default function ClientForm() {
+
   
   const {  input, setInput, handleSubmit, handleChange } = useClient()
+
 
   //es muy probable que falten campos, el modelo hoy sólo tiene name
   return (

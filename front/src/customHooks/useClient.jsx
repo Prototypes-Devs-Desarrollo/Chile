@@ -1,8 +1,10 @@
+
 import { useDispatch } from "react-redux";
 import React, { useState } from "react";
 import { createClient } from "../../redux/actions/actions"; //no existe ruta para esto a la fecha de creacion del componente
 
 export const useClient = () => {
+
     const dispatch = useDispatch();
     const [input, setInput] = useState({
       name: ""
@@ -22,8 +24,10 @@ export const useClient = () => {
         name: ""
       });
     };
+  
 
-    return {
-        input, setInput, handleSubmit, handleChange
+    return{
+        dispatch, input, setInput, handleChange, handleSubmit
+
     }
 }

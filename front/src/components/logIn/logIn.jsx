@@ -1,12 +1,16 @@
 import React from "react";
 import style from './login_styles.module.css'
 import { useAuth } from "@/customHooks/useAuth";
+import { useEmailSender } from "@/customHooks/useEmailSender";
 
  //falta onClick a /register en su respectivo botón
 
 const Login = () => {
 
   const {handleSubmit,  email, setEmail, password, setPassword} = useAuth()
+
+
+
 
   return (
     <div className={style.container}>

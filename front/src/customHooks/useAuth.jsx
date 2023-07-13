@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-export const useAuth = () =>{
+export const useAuth = (enviarmeial) =>{
 const router = useRouter()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -17,7 +17,7 @@ const router = useRouter()
      dispatch(loginUser({ email, password,     
       loading: (v) => console.error("Cargando"),
       error: (msg) => console.log(msg),
-    success: async (res) => router.push("/dashboard/dashboard") 
+    success: async (res) => router.push("/dashboard/dashboard", ) 
     }))
 
     }
