@@ -4,10 +4,11 @@ import { Sidebar } from '@/components/sidebar/sidebar';
 
 const Dashboard = () => {
   return (
+    <>
+      <p className=''>dashboard</p>
+    </>
   /*  <>
-    <div className='flex flex-nowrap'>
-    <Sidebar />
-    <div className=''> */
+
     <p >dashboard</p>
     /*</div>
     </div>
