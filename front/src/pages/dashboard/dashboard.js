@@ -1,15 +1,13 @@
 import React from 'react';
 import { Sidebar } from '@/components/sidebar/sidebar';
+import ImportForm from '@/components/importForm/importForm';
 
 
 const Dashboard = () => {
   return (
     <>
-      <p className=''>dashboard</p>
-    </>
-  /*  <>
-
-    <p >dashboard</p>
+<ImportForm/>
+</>
     /*</div>
     </div>
     </>*/
