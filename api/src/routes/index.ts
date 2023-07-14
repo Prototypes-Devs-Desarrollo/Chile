@@ -4,6 +4,7 @@ import user from './user'
 import product from './product'
 import imports from "./import";
 import client from './client'
+import provider from './provider'
 
 /* Explicón del catchedAsync()
  
@@ -25,7 +26,7 @@ router.use('/v1/import', imports);
 router.use('/v1/client', client)
 
 //CONTAINER----------------
-
+router.use('/v1/provider', provider)
 
 //EMPLOYES-----------------
 

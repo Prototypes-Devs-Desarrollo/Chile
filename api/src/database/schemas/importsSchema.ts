@@ -1,96 +1,97 @@
 import { Schema } from "mongoose";
 import { toJSON } from "./plugins";
-const importa = [
-  {
-    id: 1,
-    clientes: [
-      {
-        id: 1,
-        otroddatos: '',
-        productoId: [
-          {
-            id: 1,
-            proveedorId: {
-              losdatos: 'datos de mierda a agregar'
-            },
-            responsableId: {
-              lodasto: 'datos de mierda a agregar'
-            }
-          },
-          {
-            id: 2,
-            proveedorId: {
-              losdatos: 'datos d emierda'
-            },
-            responsableId: {
-              lodasto: 'datos de mierda a agregar'
-            }
-          }
-        ]
-      },
-      {
-        id: 1,
-        otroddatos: '',
-        productoId: [
-          {
-            id: 2,
-            proveedorId: {
-              losdatos: 'datos d emierda'
-            },
-            responsableId: {
-              lodasto: 'datos de mierda a agregar'
-            }
-          }
-        ]
-      }
-    ]
-  }
-]
 
-const impoirtacion = {
-  id: 1,
-  clientes: [
-    {
-      id: 1,
-      otroddatos: '',
-      productoId: [
-        {
-          id: 1,
-          proveedorId: {
-            losdatos: 'datos de mierda a agregar'
-          },
-          responsableId: {
-            lodasto: 'datos de mierda a agregar'
-          }
-        },
-        {
-          id: 2,
-          proveedorId: {
-            losdatos: 'datos d emierda'
-          },
-          responsableId: {
-            lodasto: 'datos de mierda a agregar'
-          }
-        }
-      ]
-    },
-    {
-      id: 1,
-      otroddatos: '',
-      productoId: [
-        {
-          id: 2,
-          proveedorId: {
-            losdatos: 'datos d emierda'
-          },
-          responsableId: {
-            lodasto: 'datos de mierda a agregar'
-          }
-        }
-      ]
-    }
-  ]
-}
+// const importa = [
+//   {
+//     id: 1,
+//     clientes: [
+//       {
+//         id: 1,
+//         otroddatos: '',
+//         productoId: [
+//           {
+//             id: 1,
+//             proveedorId: {
+//               losdatos: 'datos de mierda a agregar'
+//             },
+//             responsableId: {
+//               lodasto: 'datos de mierda a agregar'
+//             }
+//           },
+//           {
+//             id: 2,
+//             proveedorId: {
+//               losdatos: 'datos d emierda'
+//             },
+//             responsableId: {
+//               lodasto: 'datos de mierda a agregar'
+//             }
+//           }
+//         ]
+//       },
+//       {
+//         id: 1,
+//         otroddatos: '',
+//         productoId: [
+//           {
+//             id: 2,
+//             proveedorId: {
+//               losdatos: 'datos d emierda'
+//             },
+//             responsableId: {
+//               lodasto: 'datos de mierda a agregar'
+//             }
+//           }
+//         ]
+//       }
+//     ]
+//   }
+// ]
+
+// const impoirtacion = {
+//   id: 1,
+//   clientes: [
+//     {
+//       id: 1,
+//       otroddatos: '',
+//       productoId: [
+//         {
+//           id: 1,
+//           proveedorId: {
+//             losdatos: 'datos de mierda a agregar'
+//           },
+//           responsableId: {
+//             lodasto: 'datos de mierda a agregar'
+//           }
+//         },
+//         {
+//           id: 2,
+//           proveedorId: {
+//             losdatos: 'datos d emierda'
+//           },
+//           responsableId: {
+//             lodasto: 'datos de mierda a agregar'
+//           }
+//         }
+//       ]
+//     },
+//     {
+//       id: 1,
+//       otroddatos: '',
+//       productoId: [
+//         {
+//           id: 2,
+//           proveedorId: {
+//             losdatos: 'datos d emierda'
+//           },
+//           responsableId: {
+//             lodasto: 'datos de mierda a agregar'
+//           }
+//         }
+//       ]
+//     }
+//   ]
+// }
 
 const importsSchema = new Schema({
   /* _id: String, */
