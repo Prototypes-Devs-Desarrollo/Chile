@@ -3,6 +3,7 @@ const router = Router();
 import user from './user'
 import product from './product'
 import imports from "./import";
+import client from './client'
 
 /* Explicón del catchedAsync()
  
@@ -21,7 +22,7 @@ router.use('/v1/product', product);
 router.use('/v1/import', imports);
 
 //CLIENT-------------------
-
+router.use('/v1/client', client)
 
 //CONTAINER----------------
 

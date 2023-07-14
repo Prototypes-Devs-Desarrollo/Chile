@@ -1,4 +1,3 @@
-
 import { users } from "../../database";
 import { response } from "../../utils";
 
