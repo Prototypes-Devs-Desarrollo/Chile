@@ -8,11 +8,11 @@ import update from "./update"
 const usersControllers =
 {
     findByEmail,
+    getOwnData,
     login,
     recover,
     register,
     update,
-    getOwnData
 
 }
 

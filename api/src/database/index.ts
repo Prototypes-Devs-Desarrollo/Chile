@@ -6,12 +6,12 @@ import providersSchema from "./schemas/providersSchema"; //3
 import importsSchema from "./schemas/importsSchema"; //4
 import clientsSchema from "./schemas/clientsSchema"; //5
 import bodegasSchema from "./schemas/bodegasSchema"; //6
-import containersSchema from "./schemas/containersSchema";
+import containersSchema from "./schemas/containersSchema"; //7
 
 
 mongoose.set('strictQuery', true); //ver sies necesario
 
-const deploy = 'mongodb://mongo:2SCyrbD7AwV4tITrjbOA@containers-us-west-186.railway.app:7092'
+const deploy = "mongodb://mongo:2SCyrbD7AwV4tITrjbOA@containers-us-west-186.railway.app:7092"
 
 const conn = mongoose.createConnection(deploy);
 
@@ -21,7 +21,19 @@ export const providers = conn.model("providers", providersSchema) //3
 export const imports = conn.model("imports", importsSchema) //4
 export const clients = conn.model("clients", clientsSchema) //5
 export const bodegas = conn.model("bodegas", bodegasSchema) //6
-export const containers = conn.model("containers", containersSchema) //6
+export const containers = conn.model("containers", containersSchema) //7
+
+//solo para testear, borrar si querer:
+try {
+    const aasd = new containers({}) 
+    aasd.id="ideContainer"
+    aasd.nombre="hay"
+    aasd.clientes =[{id:"ide",nombre:"El Cliente",productos: [{id:"idprod",nombre:"nomprod",responsable: {id:"iresp",correo:"email",nombre:"taipscript"}}]}]
+    aasd.save()
+} catch (error) {
+    console.log(error.message);
+    
+}
 
 
 
