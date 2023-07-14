@@ -1,6 +1,5 @@
 import { response } from "../../utils";
 import { ClientError } from "../../utils/errors";
-
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { JWT_RANDOM_PASSWORD } from "../../config/env";

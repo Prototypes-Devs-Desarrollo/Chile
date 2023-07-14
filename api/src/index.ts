@@ -9,7 +9,7 @@ const { globalLimit } = require('./utils/rate-limiters');
 
 
 
-users.find().then(r=>{
+/* users.find().then(r=>{
   console.log(r);
 }).catch(e=>{
   console.log(e.message);
@@ -19,7 +19,7 @@ clients.find().then(r=>{
   console.log(r,"x");
 }).catch(e=>{
   console.log(e.message);
-})
+}) */
 
 //Creamos un servidor:
 const server = express();
