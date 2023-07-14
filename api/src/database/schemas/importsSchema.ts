@@ -1,53 +1,121 @@
 import { Schema } from "mongoose";
 import { toJSON } from "./plugins";
+const importa = [
+  {
+    id: 1,
+    clientes: [
+      {
+        id: 1,
+        otroddatos: '',
+        productoId: [
+          {
+            id: 1,
+            proveedorId: {
+              losdatos: 'datos de mierda a agregar'
+            },
+            responsableId: {
+              lodasto: 'datos de mierda a agregar'
+            }
+          },
+          {
+            id: 2,
+            proveedorId: {
+              losdatos: 'datos d emierda'
+            },
+            responsableId: {
+              lodasto: 'datos de mierda a agregar'
+            }
+          }
+        ]
+      },
+      {
+        id: 1,
+        otroddatos: '',
+        productoId: [
+          {
+            id: 2,
+            proveedorId: {
+              losdatos: 'datos d emierda'
+            },
+            responsableId: {
+              lodasto: 'datos de mierda a agregar'
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
+
+const impoirtacion = {
+  id: 1,
+  clientes: [
+    {
+      id: 1,
+      otroddatos: '',
+      productoId: [
+        {
+          id: 1,
+          proveedorId: {
+            losdatos: 'datos de mierda a agregar'
+          },
+          responsableId: {
+            lodasto: 'datos de mierda a agregar'
+          }
+        },
+        {
+          id: 2,
+          proveedorId: {
+            losdatos: 'datos d emierda'
+          },
+          responsableId: {
+            lodasto: 'datos de mierda a agregar'
+          }
+        }
+      ]
+    },
+    {
+      id: 1,
+      otroddatos: '',
+      productoId: [
+        {
+          id: 2,
+          proveedorId: {
+            losdatos: 'datos d emierda'
+          },
+          responsableId: {
+            lodasto: 'datos de mierda a agregar'
+          }
+        }
+      ]
+    }
+  ]
+}
 
 const importsSchema = new Schema({
   /* _id: String, */
-  name: String,
-  fecha_RDM: Date,
-  fecha_EDC: Date,
-  productos: [{
-    type: Schema.Types.ObjectId,
-    ref: "products"
-  }],
-  responsables: [{
-    type: Schema.Types.ObjectId,
-    ref: "users"
-  }],
-  importType: {
-    type: String,
-    required: true
-  },
-  packageType: {
-    type: String,
-    required: true
-  },
-  destino: {
-    bodega: {
-      type: Schema.Types.ObjectId,
-      ref: "bodegas"
-    },
-    cliente: {
-      type: Schema.Types.ObjectId,
-      ref: "clients"
-    },
-    otro: {
-      type: Object
+  importDetails:  {type:Object},
+  clients: [
+    {
+      clientId: {type: Schema.Types.ObjectId,ref: "clients"}, //datos-->CONSTANTES/INVARIANTES/permanentes/para siempre.
+      clientDetails: {type:Object}, //rellenamos con lo que necesitmos
+      products: [
+        {
+          productId: {type: Schema.Types.ObjectId,ref: "products"}, //datos-->CONSTANTES/INVARIANTES/permanentes/para siempre.
+          productDetails: {type:Object}, //rellenamos con lo que necesitmos
+
+          providerId: {type: Schema.Types.ObjectId,ref: "providers"}, //datos-->CONSTANTES/INVARIANTES/permanentes/para siempre.
+          providerDetails: {type: Object}, //rellenamos con lo que necesitmos
+
+          responsableId: {type: Schema.Types.ObjectId,ref: "users"}, //datos-->CONSTANTES/INVARIANTES/permanentes/para siempre.
+          responsableDetails: {type:Object}, //rellenamos con lo que necesitmos
+
+          destinoId: {type: Schema.Types.ObjectId,ref: "destinos"}, //datos-->CONSTANTES/INVARIANTES/permanentes/para siempre.
+          destinoDetails: {type:Object}  //rellenamos con lo que necesitmos
+        }
+      ]
     }
-  },
-  package: {
-    container: {
-      type: Schema.Types.ObjectId,
-      ref: "containers"
-    },
-
-    otro: {
-      type: Object
-    }
-  }
-
-
-
+  ],
 });
 
 // function y no arrow, porque vamos a usar el this.
