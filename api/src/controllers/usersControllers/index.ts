@@ -12,7 +12,8 @@ const usersControllers =
     recover,
     register,
     update,
-    getOwnData
+    getOwnData,
+    register
 
 }
 
