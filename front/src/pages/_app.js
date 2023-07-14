@@ -4,6 +4,7 @@ import store from "../redux/store/store";
 import 'tailwindcss/tailwind.css';
 import { Sidebar } from "@/components/sidebar/sidebar";
 import { useRouter } from "next/router";
+import "tw-elements/dist/css/tw-elements.min.css";
 
 export default function App({ Component, pageProps }) {
   
@@ -12,6 +13,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <Provider store={store}>
+  
       <div className={isHomePage ? null : `flex flex-nowrap`}>
      {isHomePage? null :  <Sidebar />}   
          <Component {...pageProps} />

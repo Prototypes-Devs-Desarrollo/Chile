@@ -1,8 +1,11 @@
 import style from "../productForm/productForm.module.css"; //pongo los estilos del productForm en caso de querer usas Tailwind
 import { useImportForm } from "@/customHooks/useImportForm";
+import { SelectClient } from "./SelectClient";
 
 export default function ImportForm() {
  const { handleSubmit, handleChange, input, setInput } = useImportForm()
+
+
 
   return (
     <div className={style.formCont}>
@@ -107,17 +110,7 @@ export default function ImportForm() {
           </div>
           <br />
 
-          <div className={style.fields}>
-            <label>Cliente:</label>
-            <input
-              value={input.destino.cliente}
-              name="destino.cliente"
-              onChange={handleChange}
-              type="text"
-              placeholder="Cliente"
-            />
-          </div>
-          <br />
+         <SelectClient input={input} setInput={setInput} />
 
           <div className={style.fields}>
             <label>Otro:</label>
