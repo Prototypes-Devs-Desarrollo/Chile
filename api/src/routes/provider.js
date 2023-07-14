@@ -13,6 +13,6 @@ router.get('/all', isLoggedIn, catchedAsync(providerControllers.getAll));
 router.get('/data', isLoggedIn, catchedAsync(providerControllers.getOwnData));
 router.put('/update', isLoggedIn, catchedAsync(providerControllers.update))
 router.post('/create', isLoggedIn, catchedAsync(providerControllers.createOne));
-router.delete('/delete', isLoggedIn, catchedAsync(providerControllers.deleteProvider))
+router.delete('/delete', isLoggedIn, catchedAsync(providerControllers.deleteOne))
 
 export default router
