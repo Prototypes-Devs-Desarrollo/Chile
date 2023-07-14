@@ -6,7 +6,7 @@ import { JWT_RANDOM_PASSWORD } from "../../config/env";
 import { users } from "../../database";
 
 
-export default async (req, res, next) => {
+export default async function (req, res) {
     const {
       name,
       email,

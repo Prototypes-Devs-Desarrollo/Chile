@@ -3,7 +3,6 @@ import getOwnData from "./getOwnData"
 import create from "./create"
 import update from "./update"
 import deleteClient from "./delete"
-import register from "./register"
 
 
 const usersControllers =
