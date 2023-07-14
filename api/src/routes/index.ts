@@ -2,6 +2,7 @@ import { Router } from "express";
 const router = Router();
 import user from './user'
 import product from './product'
+import imports from "./import";
 
 /* Explicón del catchedAsync()
  
@@ -15,5 +16,23 @@ router.use('/v1/user', user);
 
 //PRODUCT---------------
 router.use('/v1/product', product);
+
+//IMPORT-------------------
+router.use('/v1/import', imports);
+
+//CLIENT-------------------
+
+
+//CONTAINER----------------
+
+
+//EMPLOYES-----------------
+
+
+//PROVEEDORES--------------
+
+
+//BODEGAS------------------
+
 
 export default router;
