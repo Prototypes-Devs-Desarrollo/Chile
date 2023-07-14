@@ -4,6 +4,7 @@ import user from './user'
 import product from './product'
 import imports from "./import";
 import client from './client'
+import bodega from './bodega'
 
 /* Explicón del catchedAsync()
  
@@ -34,6 +35,6 @@ router.use('/v1/client', client)
 
 
 //BODEGAS------------------
-
+router.use('/v1/bodega', bodega)
 
 export default router;
