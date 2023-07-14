@@ -19,7 +19,7 @@ export const loginUser = ({ email, password, loading, error, success }) => {
             dispatch({ type: LOGIN_USER, payload: loginUser.data.payload.user });
             let token = loginUser.data.payload.token
             localStorage.setItem("Token", token)
-            success("Login okey")
+            success(token)
             loading(false)
         } catch (err) {
             error(err)
@@ -28,50 +28,72 @@ export const loginUser = ({ email, password, loading, error, success }) => {
         }};
 };
 
-export const registerUser = ({ email, password }) => {
-    return async function (dispatch) {
-        try {
-            const registerUser = await axios.post("user/register", { email, password });
-            dispatch({ type: REGISTER_USER, payload: registerUser.data });
-        } catch (error) {
-            console.log(error);
-    }};
-};
-
-export const recoverUser = ({ email }) => {
-    return async function (dispatch) {
-        try {
-            const recoverUser = await axios.post("user/recovery", { email });
-            dispatch({ type: RECOVER_USER, payload: recoverUser.data });
-        } catch (error) {
-            console.log(error);
-    }};
-};
-
-export const byEmailUser = ({ email }) => {
-    return async function (dispatch) {
-        try {
-            const byEmailUser = await axios.get("user/byemail", { email });
-            dispatch({ type: BYEMAIL_USER, payload: byEmailUser.data });
-        } catch (error) {
-            console.log(error);
-    }};
-};
-export const getUser = () => {
-    return async function (dispatch) {
-      const userData = await axios.get("user/data");
-      dispatch({ type: GET_USER, payload: userData.data[0] });
-    };
-  };
-  
-  export const editUser = ({ id }) => {
-      return async function (dispatch) {
-        try {
-          const editUser = await axios.put("user/edit", { id });
-          dispatch({ type: EDIT_USER, payload: editUser.data.password });
-        } catch (error) {
-          console.log(error);
-        }
+    export const getClient = ({ loading, error, success }) => {
+        return async function (dispatch) {
+          try {
+            loading(true);
+            let token = localStorage.getItem("Token");
+            const config = {
+              headers: {
+                Authorization: `Bearer ${token}` // Agrega el encabezado con el token
+              }
+            };
+            const getAllClients = await axios.get("/client/getAll", config);
+            dispatch({ type: "GET_ALL_CLIENTS", payload: getAllClients.data.payload });               
+            success("okey");
+            loading(false);
+          } catch (err) {
+            console.log(err)
+            error(err);
+            loading(false);
+          }
+        };
       };
-    };
+
+      // export const registerUser = ({ email, password }) => {
+//     return async function (dispatch) {
+//         try {
+//             const registerUser = await axios.post("user/register", { email, password });
+//             dispatch({ type: REGISTER_USER, payload: registerUser.data });
+//         } catch (error) {
+//             console.log(error);
+//     }};
+// };
+
+// export const recoverUser = ({ email }) => {
+//     return async function (dispatch) {
+//         try {
+//             const recoverUser = await axios.post("user/recovery", { email });
+//             dispatch({ type: RECOVER_USER, payload: recoverUser.data });
+//         } catch (error) {
+//             console.log(error);
+//     }};
+// };
+
+// export const byEmailUser = ({ email }) => {
+//     return async function (dispatch) {
+//         try {
+//             const byEmailUser = await axios.get("user/byemail", { email });
+//             dispatch({ type: BYEMAIL_USER, payload: byEmailUser.data });
+//         } catch (error) {
+//             console.log(error);
+//     }};
+// };
+// export const getUser = () => {
+//     return async function (dispatch) {
+//       const userData = await axios.get("user/data");
+//       dispatch({ type: GET_USER, payload: userData.data[0] });
+//     };
+//   };
+  
+//   export const editUser = ({ id }) => {
+//       return async function (dispatch) {
+//         try {
+//           const editUser = await axios.put("user/edit", { id });
+//           dispatch({ type: EDIT_USER, payload: editUser.data.password });
+//         } catch (error) {
+//           console.log(error);
+//         }
+//       };
+//     };
   

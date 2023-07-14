@@ -12,6 +12,7 @@ import { users } from "../../database";
 export default async (req, res) => {
 
     const {email, password} = req.body
+    console.log(req.body)
     if (!email || !password) throw new ClientError("No ha llegado el email o el password", 400);
 
     const user = await users.findOne({ email });
