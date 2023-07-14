@@ -15,7 +15,8 @@ export const initialState = {
     filtredUser: [],
     product: [],
     filtredProducts: [],
-    allProducts: []
+    allProducts: [],
+    clientes: []
   };
 
 export default function reducer(state = initialState, action) {
@@ -72,6 +73,11 @@ export default function reducer(state = initialState, action) {
           return {
             ...state,
             allProducts: [...state.allProducts, action.payload]
+          }
+          case "GET_ALL_CLIENTS": 
+          return {
+            ...state,
+            clientes: action.payload
           }
 
       default:

@@ -1,4 +1,4 @@
-import { loginUser } from "@/redux/actions/actions";
+import { getClient, loginUser } from "@/redux/actions/actions";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -11,16 +11,40 @@ const router = useRouter()
     const dispatch = useDispatch();
 
 
-
     const handleSubmit = async (e) => {
       e.preventDefault();
-     dispatch(loginUser({ email, password,     
-      loading: (v) => console.error("Cargando"),
-      error: (msg) => console.log(msg),
-    success: async (res) => router.push("/dashboard/dashboard", ) 
-    }))
+    
+      try {
+        // Iniciar sesión
+         dispatch(
+          loginUser({
+            email,
+            password,
+            loading: (v) => console.error("Cargando"),
+            error: (msg) => console.log(msg),
+            success: async (res) => {
+              // Obtener datos del cliente
+               dispatch(
+                getClient({
+                  loading: (v) => console.error("Cargando"),
+                  error: (msg) => console.log(msg),
+                  success: async (res) => {
+                    router.push("/dashboard/dashboard");
+                  },
+                })
+              );
+            },
+          })
+        );
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    
+        
+    
 
-    }
+
     return{
         handleSubmit,  email, setEmail, password, setPassword
     }
