@@ -1,24 +1,22 @@
-import React from "react";
-import { Provider } from "react-redux";
-import store from "../redux/store/store";
+import React from 'react';
+import { Provider } from 'react-redux';
+import store from '../redux/store/store';
 import 'tailwindcss/tailwind.css';
-import { Sidebar } from "@/components/sidebar/sidebar";
-import { useRouter } from "next/router";
-import "tw-elements/dist/css/tw-elements.min.css";
+import { useRouter } from 'next/router';
+import axios from 'axios';
+import Layout from '@/components/Layout';
+
+axios.defaults.baseURL = 'http://localhost:8080/v1/';
 
 export default function App({ Component, pageProps }) {
-  
-  const router = useRouter()
-  const isHomePage = router.pathname === '/';
+   const router = useRouter();
+   const isHomePage = router.pathname === '/';
 
-  return (
-    <Provider store={store}>
-  
-      <div className={isHomePage ? null : `flex flex-nowrap`}>
-     {isHomePage? null :  <Sidebar />}   
-         <Component {...pageProps} />
-      </div>
-    </Provider>
-  );
+   return (
+      <Provider store={store}>
+         <Layout>
+            <Component {...pageProps} />
+         </Layout>
+      </Provider>
+   );
 }
- 

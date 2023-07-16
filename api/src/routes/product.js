@@ -10,7 +10,7 @@ const router = Router();
 router.get('/:productId', isLoggedIn, catchedAsync(productsControllers.findById));
 router.get('/byimport/:importId', isLoggedIn, catchedAsync(productsControllers.findByImportId));
 router.post('/create', isLoggedIn, catchedAsync(productsControllers.createOne));
-router.put('/create', isLoggedIn, catchedAsync(productsControllers.editOne));
+router.put('/edit', isLoggedIn, catchedAsync(productsControllers.editOne));
 router.delete('/delete', isLoggedIn, catchedAsync(productsControllers.deleteOne));
 
 export default router;

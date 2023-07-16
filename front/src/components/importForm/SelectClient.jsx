@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import "tw-elements/dist/css/tw-elements.min.css";
+// import "tw-elements/dist/css/tw-elements.min.css";
 
 export const SelectClient = ({ input, setInput }) => {
   const clientes = useSelector((state) => state.clientes);
