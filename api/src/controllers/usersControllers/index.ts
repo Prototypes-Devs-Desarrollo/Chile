@@ -4,6 +4,7 @@ import login from "./login"
 import recover from "./recover"
 import register from "./register"
 import update from "./update"
+import logout from "./logout"
 
 const usersControllers =
 {
@@ -13,7 +14,7 @@ const usersControllers =
     recover,
     register,
     update,
-
+    logout
 }
 
 export default usersControllers

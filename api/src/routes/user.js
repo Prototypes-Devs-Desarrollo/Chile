@@ -11,6 +11,8 @@ const router = Router();
 
 router.get('/data', isLoggedIn, catchedAsync(usersControllers.getOwnData));
 router.put('/edit', isLoggedIn, catchedAsync(usersControllers.update));
+//FALTA IMPLEMENTAR BIEN ESTA RUTA YA QUE DESLOGEA AL USUARIO DESDE EL CLIENTE
+router.put('/logout', isLoggedIn, catchedAsync(usersControllers.logout));
 router.post('/login', catchedAsync(usersControllers.login));
 router.post('/register', catchedAsync(usersControllers.register));
 router.post('/recovery', catchedAsync(usersControllers.recover));
