@@ -4,6 +4,7 @@ import reducerClient from '../reducer/reducerClient';
 import reducerImport from '../reducer/reducerImport';
 import reducerProduc from '../reducer/reducerProduc';
 import reducerBodega from '../reducer/reducerBodega';
+import reducerProviders from '../reducer/reducerProviders'
 
 const store = configureStore({
    reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
       reducerImport,
       reducerProduc,
       reducerBodega,
+      reducerProviders,
    },
 });
 
