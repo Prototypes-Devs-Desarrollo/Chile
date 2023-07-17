@@ -20,7 +20,7 @@ const productsSchema = new Schema({
   pago_cliente: String,
   //import: { type: Schema.Types.ObjectId, ref: "imports" }, //seria contenedor en algunos casos
   //client: { type: Schema.Types.ObjectId, ref: "clients" },
-  provider: { type: Schema.Types.ObjectId, ref: "providers" },
+  provider: { type: Schema.Types.ObjectId, ref: "providers" }, //PROVEEDOR
   responsable: { type: Schema.Types.ObjectId, ref: "users" },
   estado_producto: String,
   estado_entrega: String,
