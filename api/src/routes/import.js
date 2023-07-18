@@ -9,10 +9,10 @@ const isLoggedIn = jwtUtils.checkJwt
 
 const router = Router();
 
-router.get('/allImports', isLoggedIn, catchedAsync(importControllers.getAllImports));
-router.get('/data', isLoggedIn, catchedAsync(importControllers.getOwnData));
+router.get('/allImports', catchedAsync(importControllers.getAllImports));
+router.get('/data', catchedAsync(importControllers.getOwnData));
 router.put('/edit', isLoggedIn, catchedAsync(importControllers.update));
-router.post('/create', isLoggedIn, catchedAsync(importControllers.create));
+router.post('/create', catchedAsync(importControllers.create));
 router.delete('/delete', isLoggedIn, catchedAsync(importControllers.deleteOne));
 
 export default router;

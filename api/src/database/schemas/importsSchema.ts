@@ -95,29 +95,9 @@ import { toJSON } from "./plugins";
 
 const importsSchema = new Schema({
   /* _id: String, */
-  importDetails:  {type:Object},
-  clients: [
-    {
-      clientId: {type: Schema.Types.ObjectId,ref: "clients"}, //datos-->CONSTANTES/INVARIANTES/permanentes/para siempre.
-      clientDetails: {type:Object}, //rellenamos con lo que necesitmos
-      products: [
-        {
-          productId: {type: Schema.Types.ObjectId,ref: "products"}, //datos-->CONSTANTES/INVARIANTES/permanentes/para siempre.
-          productDetails: {type:Object}, //rellenamos con lo que necesitmos
+  importDetails:  {type:Array},
+})
 
-          providerId: {type: Schema.Types.ObjectId,ref: "providers"}, //datos-->CONSTANTES/INVARIANTES/permanentes/para siempre.
-          providerDetails: {type: Object}, //rellenamos con lo que necesitmos
-
-          responsableId: {type: Schema.Types.ObjectId,ref: "users"}, //datos-->CONSTANTES/INVARIANTES/permanentes/para siempre.
-          responsableDetails: {type:Object}, //rellenamos con lo que necesitmos
-
-          destinoId: {type: Schema.Types.ObjectId,ref: "destinos"}, //datos-->CONSTANTES/INVARIANTES/permanentes/para siempre.
-          destinoDetails: {type:Object}  //rellenamos con lo que necesitmos
-        }
-      ]
-    }
-  ],
-});
 
 // function y no arrow, porque vamos a usar el this.
 importsSchema.statics.list = async function () {
