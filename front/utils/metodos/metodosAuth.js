@@ -18,7 +18,16 @@ export const GetUserLocalMethod = async ({ loading, error, success }) => {
       loading(false);
    } catch (err) {
       console.log('GetUserLocalMethod', err);
-      error(err);
+      if (err.response) {
+         const data = err.response.data;
+         if (data.error) {
+            error(data.message);
+         } else {
+            error(data);
+         }
+      } else {
+         error(err.message);
+      }
       loading(false);
    }
 };
@@ -33,7 +42,16 @@ export const LoginUserMethod = async ({ email, password, loading, error, success
       loading(false);
    } catch (err) {
       console.log('LoginUserMethod', err);
-      error(err);
+      if (err.response) {
+         const data = err.response.data;
+         if (data.error) {
+            error(data.message);
+         } else {
+            error(data);
+         }
+      } else {
+         error(err.message);
+      }
       loading(false);
    }
 };
@@ -54,7 +72,16 @@ export const LogoutUserMethod = async ({ loading, error, success }) => {
       loading(false);
    } catch (err) {
       console.log('LogoutUserMethod', err);
-      error(err);
+      if (err.response) {
+         const data = err.response.data;
+         if (data.error) {
+            error(data.message);
+         } else {
+            error(data);
+         }
+      } else {
+         error(err.message);
+      }
       loading(false);
    }
 };
