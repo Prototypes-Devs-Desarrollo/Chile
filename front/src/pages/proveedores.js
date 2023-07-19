@@ -5,6 +5,7 @@ import AddProvider from '@/components/providerForm/AddProvider';
 const proveedores = () => {
    
    const [addProv, setAddProv] = useState(false);
+   const addHandleProd = () => setAddProv(!addProv);
 
    useEffect(()=>{
 
@@ -18,7 +19,7 @@ const proveedores = () => {
             <Typography variant='h1'>Proveedores</Typography>
             <Button onClick={addHandleProv}>Agregar</Button>
          </div>
-         {addProv && <AddProvider addProv={addProv} addHandleProv={addHandleProv} />}
+         {addProv && <AddProvider addOpenProv={addProv} addHandleOpenProv={addHandleProd} />}
       </>
    );
 };
