@@ -3,11 +3,13 @@ import { useState } from "react";
 
 export const useToJson = () => {
   const [chat, setChat] = useState([]);
-  const api = "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";
+  const api = "";
 
   const sendMessage = async (message) => {
     try {
       const prompt = `${message}
+      este texto pertenece a una orden de compra para una importacion de un producto, as un objeto en formato json con los campos y valores de la orden de compra recuerda que señores es el proveedor y SASFA GROUP SPA es el cliente, necesito en el objeto
+      tener todos los datos relevantes como producto, cantidad, presio unitario, 
       Esto es una orden de compra, conviértelo en un JSON con la siguiente estructura:
 
       productos = {
@@ -43,11 +45,12 @@ export const useToJson = () => {
       );
 
       // const botResponse = response.data.choices[0].text.trim();
-      console.log(response.data)
-      const jsonData = JSON.parse(botResponse);
+      // console.log(response.data)
+      setChat(response.data.choices[0].text)
+      // const jsonData = JSON.parse(botResponse);
 
       // Solo setea el objeto JSON devuelto por el bot en el estado chat
-      setChat([...chat, jsonData]);
+      // setChat([...chat, jsonData]);
       return jsonData;
     } catch (error) {
       // Maneja los errores de la petición, si los hay
