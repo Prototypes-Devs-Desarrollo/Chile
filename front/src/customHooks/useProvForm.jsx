@@ -1,10 +1,9 @@
 import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 import { reducerProviders } from '../redux/reducer/reducerProviders';
-
+import { AddProviderMethod } from '../../utils/metodos/metodosProvider';
 const initial = {
-  name: '',
-  productos: [],
+  name: ''
 };
 
 export const useProvForm = () => {
@@ -20,16 +19,18 @@ export const useProvForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(reducerProviders(input)); // Asegúrate de tener definida la acción "reducerProviders" en tu archivo reducerProviders.js
+    dispatch(reducerProviders(input));
+    AddProviderMethod({
+        pro: input, loading, error
+
+    }) // Asegúrate de tener definida la acción "reducerProviders" en tu archivo reducerProviders.js
     setInput(initial);
   };
 
   const setName = (name) => setInput({ ...input, name });
 
   return {
-    dispatch,
     input,
-    setInput,
     handleChange,
     handleSubmit,
     setName,
