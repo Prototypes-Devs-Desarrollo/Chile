@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input, Typography } from '@material-tailwind/react';
 import AddProducto from '../productForm/AddProducto';
-import { useProvForm } from '@/customHooks/useImportForm';
+import { useProvForm } from '@/customHooks/useProvForm';
 
 const AddProvider = ({ addHandleOpenProv, addOpenProv}) => {
     const { input, setInput } = useProvForm();
@@ -24,7 +24,7 @@ const AddProvider = ({ addHandleOpenProv, addOpenProv}) => {
                    <Button onClick={addHandleProd}>Agregar Proveedor</Button>
                    <div className='flex gap-2'>
                    {input.proveedor.map((x) => (
-                        <p>{x.name}</p>
+                        <p>{x.proveedor}</p>
                      ))}
                    </div>
                 </DialogBody>
