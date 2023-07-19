@@ -1,15 +1,18 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import { reducerProviders } from '../redux/reducer/reducerProviders';
+import { AddProviderMethod } from '../../utils/metodos/metodosProvider';
 
 const initial = {
-  name: '',
-  productos: [],
+  name: ''
 };
 
 export const useProvForm = () => {
   const dispatch = useDispatch();
   const [input, setInput] = useState(initial);
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const { Provider, Providers } = useSelector((state) => state.reducerProviders);
 
   function handleChange(e) {
     setInput({
@@ -20,19 +23,27 @@ export const useProvForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(reducerProviders(input)); // Asegúrate de tener definida la acción "reducerProviders" en tu archivo reducerProviders.js
+    dispatch(reducerProviders(input));
+    AddProviderMethod({
+        pro: input,
+        loading: (v) => setLoading(v),
+        error: (msg) => setError(msg),
+        success: async (res) => console.log(res.payload),
+    }) // Asegúrate de tener definida la acción "reducerProviders" en tu archivo reducerProviders.js
     setInput(initial);
   };
 
   const setName = (name) => setInput({ ...input, name });
 
   return {
-    dispatch,
     input,
-    setInput,
     handleChange,
     handleSubmit,
     setName,
+    loading,
+    error,
+    Provider,
+    Providers,
   };
 };
 
