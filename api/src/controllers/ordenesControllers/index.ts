@@ -1,7 +1,8 @@
-import createOne from "../ordenesControllers/createOne"
-const productsControllers =
-{
-    createOne
-}
+import createOne from './createOne';
+import findAll from './findAll';
+const productsControllers = {
+  createOne,
+  findAll,
+};
 
-export default productsControllers
+export default productsControllers;

@@ -1,13 +1,14 @@
-import { Schema } from "mongoose";
 import { products } from "../../database";
 import { response } from "../../utils";
 import { ClientError } from "../../utils/errors";
+import { Response, Request } from "express";
+import { IProducto } from "../../utils/interfaces/IProductos";
 
-export default async (req, res, next) => {
-    const { id } = req.body
-    const product = await products.findById(id).maxTimeMS(15000); // Increase timeout to 15 seconds
+export default async (req: Request, res: Response) => {
+    const { codigo }: IProducto = req.body
+    const product = await products.findOne({ codigo }).maxTimeMS(15000);
     const product_backup = Object.create(product)
-    if (!product) throw new ClientError("No se ha encontrado el producto", 400)
-    await products.deleteOne({ _id: new Schema.Types.ObjectId(id) });
+    if (!product) throw new ClientError(`El Producto con Codigo "${codigo}" no existe`, 500)
+    await products.deleteOne({ codigo });
     response(res, 200, product_backup);
 }

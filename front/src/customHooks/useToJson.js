@@ -2,13 +2,15 @@ import axios from 'axios';
 import { useState } from 'react';
 
 export const useToJson = () => {
-   const [chat, setChat] = useState([]);
-   const api = '';
+   const [chat, setChat] = useState('');
+   const [loading, setLoading] = useState(false);
+   const api = 'PONER API KAY DE LA SEÑORA';
 
    const sendMessage = async (message) => {
+      setLoading(true);
       try {
          const prompt = `"${message}" 
-         Según el texto anterior que es una orden de compra de una importación de productos, necesito que me crees un objeto JSON con los campos y valores que te proporciono al final de este texto. Recuerda que “Señor(es):” es el proveedor y en el principio esta el cliente. 
+         Según el texto anterior que es una orden de compra de una importación de productos, necesito que me crees un objeto JSON con los campos y valores que te proporciono al final de este texto. Recuerda que “Señor(es):” es el proveedor y en el principio del texto esta el cliente. 
          {
           "cliente": {
               "nombreEmpresa": "",
@@ -88,14 +90,17 @@ export const useToJson = () => {
 
          console.log(response);
          setChat(response.data.choices[0].message.content);
+         setLoading(false);
       } catch (err) {
          console.error('Error en la consulta: ', err);
+         setLoading(false);
       }
    };
 
    return {
       chat,
       sendMessage,
+      loading,
    };
 };
 

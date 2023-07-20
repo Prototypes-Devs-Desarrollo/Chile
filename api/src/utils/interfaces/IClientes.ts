@@ -1,4 +1,3 @@
-
 export interface ICliente {
   nombreEmpresa: string;
   rut: string;
