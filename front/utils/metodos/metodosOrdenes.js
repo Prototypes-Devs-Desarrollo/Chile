@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const AddProductoMethod = async ({ pro, loading, error, success }) => {
+export const AddOrdenMethod = async ({ ord, loading, error, success }) => {
    try {
       loading(true);
       const token = localStorage.getItem('Token');
@@ -9,11 +9,11 @@ export const AddProductoMethod = async ({ pro, loading, error, success }) => {
             Authorization: `Bearer ${token}`,
          },
       };
-      const response = await axios.post('product/create', pro, config);
+      const response = await axios.post('orden/create', ord, config);
       success(response.data);
       loading(false);
    } catch (err) {
-      console.log('AddProductoMethod', err);
+      console.log('AddOrdenMethod', err);
       if (err.response) {
          const data = err.response.data;
          if (data.error) {
@@ -28,7 +28,7 @@ export const AddProductoMethod = async ({ pro, loading, error, success }) => {
    }
 };
 
-export const ListProductosMethod = async ({ loading, error, success }) => {
+export const ListOrdenesMethod = async ({ loading, error, success }) => {
    try {
       loading(true);
       const token = localStorage.getItem('Token');
@@ -37,11 +37,11 @@ export const ListProductosMethod = async ({ loading, error, success }) => {
             Authorization: `Bearer ${token}`,
          },
       };
-      const response = await axios.post('product/falta-la-ruta-que-los-lista', config);
+      const response = await axios.get('orden/all', config);
       success(response.data);
       loading(false);
    } catch (err) {
-      console.log('ListProductosMethod', err);
+      console.log('ListOrdenesMethod', err);
       if (err.response) {
          const data = err.response.data;
          if (data.error) {

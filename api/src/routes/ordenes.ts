@@ -10,6 +10,7 @@ const router = Router();
 
 
 router.post('/create', isLoggedIn, catchedAsync(ordenesControllers.createOne));
+router.get('/all', isLoggedIn, catchedAsync(ordenesControllers.findAll));
 // router.get('/:id', /* isLoggedIn, */ catchedAsync(p1.obtenerPorParams));
 
 

@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 import usersSchema from './schemas/usersSchema'; //1
 import productsSchema from './schemas/productsSchema'; //2
-import providersSchema from './schemas/providersSchema'; //3
+import proveedoresSchema from './schemas/proveedoresSchema'; //3
 import importsSchema from './schemas/importsSchema'; //4
 import clientsSchema from './schemas/clientsSchema'; //5
 import bodegasSchema from './schemas/bodegasSchema'; //6
@@ -18,10 +18,10 @@ const deploy = 'mongodb://mongo:2SCyrbD7AwV4tITrjbOA@containers-us-west-186.rail
 const conn = mongoose.createConnection(deploy);
 
 export const users = conn.model('users', usersSchema); //1
-export const products = conn.model('products', productsSchema); //2
-export const providers = conn.model('providers', providersSchema); //3
+export const products = conn.model('products', productsSchema); //2  // REFACTORIZADO
+export const proveedores = conn.model('proveedores', proveedoresSchema); //3 // REFACTORIZADO
 export const imports = conn.model('imports', importsSchema); //4
-export const clients = conn.model('clients', clientsSchema); //5
+export const clients = conn.model('clients', clientsSchema); //5 // REFACTORIZADO
 export const bodegas = conn.model('bodegas', bodegasSchema); //6
 export const containers = conn.model('containers', containersSchema); //7
 export const prueba1 = conn.model('prueba1', prueba1Schema); //8

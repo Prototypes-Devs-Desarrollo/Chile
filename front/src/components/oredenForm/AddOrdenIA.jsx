@@ -1,58 +1,70 @@
-import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, Input } from '@material-tailwind/react';
+import { useToJson } from '@/customHooks/useToJson';
+import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, Input, Typography } from '@material-tailwind/react';
 import React from 'react';
+import { AddOrdenMethod } from '../../../utils/metodos/metodosOrdenes';
 
-const AddOrdenIA = () => {
+const AddOrdenIA = ({ addHandleOpenIa, addOpenIa }) => {
+
+   const { chat, sendMessage, loading } = useToJson()
+
+   const handleFileChangeIA = async (event) => {
+      const pdfJS = await import('pdfjs-dist/build/pdf');
+      pdfJS.GlobalWorkerOptions.workerSrc = window.location.origin + '/pdf.worker.min.js';
+      const file = event.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = async (e) => {
+         const contents = e.target.result;
+         const pdf = await pdfJS.getDocument(contents).promise;
+         const pages = await pdf.getPage(1);
+         let extractedText = '';
+
+         const textContent = await pages.getTextContent();
+         console.log(textContent);
+         const pageText = textContent.items.map((item) => item.str).join(' ');
+         extractedText += pageText;
+
+         // setPdfContent(extractedText);
+         console.log(extractedText)
+         await sendMessage(extractedText);
+      };
+
+      reader.readAsArrayBuffer(file);
+   };
+
+   const agregar = (e) => {
+      e.preventDefault();
+      if(chat){
+         AddOrdenMethod({
+            ord: JSON.parse(chat),
+            loading: (v) => console.log(v),
+            error: (msg) => console.log(msg),
+            success: (res) => {
+               console.log(res)
+               addHandleOpenIa()
+            }
+         })
+      }
+   }
+
    return (
       <>
-         <Dialog open={addOpenPro} size='xl' handler={addHandleOpenPro} dismiss={{ enabled: false }}>
-            <DialogHeader>Agregar Producto</DialogHeader>
-            <form onSubmit={onSubmitAddPro}>
+      {console.log(chat)}
+         <Dialog open={addOpenIa} size='lg' handler={addHandleOpenIa} dismiss={{ enabled: false }}>
+            <DialogHeader>Agregar Orden PDF</DialogHeader>
+            <form onSubmit={agregar}>
                <DialogBody divider>
                   <div className='flex gap-2'>
-                     <Input label='Nombre' name='name' type='text' value={input.name} onChange={onChangeAddPro} />
-                     <Input label='OC' name='OC' type='text' value={input.OC} onChange={onChangeAddPro} />
-                     <Input label='Estado Compra' name='estado_compra' type='text' value={input.estado_compra} onChange={onChangeAddPro} />
-                     <Input label='Dias de Entrega' name='dias_de_entrega' type='text' value={input.dias_de_entrega} onChange={onChangeAddPro} />
-
-                     {/* <Input label='Estado Compra' name='fecha_RDM' type='text' />
-                     <Input label='Estado Compra' name='fecha_RDM' type='text' />
-                     <Input label='Estado Compra' name='fecha_RDM' type='text' />
-                    <Input label='Estado Compra' name='fecha_RDM' type='text' /> */}
+                     <Input label='Seleccione Pdf' name='file' type='file' onChange={handleFileChangeIA} />
                   </div>
-                  <div className='flex gap-2 my-2'>
-                     <Input label='Fecha RDM' name='fecha_RDM' type='date' value={input.fecha_RDM} onChange={onChangeAddPro} />
-                     <Input label='Fecha Cot.' name='fecha_cot' type='date' value={input.fecha_cot} onChange={onChangeAddPro} />
-                     <Input label='Cantidad' name='cantidad' type='text' value={input.cantidad} onChange={onChangeAddPro} />
-                     <Input label='Peso' name='peso' type='text' value={input.peso} onChange={onChangeAddPro} />
-                  </div>
-                  <div className='flex gap-2'>
-                     <Input label='CBM' name='CBM' type='text' value={input.CBM} onChange={onChangeAddPro} />
-                     <Input label='Cajas Rollos' name='cajas_rollos' type='text' value={input.cajas_rollos} onChange={onChangeAddPro} />
-                     <Input label='FOB' name='FOB' type='text' value={input.FOB} onChange={onChangeAddPro} />
-                     <Input label='CU USD FOB' name='CU_USD_FOB' type='text' value={input.CU_USD_FOB} onChange={onChangeAddPro} />
-                  </div>
-                  <div className='flex gap-2 my-2'>
-                     <Input label='Adelanto Proveedor' name='adelanto_proveedor' type='text' value={input.adelanto_proveedor} onChange={onChangeAddPro} />
-                     <Input label='Cuenta por Pagar' name='cuenta_por_pagar' type='text' value={input.cuenta_por_pagar} onChange={onChangeAddPro} />
-                     <Input label='Pago Cliente' name='pago_cliente' type='text' value={input.pago_cliente} onChange={onChangeAddPro} />
-                     <Input label='Estado Producto' name='estado_producto' type='text' value={input.estado_producto} onChange={onChangeAddPro} />
-                  </div>
-                  <div className='flex gap-2'>
-                     <Input label='Estado Entrega' name='estado_entrega' type='text' value={input.estado_entrega} onChange={onChangeAddPro} />
-                     <Input label='Soportes Proveedor' name='soportes_proveedor' type='text' value={input.soportes_proveedor} onChange={onChangeAddPro} />
-                     <Input label='Soporte OC' name='soporte_OC' type='text' value={input.soporte_OC} onChange={onChangeAddPro} />
-                     <Input label='Volumen' name='volumen' type='text' value={input.volumen} onChange={onChangeAddPro} />
-                  </div>
-                  <div className='flex gap-2 my-2'>
-                     <Input label='Swift Pago Recibido' name='swift_pago_recibido' type='text' value={input.swift_pago_recibido} onChange={onChangeAddPro} />
-                  </div>
+                  {loading ? <Typography>Creando JSON...</Typography> : null}
                </DialogBody>
                <DialogFooter>
-                  <Button variant='text' color='red' onClick={addHandleOpenPro} className='mr-1'>
+                  <Button variant='text' color='red' onClick={addHandleOpenIa} className='mr-1'>
                      <span>Cancel</span>
                   </Button>
-                  <Button type='submit' variant='gradient' color='green' onClick={onClickAddPro}>
-                     <span>Agregar</span>
+                  <Button type='submit' variant='gradient' color='green' /* onClick={agregar} */ disabled={loading}>
+                     <span>Despues de Cargar PDF Agregar</span>
                   </Button>
                </DialogFooter>
             </form>
