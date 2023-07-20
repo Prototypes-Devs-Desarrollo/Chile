@@ -1,7 +1,11 @@
-import { IResponsable } from "./IResponsables";
 
 export interface IProducto {
-    id: string;
-    nombre: string;
-    responsable: IResponsable;
+  codigo: string;
+  descripcionProducto: string;
+  cantidadSolicitada: string;
+  precioUnitario: string;
+  descuento: string;
+  recargo: string;
+  aFeX: string;
+  valor: string;
 }

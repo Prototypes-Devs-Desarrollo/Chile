@@ -1,66 +1,158 @@
-import axios from "axios";
-import { useState } from "react";
+import axios from 'axios';
+import { useState } from 'react';
 
 export const useToJson = () => {
-  const [chat, setChat] = useState([]);
-  const api = "";
+   const [chat, setChat] = useState([]);
+   const api = '';
 
-  const sendMessage = async (message) => {
-    try {
-      const prompt = `${message}
-      este texto pertenece a una orden de compra para una importacion de un producto, as un objeto en formato json con los campos y valores de la orden de compra recuerda que señores es el proveedor y SASFA GROUP SPA es el cliente, necesito en el objeto
-      tener todos los datos relevantes como producto, cantidad, presio unitario, 
-      Esto es una orden de compra, conviértelo en un JSON con la siguiente estructura:
-
-      productos = {
-        nombre: "Nombre del producto",
-        proveedor: {
-          nombre: "Nombre del proveedor",
-          direccion: "Dirección del proveedor",
-        },
-        cantidad: "Cantidad del producto",
-        precioUnitario: "Precio unitario del producto",
-        // Agrega aquí todos los datos proporcionados
+   const sendMessage = async (message) => {
+      try {
+         const prompt = `"${message}" 
+         Según el texto anterior que es una orden de compra de una importación de productos, necesito que me crees un objeto JSON con los campos y valores que te proporciono al final de este texto. Recuerda que “Señor(es):” es el proveedor y en el principio esta el cliente. 
+         {
+          "cliente": {
+              "nombreEmpresa": "",
+              "rut": "",
+              "giro": "",
+              "direccion": "",
+              "email": "",
+              "telefono": ""
+          },
+          "proveedor": {
+              "nombreEmpresa": "",
+              "rut": "",
+              "direccion": "",
+              "comuna": "",
+              "giro": "",
+              "ciudad": "",
+              "contacto": ""
+          },
+          "ordenCompra": {
+              "numero": "",
+              "fechaEmision": "",
+              "formaPago": "",
+              "fechaEntrega": "",
+              "moneda": "",
+              "solicitante": ""
+          },
+          "productos": [
+              {
+                  "codigo": "",
+                  "descripcionProducto": "",
+                  "cantidadSolicitada": "",
+                  "precioUnitario": "",
+                  "descuento": "",
+                  "recargo": "",
+                  "aFeX": "",
+                  "valor": ""
+              },
+              {
+                  "codigo": "",
+                  "descripcionProducto": "",
+                  "cantidadSolicitada": "",
+                  "precioUnitario": "",
+                  "descuento": "",
+                  "recargo": "",
+                  "aFeX": "",
+                  "valor": ""
+              }
+          ],
+          "subTotal": "",
+          "descuentoGlobal": "",
+          "montoNeto": "",
+          "montoExento": "",
+          "iva": "",
+          "total": "",
+          "observacionesGenerales": "",
+          "observacionesPago": ""
       }`;
 
-      const response = await axios.post(
-        "https://api.openai.com/v1/completions",
-        {
-          model: "text-davinci-003",
-          prompt,
-          temperature: 0.5,
-          max_tokens: 60,
-          top_p: 1.0,
-          frequency_penalty: 0.5,
-          presence_penalty: 0.0,
-          stop: ["You:"],
-          n: 1, // Limitar la respuesta a 1
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${api}`,
-          },
-        }
-      );
+         const response = await axios.post(
+            'https://api.openai.com/v1/chat/completions',
+            {
+               model: 'gpt-3.5-turbo',
+               messages: [{ role: 'user', content: prompt }],
+               temperature: 1.0,
+               max_tokens: 2000, // Set a higher value for more tokens in the response
+               top_p: 1.0,
+               stop: ['You:'],
+               n: 1, // Limitar la respuesta a 1
+            },
+            {
+               headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${api}`,
+               },
+            }
+         );
 
-      // const botResponse = response.data.choices[0].text.trim();
-      // console.log(response.data)
-      setChat(response.data.choices[0].text)
-      // const jsonData = JSON.parse(botResponse);
+         console.log(response);
+         setChat(response.data.choices[0].message.content);
+      } catch (err) {
+         console.error('Error en la consulta: ', err);
+      }
+   };
 
-      // Solo setea el objeto JSON devuelto por el bot en el estado chat
-      // setChat([...chat, jsonData]);
-      return jsonData;
-    } catch (error) {
-      // Maneja los errores de la petición, si los hay
-      console.error("Error en la entrevista laboral:", error);
-      return null;
-    }
-  };
+   return {
+      chat,
+      sendMessage,
+   };
+};
 
-  return {
-    chat,
-    sendMessage,
-  };
+const initial = {
+   cliente: {
+      nombreEmpresa: '',
+      rut: '',
+      giro: '',
+      direccion: '',
+      email: '',
+      telefono: '',
+   },
+   proveedor: {
+      nombreEmpresa: '',
+      rut: '',
+      direccion: '',
+      comuna: '',
+      giro: '',
+      ciudad: '',
+      contacto: '',
+   },
+   ordenCompra: {
+      numero: '',
+      fechaEmision: '',
+      formaPago: '',
+      fechaEntrega: '',
+      moneda: '',
+      solicitante: '',
+   },
+   productos: [
+      {
+         codigo: '',
+         descripcionProducto: '',
+         cantidadSolicitada: '',
+         precioUnitario: '',
+         descuento: '',
+         recargo: '',
+         aFeX: '',
+         valor: '',
+      },
+      {
+         codigo: '',
+         descripcionProducto: '',
+         cantidadSolicitada: '',
+         precioUnitario: '',
+         descuento: '',
+         recargo: '',
+         aFeX: '',
+         valor: '',
+      },
+   ],
+   subTotal: '',
+   descuentoGlobal: '',
+   montoNeto: '',
+   montoExento: '',
+   iva: '',
+   total: '',
+   observacionesGenerales: '',
+   observacionesPago: '',
 };

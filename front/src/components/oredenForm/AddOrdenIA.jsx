@@ -1,13 +1,9 @@
+import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, Input } from '@material-tailwind/react';
 import React from 'react';
-import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input, Typography } from '@material-tailwind/react';
-import { useProductForm } from '@/customHooks/useProductForm';
 
-const AddProducto = ({ addHandleOpenPro, addOpenPro }) => {
-   const { input, onChangeAddPro, onClickAddPro, onSubmitAddPro, errores, error } = useProductForm(addHandleOpenPro);
-
+const AddOrdenIA = () => {
    return (
       <>
-         {console.log(errores, error)}
          <Dialog open={addOpenPro} size='xl' handler={addHandleOpenPro} dismiss={{ enabled: false }}>
             <DialogHeader>Agregar Producto</DialogHeader>
             <form onSubmit={onSubmitAddPro}>
@@ -65,4 +61,4 @@ const AddProducto = ({ addHandleOpenPro, addOpenPro }) => {
    );
 };
 
-export default AddProducto;
+export default AddOrdenIA;

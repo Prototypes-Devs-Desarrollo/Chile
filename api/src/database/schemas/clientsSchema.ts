@@ -2,7 +2,6 @@ import { Schema } from "mongoose";
 import { toJSON } from "./plugins";
 
 const clientsSchema = new Schema({
- /*  _id: String, */
   name: String,
 });
 
