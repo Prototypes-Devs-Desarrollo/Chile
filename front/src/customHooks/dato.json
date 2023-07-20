@@ -1,0 +1,146 @@
+[
+    {
+        "cliente": {
+            "nombreEmpresa": "",
+            "rut": "",
+            "giro": "",
+            "direccion": "",
+            "email": "",
+            "telefono": ""
+        },
+        "proveedor": {
+            "nombreEmpresa": "",
+            "rut": "",
+            "direccion": "",
+            "comuna": "",
+            "giro": "",
+            "ciudad": "",
+            "contacto": ""
+        },
+        "ordenCompra": {
+            "numero": "",
+            "fechaEmision": "",
+            "formaPago": "",
+            "fechaEntrega": "",
+            "moneda": "",
+            "solicitante": ""
+        },
+        "productos": [
+            {
+                "codigo": "",
+                "descripcionProducto": "",
+                "cantidadSolicitada": "",
+                "precioUnitario": "",
+                "descuento": "",
+                "recargo": "",
+                "aFeX": "",
+                "valor": ""
+            },
+            {
+                "codigo": "",
+                "descripcionProducto": "",
+                "cantidadSolicitada": "",
+                "precioUnitario": "",
+                "descuento": "",
+                "recargo": "",
+                "aFeX": "",
+                "valor": ""
+            }
+        ],
+        "subTotal": "",
+        "descuentoGlobal": "",
+        "montoNeto": "",
+        "montoExento": "",
+        "iva": "",
+        "total": "",
+        "observacionesGenerales": "",
+        "observacionesPago": ""
+    },
+    {
+        "cliente": {
+            "nombreEmpresa": "",
+            "rut": "76.823.233-4",
+            "giro": "",
+            "direccion": "R.5 SUR CHINQUIHUE ALTO KM1029, Puerto Montt",
+            "email": "daraya@sasfa.cl",
+            "telefono": "Teléfono(s): "
+        },
+        "proveedor": {
+            "nombreEmpresa": "Sika S.A Chile",
+            "rut": "91.947.000-3",
+            "direccion": "Avda. Pdte. Salvador Allende 85, San Joaquin 8941077 Santiago",
+            "comuna": "Buin",
+            "giro": "Comercializacion",
+            "ciudad": "Santiago",
+            "contacto": ""
+        },
+        "ordenCompra": {
+            "numero": "730",
+            "fechaEmision": "28 de junio de 2023",
+            "formaPago": "Cheque",
+            "fechaEntrega": "03 de julio de 2023",
+            "moneda": "Pesos",
+            "solicitante": "Ana Sanchez"
+        },
+        "productos": [
+            {
+                "codigo": "A-S2-546839",
+                "descripcionProducto": "SIKAFLEX 221 CAJA POR 12 CARTUCHOS 300ML Sellador de poliuretano color gris",
+                "cantidadSolicitada": "240",
+                "precioUnitario": "7.083,333",
+                "descuento": "",
+                "recargo": "",
+                "aFeX": "AFECTO",
+                "valor": "1.700.000"
+            },
+            {
+                "codigo": "A-SC-593298",
+                "descripcionProducto": "SIKABOOM CAJA 12 TARROS DE 750ML Espuma expansiva monocomponente",
+                "cantidadSolicitada": "180",
+                "precioUnitario": "7.916,667",
+                "descuento": "",
+                "recargo": "",
+                "aFeX": "AFECTO",
+                "valor": "1.425.000"
+            },
+            {
+                "codigo": "A-SM-885030",
+                "descripcionProducto": "SIKABOND MONTAJE CAJA POR 12 CARTUCHOS 300ML adhesivo multiusos para montaje",
+                "cantidadSolicitada": "240",
+                "precioUnitario": "2.166,667",
+                "descuento": "",
+                "recargo": "",
+                "aFeX": "AFECTO",
+                "valor": "520.000"
+            },
+            {
+                "codigo": "A-S2-546839",
+                "descripcionProducto": "SIKAFLEX 221 CAJA POR 12 CARTUCHOS 300ML Sellador de poliuretano color negro",
+                "cantidadSolicitada": "240",
+                "precioUnitario": "7.083,333",
+                "descuento": "",
+                "recargo": "",
+                "aFeX": "AFECTO",
+                "valor": "1.700.000"
+            },
+            {
+                "codigo": "A-S2-546839",
+                "descripcionProducto": "SIKAFLEX 221 CAJA POR 12 CARTUCHOS 300ML Sellador de poliuretano color blanco",
+                "cantidadSolicitada": "60",
+                "precioUnitario": "7.083,333",
+                "descuento": "",
+                "recargo": "",
+                "aFeX": "AFECTO",
+                "valor": "425.000"
+            }
+        ],
+        "subTotal": "5.770.000",
+        "descuentoGlobal": "",
+        "montoNeto": "5.770.000",
+        "montoExento": "0",
+        "iva": "1.096.300",
+        "total": "6.866.300",
+        "observacionesGenerales": "compra por cajas de producto",
+        "observacionesPago": "CREDITO 30 DIAS"
+    }
+]

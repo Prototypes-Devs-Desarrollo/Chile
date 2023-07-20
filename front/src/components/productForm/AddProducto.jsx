@@ -7,7 +7,7 @@ const AddProducto = ({ addHandleOpenPro, addOpenPro }) => {
 
    return (
       <>
-      {console.log(errores, error)}
+         {console.log(errores, error)}
          <Dialog open={addOpenPro} size='xl' handler={addHandleOpenPro} dismiss={{ enabled: false }}>
             <DialogHeader>Agregar Producto</DialogHeader>
             <form onSubmit={onSubmitAddPro}>

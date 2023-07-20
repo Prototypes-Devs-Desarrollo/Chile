@@ -78,7 +78,7 @@ export const useProductForm = (addHandleOpenPro) => {
       );
    };
 
-   const isButtonDisabled = () => Object.keys(err).length > 0;
+   // const isButtonDisabled = () => Object.keys(err).length > 0;
 
    const onSubmitAddPro = async (e) => {
       e.preventDefault();
@@ -190,7 +190,6 @@ export const useProductForm = (addHandleOpenPro) => {
       onChangeAddPro,
       onClickAddPro,
       onSubmitAddPro,
-      isButtonDisabled,
       input,
       errores,
       error,

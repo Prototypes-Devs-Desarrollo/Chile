@@ -1,7 +1,8 @@
-import { IProducto } from "./IProductos";
-
 export interface ICliente {
-    id: string;
-    nombre: string;
-    productos: Array<IProducto>;
+  nombreEmpresa: string;
+  rut: string;
+  giro: string;
+  direccion: string;
+  email: string;
+  telefono: string;
 }
