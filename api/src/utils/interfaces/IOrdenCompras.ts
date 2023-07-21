@@ -12,6 +12,7 @@ export interface IOrdenCompra {
 }
 
 export interface IOrdenCompraCompleta {
+  id?: string;
   cliente: ICliente;
   proveedor: IProveedor;
   ordenCompra: IOrdenCompra;
@@ -24,4 +25,5 @@ export interface IOrdenCompraCompleta {
   total: string;
   observacionesGenerales: string;
   observacionesPago: string;
+  importada?: boolean;
 }

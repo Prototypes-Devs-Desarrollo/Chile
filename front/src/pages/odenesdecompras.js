@@ -118,11 +118,11 @@ const odenesdecompras = () => {
                                     {o.total}
                                  </Typography>
                               </td>
-                              <td className='p-4'>
+                              {/* <td className='p-4'>
                                  <Typography as='a' href='#' variant='small' color='blue' className='font-medium'>
                                     Edit
                                  </Typography>
-                              </td>
+                              </td> */}
                            </tr>
                         ))}
                      </tbody>
@@ -130,7 +130,7 @@ const odenesdecompras = () => {
                </Card>
             )}
          </div>
-         {addOpenIa && <AddOrdenIA addHandleOpenIa={addHandleOpenIa} addOpenIa={addOpenIa} />}
+         {addOpenIa && <AddOrdenIA addHandleOpenIa={addHandleOpenIa} addOpenIa={addOpenIa} listarOrdenes={onUseEffectOrd} />}
       </>
    );
 };

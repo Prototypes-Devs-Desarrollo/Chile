@@ -31,3 +31,24 @@ export const ValidoAddOrden = ({ cliente, proveedor, ordenCompra, productos, sub
 
    return e;
 };
+
+export const ValidoAddContenedor = ({ nombreContenedor }) => {
+   // nombreContenedor: '',
+   // fechaRDM: '',
+   // fechaEDC: '',
+   // tipo: '',
+   // importaciones: [],
+   // id: '',
+   const e = {
+      valido: true,
+   };
+
+   if (nombreContenedor.toString().trim().length === 0) {
+      e.nombreContenedor = 'El Nombre del Contenedor esta Vacio';
+      e.valido = false;
+   }
+
+   // FLATAN MAS VALIDACIONES
+
+   return e;
+};

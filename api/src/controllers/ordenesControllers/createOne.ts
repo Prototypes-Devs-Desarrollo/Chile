@@ -29,7 +29,8 @@ export default async (req: Request, res: Response) => {
       await newProducto.save();
     }
   });
-  const newOrden = new ordenes({ cliente, proveedor, productos, ordenCompra, descuentoGlobal, iva, montoExento, montoNeto, observacionesGenerales, observacionesPago, subTotal, total });
+  const importada = false
+  const newOrden = new ordenes({ cliente, proveedor, productos, ordenCompra, descuentoGlobal, iva, montoExento, montoNeto, observacionesGenerales, observacionesPago, importada, subTotal, total });
   await newOrden.save();
   response(res, 201, newOrden);
 };
