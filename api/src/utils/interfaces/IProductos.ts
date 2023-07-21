@@ -1,5 +1,6 @@
 
 export interface IProducto {
+  id?: string;
   codigo: string;
   descripcionProducto: string;
   cantidadSolicitada: string;

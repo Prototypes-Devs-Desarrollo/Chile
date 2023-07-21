@@ -6,7 +6,7 @@ import proveedoresSchema from './schemas/proveedoresSchema'; //3
 import importsSchema from './schemas/importsSchema'; //4
 import clientsSchema from './schemas/clientsSchema'; //5
 import bodegasSchema from './schemas/bodegasSchema'; //6
-import containersSchema from './schemas/containersSchema'; //7
+import contenedoresSchema from './schemas/contenedoresSchema'; //7
 import prueba1Schema from './schemas/prueba1Schema'; //8
 
 import ordenesSchema from './schemas/ordenesSchema'; //9
@@ -23,7 +23,7 @@ export const proveedores = conn.model('proveedores', proveedoresSchema); //3 // 
 export const imports = conn.model('imports', importsSchema); //4
 export const clients = conn.model('clients', clientsSchema); //5 // REFACTORIZADO
 export const bodegas = conn.model('bodegas', bodegasSchema); //6
-export const containers = conn.model('containers', containersSchema); //7
+export const contenedores = conn.model('containers', contenedoresSchema); //7
 export const prueba1 = conn.model('prueba1', prueba1Schema); //8
 
 export const ordenes = conn.model('ordenes', ordenesSchema); //9
