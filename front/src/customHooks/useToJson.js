@@ -68,11 +68,6 @@ export const useToJson = () => {
           "observacionesGenerales": "",
           "observacionesPago": ""
       }`;
-  const sendMessage = async (message) => {
-    try {
-      const prompt = `${message}
-      Este texto pertenece a una orden de compra para una importación de un producto. Crea un objeto en formato JSON con los campos y valores de la orden de compra. Recuerda que "Señores" es el proveedor y "SASFA GROUP SPA" es el cliente. Necesito en el objeto tener todos los datos relevantes como producto, cantidad y precio unitario.`;
-      
 
          const response = await axios.post(
             'https://api.openai.com/v1/chat/completions',
