@@ -14,5 +14,5 @@ router.get('/data', isLoggedIn, catchedAsync(clientControllers.getOwnData));
 router.put('/edit', isLoggedIn, catchedAsync(clientControllers.update));
 router.post('/create', isLoggedIn, catchedAsync(clientControllers.create));
 router.delete('/delete', isLoggedIn, catchedAsync(clientControllers.deleteClient))
-
+router.post("/relbase-bulk",catchedAsync(clientControllers.bulkToRellbase))
 export default router;

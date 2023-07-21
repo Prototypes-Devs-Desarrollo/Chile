@@ -3,7 +3,7 @@ import getOwnData from "./getOwnData"
 import create from "./create"
 import update from "./update"
 import deleteClient from "./delete"
-
+import bulkToRellbase from "./bulkToRellbase"
 
 const usersControllers =
 {
@@ -11,7 +11,8 @@ const usersControllers =
     getOwnData,
     create,
     update,
-    deleteClient
+    deleteClient,
+    bulkToRellbase
 }
 
 export default usersControllers
