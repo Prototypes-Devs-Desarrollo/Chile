@@ -9,6 +9,7 @@ import bodega from './bodega'
 import prueba1 from './prueba1'
 import proveedores from './proveedores'
 import ordenes from './ordenes'
+import contenedor from './contenedor'
 
 /* Explicón del catchedAsync()
  
@@ -29,7 +30,7 @@ router.use('/v1/import', imports);
 //CLIENT-------------------
 router.use('/v1/client', client)
 
-//CONTAINER----------------
+//PROVEEDORES----------------
 router.use('/v1/proveedores', proveedores)
 
 //PRUEBAS -------------------
@@ -38,7 +39,8 @@ router.use('/v1/prueba1', prueba1);
 //EMPLOYES-----------------
 
 
-//PROVEEDORES--------------
+//CONTENEDORES--------------
+router.use('/v1/contenedor', contenedor)
 
 
 //BODEGAS------------------

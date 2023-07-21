@@ -1,4 +1,5 @@
 export interface IProveedor {
+  id?: string;
   nombreEmpresa: string;
   rut: string;
   direccion: string;

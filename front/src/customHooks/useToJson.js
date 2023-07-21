@@ -1,11 +1,17 @@
 import axios from 'axios';
 import { useState } from 'react';
 
+const s = {
+   mensaje: '',
+   valida: true,
+};
+
 export const useToJson = () => {
    const [chat, setChat] = useState('');
    const [loading, setLoading] = useState(false);
-   const api = 'PONER API KAY DE LA SEÑORA';
-
+   const [success, setSuccess] = useState(s);
+   const api = 'PONER API KEY DE IA';
+   
    const sendMessage = async (message) => {
       setLoading(true);
       try {
@@ -90,9 +96,11 @@ export const useToJson = () => {
 
          console.log(response);
          setChat(response.data.choices[0].message.content);
+         setSuccess({ ...success, valida: false });
          setLoading(false);
       } catch (err) {
-         console.error('Error en la consulta: ', err);
+         console.log('sendMessage', err);
+         setSuccess({ mensaje: err.message, valida: true });
          setLoading(false);
       }
    };
@@ -101,6 +109,8 @@ export const useToJson = () => {
       chat,
       sendMessage,
       loading,
+      success,
+      setSuccess,
    };
 };
 
