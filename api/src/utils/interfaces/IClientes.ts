@@ -1,9 +1,9 @@
 export interface ICliente {
-  id?: string;
-  nombreEmpresa: string;
-  rut: string;
-  giro: string;
-  direccion: string;
-  email: string;
-  telefono: string;
+  id?: any
+  nombreEmpresa?: any
+  rut?: any
+  giro?: any
+  direccion?: any
+  email?: any
+  telefono?: any
 }

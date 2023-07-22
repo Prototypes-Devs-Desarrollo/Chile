@@ -9,6 +9,8 @@ const clientsSchema = new Schema<ICliente>({
   direccion: { type: String },
   email: { type: String },
   telefono: { type: String },
+  id: { type: String },
+
 });
 
 clientsSchema.plugin(toJSON);

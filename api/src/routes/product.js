@@ -13,5 +13,6 @@ router.post('/create', isLoggedIn, catchedAsync(productsControllers.createOne));
 router.put('/edit', isLoggedIn, catchedAsync(productsControllers.editOne)); // REFACTORIZADO
 router.delete('/delete', isLoggedIn, catchedAsync(productsControllers.deleteOne)); // REFACTORIZADO
 router.delete('/all', isLoggedIn, catchedAsync(productsControllers.findAll)); // REFACTORIZADO
+router.post("/relbase-bulk",catchedAsync(productsControllers.bulkToRellbase))
 
 export default router;
