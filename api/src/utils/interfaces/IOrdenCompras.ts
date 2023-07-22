@@ -2,6 +2,8 @@ import { ICliente } from './IClientes';
 import { IProducto } from './IProductos';
 import { IProveedor } from './IProveedores';
 
+export type TOrdGetAll = 'AGREGADAS' | 'PENDIENTES';
+
 export interface IOrdenCompra {
   numero: string;
   fechaEmision: string;
@@ -26,4 +28,8 @@ export interface IOrdenCompraCompleta {
   observacionesGenerales: string;
   observacionesPago: string;
   importada?: boolean;
+}
+
+export interface IOrdQueryGetAll {
+  all: TOrdGetAll;
 }

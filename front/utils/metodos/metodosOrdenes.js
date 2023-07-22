@@ -28,7 +28,7 @@ export const AddOrdenMethod = async ({ ord, loading, error, success }) => {
    }
 };
 
-export const ListOrdenesMethod = async ({ loading, error, success }) => {
+export const ListOrdenesMethod = async ({ all, loading, error, success }) => {
    try {
       loading(true);
       const token = localStorage.getItem('Token');
@@ -37,7 +37,7 @@ export const ListOrdenesMethod = async ({ loading, error, success }) => {
             Authorization: `Bearer ${token}`,
          },
       };
-      const response = await axios.get('orden/all', config);
+      const response = await axios.get(`orden/all?all=${all}`, config);
       success(response.data);
       loading(false);
    } catch (err) {

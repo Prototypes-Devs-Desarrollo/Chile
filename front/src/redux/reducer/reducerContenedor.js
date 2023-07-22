@@ -3,7 +3,17 @@ import { createSlice } from '@reduxjs/toolkit';
 //SE INICIA OBJETO DEL REDUCER
 const initialState = {
    contenedoresCont: [],
-   contenedorCont: undefined,
+   contenedorCont: {
+      nombreContenedor: '',
+      fechaRDM: '',
+      fechaEDC: '',
+      tipo: '',
+      importaciones: [],
+      id: '',
+   },
+   loadingCont: true,
+   successCont: '',
+   errorCont: '',
 };
 
 //ACA SE CREA EL REDUCER JUNTO CON LAS ACTIONS
