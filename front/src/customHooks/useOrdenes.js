@@ -45,7 +45,7 @@ const validaInitial = {
    valido: true,
 };
 
-export const useOrdenes = (addHandleOpenOrd) => {
+export const useOrdenes = (HandleOpenOrd) => {
    const dispatch = useDispatch();
    const { ordenesOrde, ordenOrde } = useSelector((state) => state.reducerOrden);
    const [cards, setCards] = useState(true);
@@ -55,8 +55,9 @@ export const useOrdenes = (addHandleOpenOrd) => {
    const [loading, setLoading] = useState(true);
    const [input, setInput] = useState(initial);
 
-   const onUseEffectOrd = async () => {
+   const onUseEffectOrd = async (all) => {
       await ListOrdenesMethod({
+         all, // PENDIENTES o AGREGADAS otra cosa las trae todas
          loading: (v) => setLoading(v),
          error: (msg) => setError(msg),
          success: (res) => {
@@ -104,7 +105,7 @@ export const useOrdenes = (addHandleOpenOrd) => {
                console.log(res);
 
                await onUseEffectOrd();
-               addHandleOpenOrd();
+               HandleOpenOrd();
             },
          });
       }

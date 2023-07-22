@@ -90,6 +90,7 @@ export const useContenedores = (addHandleOpenCon) => {
    const setContenedorTipo = (tipo) => setInputCon({ ...inputCon, tipo });
    const addContenedorImportacion = (i) => setInputCon({ ...inputCon, importaciones: [...inputCon.importaciones, i] });
    const delContenedorImportacion = (idImp) => setInputCon({ ...inputCon, importaciones: inputCon.importaciones.filter((x) => x.id !== idImp) });
+   const cancelConImp = () => setInputCon({ ...inputCon, importaciones: [] });
 
    return {
       onClickCardsCon,
