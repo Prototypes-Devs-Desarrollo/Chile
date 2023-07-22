@@ -1,12 +1,13 @@
 
 export interface IProducto {
-  id?: string;
-  codigo: string;
-  descripcionProducto: string;
-  cantidadSolicitada: string;
-  precioUnitario: string;
-  descuento: string;
-  recargo: string;
-  aFeX: string;
-  valor: string;
+  id?: any;
+  codigo?: any;
+  descripcionProducto?: any;
+  cantidadSolicitada?: any;
+  precioUnitario?: any;
+  descuento?: any;
+  recargo?: any;
+  aFeX?: any;
+  valor?: any;
+  name?: any;
 }

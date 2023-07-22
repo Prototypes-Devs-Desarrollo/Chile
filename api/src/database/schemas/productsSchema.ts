@@ -11,6 +11,7 @@ const productsSchema = new Schema<IProducto>({
   recargo: { type: String },
   aFeX: { type: String },
   valor: { type: String },
+  
 });
 
 // const productsSchema = new Schema({
