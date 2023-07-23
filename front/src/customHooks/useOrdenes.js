@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ValidoAddOrden } from '../../utils/validaciones';
 import { AddOrdenMethod, ListOrdenesMethod } from '../../utils/metodos/metodosOrdenes';
 import { ordeSetOrdenes } from '@/redux/reducer/reducerOrden';
+import { contAddImpContenedor, contDelImpContenedor } from '@/redux/reducer/reducerContenedor';
 
 const initial = {
    cliente: {
@@ -47,6 +48,7 @@ const validaInitial = {
 
 export const useOrdenes = (HandleOpenOrd) => {
    const dispatch = useDispatch();
+   const { importaciones } = useSelector((state) => state.reducerContenedor.contenedorCont);
    const { ordenesOrde, ordenOrde } = useSelector((state) => state.reducerOrden);
    const [cards, setCards] = useState(true);
    const [errores, setErrores] = useState(validaInitial);
@@ -108,6 +110,40 @@ export const useOrdenes = (HandleOpenOrd) => {
                HandleOpenOrd();
             },
          });
+      }
+   };
+
+   const onClickSelOrdAddImp = (orden) => {
+      if (importaciones.find((i) => i.ordenCompra.numero == orden.ordenCompra.numero)) {
+         dispatch(contDelImpContenedor(orden.ordenCompra.numero));
+      } else {
+         const imp = orden.productos.map((p) => {
+            return {
+               codigo: p.codigo,
+               fechaRDM: '',
+               descripcionProducto: p.descripcionProducto,
+               cantidadSolicitada: p.cantidadSolicitada,
+               precioUnitario: p.precioUnitario,
+               valor: p.valor,
+               ordenCompra: orden.ordenCompra,
+               cliente: orden.cliente,
+               proveedor: orden.proveedor,
+               etiquetas: [],
+               totalFOB: 0,
+               totalVenta: 0,
+               cuentaCliente: 0,
+               cuentaPorPagar: 0,
+               fechaCOT: '',
+               diasEntregas: 0,
+               cajasRollos: 0,
+               kg: 0,
+               cbm: 0,
+               adelantoProveedor: 0,
+               cuVenta: 0,
+               adelantoCliente: 0,
+            };
+         });
+         dispatch(contAddImpContenedor(imp));
       }
    };
 
@@ -187,5 +223,6 @@ export const useOrdenes = (HandleOpenOrd) => {
       setObservacionesPago,
       setSuccess,
       setError,
+      onClickSelOrdAddImp,
    };
 };

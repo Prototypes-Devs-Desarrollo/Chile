@@ -28,17 +28,35 @@ const reducerContenedor = createSlice({
             contenedoresCont: action.payload,
          };
       },
-      contSetContenedore(state, action) {
+      contSetContenedor(state, action) {
          return {
             ...state,
             contenedorCont: action.payload,
+         };
+      },
+      contAddImpContenedor(state, action) {
+         return {
+            ...state,
+            contenedorCont: { ...state.contenedorCont, importaciones: [ ...state.contenedorCont.importaciones, ...action.payload ] },
+         };
+      },
+      contDelImpContenedor(state, action) {
+         return {
+            ...state,
+            contenedorCont: { ...state.contenedorCont, importaciones: state.contenedorCont.importaciones.filter(x => x.ordenCompra.numero !== action.payload) },
+         };
+      },
+      contLimpiarImpContenedor(state, action) {
+         return {
+            ...state,
+            contenedorCont: { ...state.contenedorCont, importaciones: [] },
          };
       },
    },
 });
 
 //ACA SE EXPORTAN LAS ACTIONS QUE SE CREAN AUTOMATICAMENTE MAS ARRIVA
-export const { contSetContenedores, contSetContenedore } = reducerContenedor.actions;
+export const { contSetContenedores, contSetContenedor, contAddImpContenedor, contLimpiarImpContenedor, contDelImpContenedor } = reducerContenedor.actions;
 
 //ACA SE EXPORTAN O EXPORTA EL REDUCER
 export default reducerContenedor.reducer;
