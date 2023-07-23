@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 const initial = {
+   codigo: '',
    fechaRDM: '',
    descripcionProducto: '',
    cantidadSolicitada: '',
+   precioUnitario: '',
    valor: '',
    ordenCompra: {
       numero: '',
@@ -56,45 +58,47 @@ export const useImportForm = () => {
    const setImpOC = (ordenCompra) => setInputImp({ ...inputImp, ordenCompra });
    const setImpCliente = (cliente) => setInputImp({ ...inputImp, cliente });
    const setImpProveedor = (proveedor) => setInputImp({ ...inputImp, proveedor });
-   const setFechaRDM = (fechaRDM) => setInputImp({ ...inputImp, fechaRDM });
-   const setDescripcionProducto = (descripcionProducto) => setInputImp({ ...inputImp, descripcionProducto });
-   const setCantidadSolicitada = (cantidadSolicitada) => setInputImp({ ...inputImp, cantidadSolicitada });
-   const setValor = (valor) => setInputImp({ ...inputImp, valor });
-   const setOCNumero = (numero) => setInputImp({ ...inputImp, ordenCompra: { ...inputImp.ordenCompra, numero } });
-   const setOCFechaEmision = (fechaEmision) => setInputImp({ ...inputImp, ordenCompra: { ...inputImp.ordenCompra, fechaEmision } });
-   const setOCFormaPago = (formaPago) => setInputImp({ ...inputImp, ordenCompra: { ...inputImp.ordenCompra, formaPago } });
-   const setOCFechaEntrega = (fechaEntrega) => setInputImp({ ...inputImp, ordenCompra: { ...inputImp.ordenCompra, fechaEntrega } });
-   const setOCMoneda = (moneda) => setInputImp({ ...inputImp, ordenCompra: { ...inputImp.ordenCompra, moneda } });
-   const setOCSolicitante = (solicitante) => setInputImp({ ...inputImp, ordenCompra: { ...inputImp.ordenCompra, solicitante } });
-   const setCliId = (id) => setInputImp({ ...inputImp, cliente: { ...inputImp.cliente, id } });
-   const setCliNombreEmpresa = (nombreEmpresa) => setInputImp({ ...inputImp, cliente: { ...inputImp.cliente, nombreEmpresa } });
-   const setCliRut = (rut) => setInputImp({ ...inputImp, cliente: { ...inputImp.cliente, rut } });
-   const setCliGiro = (giro) => setInputImp({ ...inputImp, cliente: { ...inputImp.cliente, giro } });
-   const setCliDireccion = (direccion) => setInputImp({ ...inputImp, cliente: { ...inputImp.cliente, direccion } });
-   const setCliEmail = (email) => setInputImp({ ...inputImp, cliente: { ...inputImp.cliente, email } });
-   const setCliTelefono = (telefono) => setInputImp({ ...inputImp, cliente: { ...inputImp.cliente, telefono } });
-   const setProId = (id) => setInputImp({ ...inputImp, proveedor: { ...inputImp.proveedor, id } });
-   const setProNombreEmpresa = (nombreEmpresa) => setInputImp({ ...inputImp, proveedor: { ...inputImp.proveedor, nombreEmpresa } });
-   const setProRut = (rut) => setInputImp({ ...inputImp, proveedor: { ...inputImp.proveedor, rut } });
-   const setProDireccion = (direccion) => setInputImp({ ...inputImp, proveedor: { ...inputImp.proveedor, direccion } });
-   const setProComuna = (comuna) => setInputImp({ ...inputImp, proveedor: { ...inputImp.proveedor, comuna } });
-   const setProGiro = (giro) => setInputImp({ ...inputImp, proveedor: { ...inputImp.proveedor, giro } });
-   const setProCiudad = (ciudad) => setInputImp({ ...inputImp, proveedor: { ...inputImp.proveedor, ciudad } });
-   const setProContacto = (contacto) => setInputImp({ ...inputImp, proveedor: { ...inputImp.proveedor, contacto } });
-   const addEtiqueta = (i) => setInputImp({ ...inputImp, etiquetas: [...inputImp.etiquetas, i] });
-   const delEtiqueta = (idEti) => setInputImp({ ...inputImp, etiquetas: inputImp.etiquetas.filter((x) => x.id !== idEti) });
-   const setTotalFOB = (totalFOB) => setInputImp({ ...inputImp, totalFOB });
-   const setTotalVenta = (totalVenta) => setInputImp({ ...inputImp, totalVenta });
-   const setCuentaCliente = (cuentaCliente) => setInputImp({ ...inputImp, cuentaCliente });
-   const setCuentaPorPagar = (cuentaPorPagar) => setInputImp({ ...inputImp, cuentaPorPagar });
-   const setFechaCOT = (fechaCOT) => setInputImp({ ...inputImp, fechaCOT });
-   const setDiasEntregas = (diasEntregas) => setInputImp({ ...inputImp, diasEntregas });
-   const setCajasRollos = (cajasRollos) => setInputImp({ ...inputImp, cajasRollos });
-   const setKG = (kg) => setInputImp({ ...inputImp, kg });
-   const setCBM = (cbm) => setInputImp({ ...inputImp, cbm });
-   const setAdelantoProveedor = (adelantoProveedor) => setInputImp({ ...inputImp, adelantoProveedor });
-   const setCuVenta = (cuVenta) => setInputImp({ ...inputImp, cuVenta });
-   const setAdelantoCliente = (adelantoCliente) => setInputImp({ ...inputImp, adelantoCliente });
+   const setImpCodigo = (codigo) => setInputImp({ ...inputImp, codigo });
+   const setImpFechaRDM = (fechaRDM) => setInputImp({ ...inputImp, fechaRDM });
+   const setImpDescripcionProducto = (descripcionProducto) => setInputImp({ ...inputImp, descripcionProducto });
+   const setImpCantidadSolicitada = (cantidadSolicitada) => setInputImp({ ...inputImp, cantidadSolicitada });
+   const setImpValor = (valor) => setInputImp({ ...inputImp, valor });
+   const setImpPrecioUnitario = (precioUnitario) => setInputImp({ ...inputImp, precioUnitario });
+   const setImpOCNumero = (numero) => setInputImp({ ...inputImp, ordenCompra: { ...inputImp.ordenCompra, numero } });
+   const setImpOCFechaEmision = (fechaEmision) => setInputImp({ ...inputImp, ordenCompra: { ...inputImp.ordenCompra, fechaEmision } });
+   const setImpOCFormaPago = (formaPago) => setInputImp({ ...inputImp, ordenCompra: { ...inputImp.ordenCompra, formaPago } });
+   const setImpOCFechaEntrega = (fechaEntrega) => setInputImp({ ...inputImp, ordenCompra: { ...inputImp.ordenCompra, fechaEntrega } });
+   const setImpOCMoneda = (moneda) => setInputImp({ ...inputImp, ordenCompra: { ...inputImp.ordenCompra, moneda } });
+   const setImpOCSolicitante = (solicitante) => setInputImp({ ...inputImp, ordenCompra: { ...inputImp.ordenCompra, solicitante } });
+   const setImpCliId = (id) => setInputImp({ ...inputImp, cliente: { ...inputImp.cliente, id } });
+   const setImpCliNombreEmpresa = (nombreEmpresa) => setInputImp({ ...inputImp, cliente: { ...inputImp.cliente, nombreEmpresa } });
+   const setImpCliRut = (rut) => setInputImp({ ...inputImp, cliente: { ...inputImp.cliente, rut } });
+   const setImpCliGiro = (giro) => setInputImp({ ...inputImp, cliente: { ...inputImp.cliente, giro } });
+   const setImpCliDireccion = (direccion) => setInputImp({ ...inputImp, cliente: { ...inputImp.cliente, direccion } });
+   const setImpCliEmail = (email) => setInputImp({ ...inputImp, cliente: { ...inputImp.cliente, email } });
+   const setImpCliTelefono = (telefono) => setInputImp({ ...inputImp, cliente: { ...inputImp.cliente, telefono } });
+   const setImpProId = (id) => setInputImp({ ...inputImp, proveedor: { ...inputImp.proveedor, id } });
+   const setImpProNombreEmpresa = (nombreEmpresa) => setInputImp({ ...inputImp, proveedor: { ...inputImp.proveedor, nombreEmpresa } });
+   const setImpProRut = (rut) => setInputImp({ ...inputImp, proveedor: { ...inputImp.proveedor, rut } });
+   const setImpProDireccion = (direccion) => setInputImp({ ...inputImp, proveedor: { ...inputImp.proveedor, direccion } });
+   const setImpProComuna = (comuna) => setInputImp({ ...inputImp, proveedor: { ...inputImp.proveedor, comuna } });
+   const setImpProGiro = (giro) => setInputImp({ ...inputImp, proveedor: { ...inputImp.proveedor, giro } });
+   const setImpProCiudad = (ciudad) => setInputImp({ ...inputImp, proveedor: { ...inputImp.proveedor, ciudad } });
+   const setImpProContacto = (contacto) => setInputImp({ ...inputImp, proveedor: { ...inputImp.proveedor, contacto } });
+   const addImpEtiqueta = (i) => setInputImp({ ...inputImp, etiquetas: [...inputImp.etiquetas, i] });
+   const delImpEtiqueta = (idEti) => setInputImp({ ...inputImp, etiquetas: inputImp.etiquetas.filter((x) => x.id !== idEti) });
+   const setImpTotalFOB = (totalFOB) => setInputImp({ ...inputImp, totalFOB });
+   const setImpTotalVenta = (totalVenta) => setInputImp({ ...inputImp, totalVenta });
+   const setImpCuentaCliente = (cuentaCliente) => setInputImp({ ...inputImp, cuentaCliente });
+   const setImpCuentaPorPagar = (cuentaPorPagar) => setInputImp({ ...inputImp, cuentaPorPagar });
+   const setImpFechaCOT = (fechaCOT) => setInputImp({ ...inputImp, fechaCOT });
+   const setImpDiasEntregas = (diasEntregas) => setInputImp({ ...inputImp, diasEntregas });
+   const setImpCajasRollos = (cajasRollos) => setInputImp({ ...inputImp, cajasRollos });
+   const setImpKG = (kg) => setInputImp({ ...inputImp, kg });
+   const setImpCBM = (cbm) => setInputImp({ ...inputImp, cbm });
+   const setImpAdelantoProveedor = (adelantoProveedor) => setInputImp({ ...inputImp, adelantoProveedor });
+   const setImpCuVenta = (cuVenta) => setInputImp({ ...inputImp, cuVenta });
+   const setImpAdelantoCliente = (adelantoCliente) => setInputImp({ ...inputImp, adelantoCliente });
 
    return {
       inputImp,
@@ -102,45 +106,47 @@ export const useImportForm = () => {
       setImpOC,
       setImpCliente,
       setImpProveedor,
-      setFechaRDM,
-      setDescripcionProducto,
-      setCantidadSolicitada,
-      setValor,
-      setOCNumero,
-      setOCFechaEmision,
-      setOCFormaPago,
-      setOCFechaEntrega,
-      setOCMoneda,
-      setOCSolicitante,
-      setCliId,
-      setCliNombreEmpresa,
-      setCliRut,
-      setCliGiro,
-      setCliDireccion,
-      setCliEmail,
-      setCliTelefono,
-      setProId,
-      setProNombreEmpresa,
-      setProRut,
-      setProDireccion,
-      setProComuna,
-      setProGiro,
-      setProCiudad,
-      setProContacto,
-      addEtiqueta,
-      delEtiqueta,
-      setTotalFOB,
-      setTotalVenta,
-      setCuentaCliente,
-      setCuentaPorPagar,
-      setFechaCOT,
-      setDiasEntregas,
-      setCajasRollos,
-      setKG,
-      setCBM,
-      setAdelantoProveedor,
-      setCuVenta,
-      setAdelantoCliente,
+      setImpFechaRDM,
+      setImpDescripcionProducto,
+      setImpCantidadSolicitada,
+      setImpValor,
+      setImpPrecioUnitario,
+      setImpOCNumero,
+      setImpOCFechaEmision,
+      setImpOCFormaPago,
+      setImpOCFechaEntrega,
+      setImpOCMoneda,
+      setImpOCSolicitante,
+      setImpCliId,
+      setImpCliNombreEmpresa,
+      setImpCliRut,
+      setImpCliGiro,
+      setImpCliDireccion,
+      setImpCliEmail,
+      setImpCliTelefono,
+      setImpProId,
+      setImpProNombreEmpresa,
+      setImpProRut,
+      setImpProDireccion,
+      setImpProComuna,
+      setImpProGiro,
+      setImpProCiudad,
+      setImpProContacto,
+      addImpEtiqueta,
+      delImpEtiqueta,
+      setImpTotalFOB,
+      setImpTotalVenta,
+      setImpCuentaCliente,
+      setImpCuentaPorPagar,
+      setImpFechaCOT,
+      setImpDiasEntregas,
+      setImpCajasRollos,
+      setImpKG,
+      setImpCBM,
+      setImpAdelantoProveedor,
+      setImpCuVenta,
+      setImpAdelantoCliente,
+      setImpCodigo,
    };
 };
 

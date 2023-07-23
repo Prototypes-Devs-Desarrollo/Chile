@@ -129,8 +129,8 @@ const odenesdecompras = () => {
                   </table>
                </Card>
             )}
+            {addOpenIa && <AddOrdenIA addHandleOpenIa={addHandleOpenIa} addOpenIa={addOpenIa} listarOrdenes={onUseEffectOrd} />}
          </div>
-         {addOpenIa && <AddOrdenIA addHandleOpenIa={addHandleOpenIa} addOpenIa={addOpenIa} listarOrdenes={onUseEffectOrd} />}
       </>
    );
 };

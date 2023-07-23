@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AddContenedorMethod, ListContenedoresMethod } from '../../utils/metodos/metodosContenedores';
-import { contSetContenedores } from '@/redux/reducer/reducerContenedor';
+import { contSetContenedor, contSetContenedores } from '@/redux/reducer/reducerContenedor';
 import { ValidoAddContenedor } from '../../utils/validaciones';
 
 const initial = {
@@ -38,17 +38,23 @@ export const useContenedores = (addHandleOpenCon) => {
    };
 
    const onChangeAddCon = (e) => {
-      setInputCon({
-         ...input,
-         [e.target.name]: e.target.value,
-      });
+      dispatch(
+         contSetContenedor({
+            ...contenedorCont,
+            [e.target.name]: e.target.value,
+         })
+      );
+      // setInputCon({
+      //    ...input,
+      //    [e.target.name]: e.target.value,
+      // });
       onClickAddCon(e);
    };
 
    const onClickAddCon = (e) => {
       setErroresCon(
          ValidoAddContenedor({
-            ...input,
+            ...contenedorCont,
             [e.target.name]: e.target.value,
          })
       );
@@ -88,7 +94,7 @@ export const useContenedores = (addHandleOpenCon) => {
    const setContenedorFechaRDM = (fechaRDM) => setInputCon({ ...inputCon, fechaRDM });
    const setContenedorFechaEDC = (fechaEDC) => setInputCon({ ...inputCon, fechaEDC });
    const setContenedorTipo = (tipo) => setInputCon({ ...inputCon, tipo });
-   const addContenedorImportacion = (i) => setInputCon({ ...inputCon, importaciones: [...inputCon.importaciones, i] });
+   const addContenedorImportacion = (i) => setInputCon({ ...inputCon, importaciones: [...inputCon.importaciones, ...i] });
    const delContenedorImportacion = (idImp) => setInputCon({ ...inputCon, importaciones: inputCon.importaciones.filter((x) => x.id !== idImp) });
    const cancelConImp = () => setInputCon({ ...inputCon, importaciones: [] });
 
@@ -113,5 +119,6 @@ export const useContenedores = (addHandleOpenCon) => {
       delContenedorImportacion,
       setSuccessCon,
       setErrorCon,
+      cancelConImp,
    };
 };

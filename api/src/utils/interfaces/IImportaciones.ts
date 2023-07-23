@@ -2,7 +2,7 @@ import { IOrdenCompraCompleta } from './IOrdenCompras';
 import { IProducto } from './IProductos';
 import { IEtiqueta } from './IEtiquetas';
 
-export interface IImportacion extends Pick<IProducto, 'descripcionProducto' | 'cantidadSolicitada' | 'valor'>, Pick<IOrdenCompraCompleta, 'ordenCompra' | 'cliente' | 'proveedor'> {
+export interface IImportacion extends Pick<IProducto, 'descripcionProducto' | 'cantidadSolicitada' | 'valor' | 'precioUnitario'>, Pick<IOrdenCompraCompleta, 'ordenCompra' | 'cliente' | 'proveedor'> {
   id?: string;
   fechaRDM: string;
   etiquetas: Array<IEtiqueta>;
