@@ -47,7 +47,7 @@ const odenesdecompras = () => {
             ) : cards ? (
                <div className='flex flex-row flex-wrap gap-3 justify-items-stretch pt-3'>
                   {ordenesOrde.map((o, idx) => (
-                     <Card className='w-full max-w-[16rem]' key={idx}>
+                     <Card className='w-full max-w-[16rem]' key={idx} color='blue'>
                         <CardBody>
                            <Typography className='text-center font-extrabold'>Orden N° {o.ordenCompra.numero}</Typography>
                            <Typography>Cliente: {o.cliente.nombreEmpresa}</Typography>

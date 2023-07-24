@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input, Typography, Card, Select, Option } from '@material-tailwind/react';
-import { useImportForm } from '@/customHooks/useImportForm';
+import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input, Typography, Card } from '@material-tailwind/react';
 import SelOrden from '../oredenForm/SelOrden';
 import { useContenedores } from '@/customHooks/useContenedores';
 import EtiquetaComponente from '../etiquetas/EtiquetaComponente';
 import { contLimpiarContenedor } from '@/redux/reducer/reducerContenedor';
 
 const AddImportacion = ({ addHandleOpenCon, addOpenCon }) => {
-   const [selOpenOrd, setAddOpenPro] = useState(false);
-   const selHandleOpenOrd = () => setAddOpenPro(!selOpenOrd);
+   const [selOpenOrd, setOpenOrd] = useState(false);
+   const selHandleOpenOrd = () => setOpenOrd(!selOpenOrd);
    const { contenedorCont, loadingCont, onChangeAddCon, onSubmitAddCon, onClickAddCon, dispatch } = useContenedores(addHandleOpenCon);
 
    const cancelar = () => {

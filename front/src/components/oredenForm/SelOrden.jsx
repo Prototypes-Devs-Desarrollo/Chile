@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 const SelOrden = ({ selHandleOpenOrd, selOpenOrd }) => {
    const { importaciones } = useSelector((state) => state.reducerContenedor.contenedorCont);
-   const { ordenesOrde, onUseEffectOrd, loading, onClickSelOrdAddImp, getOrdColorSelect } = useOrdenes();
+   const { ordenesOrde, onUseEffectOrd, loading, onClickSelOrdAddImp } = useOrdenes();
 
    useEffect(() => {
       onUseEffectOrd('PENDIENTES');

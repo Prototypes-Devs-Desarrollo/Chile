@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AddContenedorMethod, ListContenedoresMethod } from '../../utils/metodos/metodosContenedores';
+import { AddContenedorMethod, ListContenedoresMethod, ViewContenedorMethod } from '../../utils/metodos/metodosContenedores';
 import { contSetLoading, contSetError, contSetContenedor, contSetContenedores, contSetSuccess, contLimpiarContenedor } from '@/redux/reducer/reducerContenedor';
 import { ValidoAddContenedor } from '../../utils/validaciones';
 
@@ -23,6 +23,17 @@ export const useContenedores = (addHandleOpenCon) => {
          },
       });
    };
+
+   const onViewOneCon = async (id) =>{
+      await ViewContenedorMethod({
+         id,
+         loading: (v) => dispatch(contSetLoading(v)),
+         error: (msg) => dispatch(contSetError(msg)),
+         success: (res) => {
+            dispatch(contSetContenedor(res.payload));
+         },
+      });
+   }
 
    const onChangeAddCon = (e) => {
       dispatch(
@@ -52,9 +63,6 @@ export const useContenedores = (addHandleOpenCon) => {
          dispatch(contSetSuccess(''));
       }
 
-      // CONSOLE LOG TESTER OBJETO
-      console.log(contenedorCont);
-
       if (erroresCon.valido) {
          console.log(contenedorCont);
          await AddContenedorMethod({
@@ -62,9 +70,6 @@ export const useContenedores = (addHandleOpenCon) => {
             loading: (v) => dispatch(contSetLoading(v)),
             error: (msg) => dispatch(contSetError(msg)),
             success: async (res) => {
-               // CONSOLE LOG TESTER RESPUESTA API
-               console.log(res);
-
                await onUseEffectCon();
                dispatch(contLimpiarContenedor());
                addHandleOpenCon();
@@ -81,6 +86,7 @@ export const useContenedores = (addHandleOpenCon) => {
       onClickAddCon,
       onSubmitAddCon,
       onUseEffectCon,
+      onViewOneCon,
       cardsCon,
       contenedoresCont,
       contenedorCont,
@@ -92,11 +98,14 @@ export const useContenedores = (addHandleOpenCon) => {
    };
 };
 
+// OBJETO DE EJEMPLO
 const uno = {
+   id: '',
    nombreContenedor: 'dfgdsfgsdf',
    fechaRDM: '2023-07-06',
    fechaEDC: '2023-07-02',
    tipo: 'retdsfg',
+   packageTipo: 'dsfgsdfgdfs',
    importaciones: [
       {
          codigo: 'A-S2-546839',
@@ -329,6 +338,4 @@ const uno = {
          adelantoCliente: 0,
       },
    ],
-   id: '',
-   packageTipo: 'dsfgsdfgdfs',
 };
