@@ -1,17 +1,8 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AddContenedorMethod, ListContenedoresMethod } from '../../utils/metodos/metodosContenedores';
-import { contSetContenedor, contSetContenedores } from '@/redux/reducer/reducerContenedor';
+import { contSetLoading, contSetError, contSetContenedor, contSetContenedores, contSetSuccess, contLimpiarContenedor } from '@/redux/reducer/reducerContenedor';
 import { ValidoAddContenedor } from '../../utils/validaciones';
-
-const initial = {
-   nombreContenedor: '',
-   fechaRDM: '',
-   fechaEDC: '',
-   tipo: '',
-   importaciones: [],
-   id: '',
-};
 
 const validaInitial = {
    valido: true,
@@ -19,18 +10,14 @@ const validaInitial = {
 
 export const useContenedores = (addHandleOpenCon) => {
    const dispatch = useDispatch();
-   const { contenedoresCont, contenedorCont } = useSelector((state) => state.reducerContenedor);
+   const { contenedoresCont, contenedorCont, loadingCont, errorCont, successCont } = useSelector((state) => state.reducerContenedor);
    const [cardsCon, setCardsCon] = useState(true);
    const [erroresCon, setErroresCon] = useState(validaInitial);
-   const [errorCon, setErrorCon] = useState('');
-   const [successCon, setSuccessCon] = useState('');
-   const [loadingCon, setLoadingCon] = useState(true);
-   const [inputCon, setInputCon] = useState(initial);
 
    const onUseEffectCon = async () => {
       await ListContenedoresMethod({
-         loading: (v) => setLoadingCon(v),
-         error: (msg) => setErrorCon(msg),
+         loading: (v) => dispatch(contSetLoading(v)),
+         error: (msg) => dispatch(contSetError(msg)),
          success: (res) => {
             dispatch(contSetContenedores(res.payload));
          },
@@ -44,10 +31,6 @@ export const useContenedores = (addHandleOpenCon) => {
             [e.target.name]: e.target.value,
          })
       );
-      // setInputCon({
-      //    ...input,
-      //    [e.target.name]: e.target.value,
-      // });
       onClickAddCon(e);
    };
 
@@ -62,26 +45,28 @@ export const useContenedores = (addHandleOpenCon) => {
 
    const onSubmitAddCon = async (e) => {
       e.preventDefault();
-      if (errorCon) {
-         setErrorCon('');
+      if (errorCont) {
+         dispatch(contSetError(''));
       }
-      if (successCon) {
-         setSuccessCon('');
+      if (successCont) {
+         dispatch(contSetSuccess(''));
       }
 
       // CONSOLE LOG TESTER OBJETO
-      console.log(inputCon);
+      console.log(contenedorCont);
 
       if (erroresCon.valido) {
+         console.log(contenedorCont);
          await AddContenedorMethod({
-            con: inputCon,
-            loading: (v) => setLoadingCon(v),
-            error: (msg) => setErrorCon(msg),
+            con: contenedorCont,
+            loading: (v) => dispatch(contSetLoading(v)),
+            error: (msg) => dispatch(contSetError(msg)),
             success: async (res) => {
                // CONSOLE LOG TESTER RESPUESTA API
                console.log(res);
 
                await onUseEffectCon();
+               dispatch(contLimpiarContenedor());
                addHandleOpenCon();
             },
          });
@@ -89,14 +74,6 @@ export const useContenedores = (addHandleOpenCon) => {
    };
 
    const onClickCardsCon = () => setCardsCon(!cardsCon);
-
-   const setContenedorNombre = (nombreContenedor) => setInputCon({ ...inputCon, nombreContenedor });
-   const setContenedorFechaRDM = (fechaRDM) => setInputCon({ ...inputCon, fechaRDM });
-   const setContenedorFechaEDC = (fechaEDC) => setInputCon({ ...inputCon, fechaEDC });
-   const setContenedorTipo = (tipo) => setInputCon({ ...inputCon, tipo });
-   const addContenedorImportacion = (i) => setInputCon({ ...inputCon, importaciones: [...inputCon.importaciones, ...i] });
-   const delContenedorImportacion = (idImp) => setInputCon({ ...inputCon, importaciones: inputCon.importaciones.filter((x) => x.id !== idImp) });
-   const cancelConImp = () => setInputCon({ ...inputCon, importaciones: [] });
 
    return {
       onClickCardsCon,
@@ -108,17 +85,250 @@ export const useContenedores = (addHandleOpenCon) => {
       contenedoresCont,
       contenedorCont,
       erroresCon,
-      errorCon,
-      successCon,
-      loadingCon,
-      setContenedorNombre,
-      setContenedorFechaRDM,
-      setContenedorFechaEDC,
-      setContenedorTipo,
-      addContenedorImportacion,
-      delContenedorImportacion,
-      setSuccessCon,
-      setErrorCon,
-      cancelConImp,
+      errorCont,
+      successCont,
+      loadingCont,
+      dispatch,
    };
+};
+
+const uno = {
+   nombreContenedor: 'dfgdsfgsdf',
+   fechaRDM: '2023-07-06',
+   fechaEDC: '2023-07-02',
+   tipo: 'retdsfg',
+   importaciones: [
+      {
+         codigo: 'A-S2-546839',
+         fechaRDM: '',
+         descripcionProducto: 'SIKAFLEX 221 CAJA POR 12 CARTUCHOS 300ML Sellador de poliuretano color gris',
+         cantidadSolicitada: '240',
+         precioUnitario: '7.083,333',
+         valor: '1.700.000',
+         ordenCompra: {
+            numero: '740',
+            fechaEmision: '28 de junio de 2023',
+            formaPago: 'Cheque',
+            fechaEntrega: '03 de julio de 2023',
+            moneda: 'Pesos',
+            solicitante: 'Ana Sanchez',
+         },
+         cliente: {
+            nombreEmpresa: 'Algo',
+            rut: '76.823.233-4',
+            giro: '',
+            direccion: 'R.5 SUR CHINQUIHUE ALTO KM1029, Puerto Montt',
+            email: 'daraya@sasfa.cl',
+            telefono: 'Teléfono(s): ',
+         },
+         proveedor: {
+            nombreEmpresa: 'Sika S.A Chile',
+            rut: '91.947.000-3',
+            direccion: 'Avda. Pdte. Salvador Allende 85, San Joaquin 8941077 Santiago',
+            comuna: 'Buin',
+            giro: 'Comercializacion',
+            ciudad: 'Santiago',
+            contacto: '',
+         },
+         etiquetas: [],
+         totalFOB: 0,
+         totalVenta: 0,
+         cuentaCliente: 0,
+         cuentaPorPagar: 0,
+         fechaCOT: '',
+         diasEntregas: 0,
+         cajasRollos: 0,
+         kg: 0,
+         cbm: 0,
+         adelantoProveedor: 0,
+         cuVenta: 0,
+         adelantoCliente: 0,
+      },
+      {
+         codigo: 'A-SC-593298',
+         fechaRDM: '',
+         descripcionProducto: 'SIKABOOM CAJA 12 TARROS DE 750ML Espuma expansiva monocomponente',
+         cantidadSolicitada: '180',
+         precioUnitario: '7.916,667',
+         valor: '1.425.000',
+         ordenCompra: {
+            numero: '740',
+            fechaEmision: '28 de junio de 2023',
+            formaPago: 'Cheque',
+            fechaEntrega: '03 de julio de 2023',
+            moneda: 'Pesos',
+            solicitante: 'Ana Sanchez',
+         },
+         cliente: {
+            nombreEmpresa: 'Algo',
+            rut: '76.823.233-4',
+            giro: '',
+            direccion: 'R.5 SUR CHINQUIHUE ALTO KM1029, Puerto Montt',
+            email: 'daraya@sasfa.cl',
+            telefono: 'Teléfono(s): ',
+         },
+         proveedor: {
+            nombreEmpresa: 'Sika S.A Chile',
+            rut: '91.947.000-3',
+            direccion: 'Avda. Pdte. Salvador Allende 85, San Joaquin 8941077 Santiago',
+            comuna: 'Buin',
+            giro: 'Comercializacion',
+            ciudad: 'Santiago',
+            contacto: '',
+         },
+         etiquetas: [],
+         totalFOB: 0,
+         totalVenta: 0,
+         cuentaCliente: 0,
+         cuentaPorPagar: 0,
+         fechaCOT: '',
+         diasEntregas: 0,
+         cajasRollos: 0,
+         kg: 0,
+         cbm: 0,
+         adelantoProveedor: 0,
+         cuVenta: 0,
+         adelantoCliente: 0,
+      },
+      {
+         codigo: 'A-SM-885030',
+         fechaRDM: '',
+         descripcionProducto: 'SIKABOND MONTAJE CAJA POR 12 CARTUCHOS 300ML adhesivo multiusos para montaje',
+         cantidadSolicitada: '240',
+         precioUnitario: '2.166,667',
+         valor: '520.000',
+         ordenCompra: {
+            numero: '740',
+            fechaEmision: '28 de junio de 2023',
+            formaPago: 'Cheque',
+            fechaEntrega: '03 de julio de 2023',
+            moneda: 'Pesos',
+            solicitante: 'Ana Sanchez',
+         },
+         cliente: {
+            nombreEmpresa: 'Algo',
+            rut: '76.823.233-4',
+            giro: '',
+            direccion: 'R.5 SUR CHINQUIHUE ALTO KM1029, Puerto Montt',
+            email: 'daraya@sasfa.cl',
+            telefono: 'Teléfono(s): ',
+         },
+         proveedor: {
+            nombreEmpresa: 'Sika S.A Chile',
+            rut: '91.947.000-3',
+            direccion: 'Avda. Pdte. Salvador Allende 85, San Joaquin 8941077 Santiago',
+            comuna: 'Buin',
+            giro: 'Comercializacion',
+            ciudad: 'Santiago',
+            contacto: '',
+         },
+         etiquetas: [],
+         totalFOB: 0,
+         totalVenta: 0,
+         cuentaCliente: 0,
+         cuentaPorPagar: 0,
+         fechaCOT: '',
+         diasEntregas: 0,
+         cajasRollos: 0,
+         kg: 0,
+         cbm: 0,
+         adelantoProveedor: 0,
+         cuVenta: 0,
+         adelantoCliente: 0,
+      },
+      {
+         codigo: 'A-S2-546839',
+         fechaRDM: '',
+         descripcionProducto: 'SIKAFLEX 221 CAJA POR 12 CARTUCHOS 300ML Sellador de poliuretano color negro',
+         cantidadSolicitada: '240',
+         precioUnitario: '7.083,333',
+         valor: '1.700.000',
+         ordenCompra: {
+            numero: '740',
+            fechaEmision: '28 de junio de 2023',
+            formaPago: 'Cheque',
+            fechaEntrega: '03 de julio de 2023',
+            moneda: 'Pesos',
+            solicitante: 'Ana Sanchez',
+         },
+         cliente: {
+            nombreEmpresa: 'Algo',
+            rut: '76.823.233-4',
+            giro: '',
+            direccion: 'R.5 SUR CHINQUIHUE ALTO KM1029, Puerto Montt',
+            email: 'daraya@sasfa.cl',
+            telefono: 'Teléfono(s): ',
+         },
+         proveedor: {
+            nombreEmpresa: 'Sika S.A Chile',
+            rut: '91.947.000-3',
+            direccion: 'Avda. Pdte. Salvador Allende 85, San Joaquin 8941077 Santiago',
+            comuna: 'Buin',
+            giro: 'Comercializacion',
+            ciudad: 'Santiago',
+            contacto: '',
+         },
+         etiquetas: [],
+         totalFOB: 0,
+         totalVenta: 0,
+         cuentaCliente: 0,
+         cuentaPorPagar: 0,
+         fechaCOT: '',
+         diasEntregas: 0,
+         cajasRollos: 0,
+         kg: 0,
+         cbm: 0,
+         adelantoProveedor: 0,
+         cuVenta: 0,
+         adelantoCliente: 0,
+      },
+      {
+         codigo: 'A-S2-546839',
+         fechaRDM: '',
+         descripcionProducto: 'SIKAFLEX 221 CAJA POR 12 CARTUCHOS 300ML Sellador de poliuretano color blanco',
+         cantidadSolicitada: '60',
+         precioUnitario: '7.083,333',
+         valor: '425.000',
+         ordenCompra: {
+            numero: '740',
+            fechaEmision: '28 de junio de 2023',
+            formaPago: 'Cheque',
+            fechaEntrega: '03 de julio de 2023',
+            moneda: 'Pesos',
+            solicitante: 'Ana Sanchez',
+         },
+         cliente: {
+            nombreEmpresa: 'Algo',
+            rut: '76.823.233-4',
+            giro: '',
+            direccion: 'R.5 SUR CHINQUIHUE ALTO KM1029, Puerto Montt',
+            email: 'daraya@sasfa.cl',
+            telefono: 'Teléfono(s): ',
+         },
+         proveedor: {
+            nombreEmpresa: 'Sika S.A Chile',
+            rut: '91.947.000-3',
+            direccion: 'Avda. Pdte. Salvador Allende 85, San Joaquin 8941077 Santiago',
+            comuna: 'Buin',
+            giro: 'Comercializacion',
+            ciudad: 'Santiago',
+            contacto: '',
+         },
+         etiquetas: [],
+         totalFOB: 0,
+         totalVenta: 0,
+         cuentaCliente: 0,
+         cuentaPorPagar: 0,
+         fechaCOT: '',
+         diasEntregas: 0,
+         cajasRollos: 0,
+         kg: 0,
+         cbm: 0,
+         adelantoProveedor: 0,
+         cuVenta: 0,
+         adelantoCliente: 0,
+      },
+   ],
+   id: '',
+   packageTipo: 'dsfgsdfgdfs',
 };
