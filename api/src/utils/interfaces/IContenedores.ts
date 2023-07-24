@@ -6,5 +6,6 @@ export interface IContenedor {
     fechaRDM: string;
     fechaEDC: string;
     tipo: string;
+    packageTipo: string;
     importaciones: Array<IImportacion>;
 }
