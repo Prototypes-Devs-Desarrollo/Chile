@@ -4,6 +4,8 @@ import SelOrden from '../oredenForm/SelOrden';
 import { useContenedores } from '@/customHooks/useContenedores';
 import EtiquetaComponente from '../etiquetas/EtiquetaComponente';
 import { contLimpiarContenedor } from '@/redux/reducer/reducerContenedor';
+import { useImportForm } from '@/customHooks/useImportForm';
+import { EditInputs } from './EditInputs';
 
 const ViewEditImportacion = ({ viewEditHandleOpenCon, viewEditOpenCon, id }) => {
    const [selOpenOrd, setOpenOrd] = useState(false);
@@ -18,6 +20,16 @@ const ViewEditImportacion = ({ viewEditHandleOpenCon, viewEditOpenCon, id }) => 
       dispatch(contLimpiarContenedor());
       viewEditHandleOpenCon();
    };
+
+     
+   // console.log("fuera del map", codigo)
+
+
+contenedorCont.importaciones.map((ele, index) => {
+
+<EditInputs ele={ele}/>
+})
+
 
    const TABLE_HEAD = ['Desacripcion Producto', 'Codigo', 'N° OC', 'Responsable', 'Fecha RDM', 'Cliente Requisitor', 'Tester Etiqueta', 'Proveedor Adjudicado', 'Fecha Cot.', 'Dias de Entrega', 'Cantidad', 'Cajas/Rollos', 'Kg', 'CBM', 'C.U. (USD FOB)', 'Total FOB', 'Adelanto Proveedor', 'Cuenta por Pagar', 'C.U. Venta', 'Total Venta', 'Adelanto Cliente'];
 
@@ -57,122 +69,8 @@ const ViewEditImportacion = ({ viewEditHandleOpenCon, viewEditOpenCon, id }) => 
                               </tr>
                            </thead>
                            <tbody>
-                              {contenedorCont.importaciones.map(({ codigo, fechaRDM, descripcionProducto, cantidadSolicitada, precioUnitario, valor, ordenCompra, cliente, proveedor, etiquetas, totalFOB, totalVenta, cuentaCliente, cuentaPorPagar, fechaCOT, diasEntregas, cajasRollos, kg, cbm, adelantoProveedor, cuVenta, adelantoCliente }, index) => (
-                                 <tr key={index} className='even:bg-blue-gray-50/50'>
-                                    <td className='p-2 sticky left-0 bg-blue-gray-50'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal w-52'>
-                                          {descripcionProducto}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {codigo}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {ordenCompra.numero}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {ordenCompra.solicitante}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {fechaRDM}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {cliente.nombreEmpresa}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <EtiquetaComponente key={index} />
-                                       {/* <select className='w-full h-[50px] max-w-[250px] bg-gray-400'>
-                                        <option className='w-full h-[50px]'></option>
-                                        <option>Uno</option>
-                                        <option>Dos</option>
-                                        <option>Tres</option>
-                                        <option>Cuatro</option>
-                                     </select> */}
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {proveedor.nombreEmpresa}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {fechaCOT}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       {/* <Input label='' type='number' value={diasEntregas} onChange={(e) => e.target.value} /> */}
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {diasEntregas}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {cantidadSolicitada}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {cajasRollos}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {kg}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {cbm}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {precioUnitario}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {/* DETALLES CON LOS VALORES LEIDOS DESDE LA IA */}
-                                          {parseInt(cantidadSolicitada) * parseFloat(precioUnitario)}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {adelantoProveedor}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {cuentaPorPagar}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {cuVenta}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {cantidadSolicitada * cuVenta}
-                                       </Typography>
-                                    </td>
-                                    <td className='p-2'>
-                                       <Typography variant='small' color='blue-gray' className='font-normal'>
-                                          {adelantoCliente}
-                                       </Typography>
-                                    </td>
-                                 </tr>
-                              ))}
+
+                     <EditInputs />
                            </tbody>
                         </table>
                      </Card>
