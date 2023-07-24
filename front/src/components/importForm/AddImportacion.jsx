@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
-import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input, Typography, Card } from '@material-tailwind/react';
+import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input, Typography, Card, Select, Option } from '@material-tailwind/react';
 import { useImportForm } from '@/customHooks/useImportForm';
 import SelOrden from '../oredenForm/SelOrden';
 import { useContenedores } from '@/customHooks/useContenedores';
+import EtiquetaComponente from '../etiquetas/EtiquetaComponente';
 
 const AddImportacion = ({ addHandleOpenCon, addOpenCon }) => {
-   const { contenedorCont, onChangeAddCon } = useContenedores();
-
    const [selOpenOrd, setAddOpenPro] = useState(false);
    const selHandleOpenOrd = () => setAddOpenPro(!selOpenOrd);
+   const { contenedorCont, loadingCont, onChangeAddCon, onSubmitAddCon, onClickAddCon } = useContenedores(addHandleOpenCon);
 
-   const TABLE_HEAD = ['Desacripcion Producto', 'Codigo', 'N° OC', 'Responsable', 'Fecha RDM', 'Cliente Requisitor', 'Proveedor Adjudicado', 'Fecha Cot.', 'Dias de Entrega', 'Cantidad', 'Cajas/Rollos', 'Kg', 'CBM', 'C.U. (USD FOB)', 'Total FOB', 'Adelanto Proveedor', 'Cuenta por Pagar', 'C.U. Venta', 'Total Venta', 'Adelanto Cliente'];
+   const TABLE_HEAD = ['Desacripcion Producto', 'Codigo', 'N° OC', 'Responsable', 'Fecha RDM', 'Cliente Requisitor', 'Tester Etiqueta', 'Proveedor Adjudicado', 'Fecha Cot.', 'Dias de Entrega', 'Cantidad', 'Cajas/Rollos', 'Kg', 'CBM', 'C.U. (USD FOB)', 'Total FOB', 'Adelanto Proveedor', 'Cuenta por Pagar', 'C.U. Venta', 'Total Venta', 'Adelanto Cliente'];
 
    return (
       <>
          <Dialog open={addOpenCon} size='xxl' handler={addHandleOpenCon} dismiss={{ enabled: false }}>
             <DialogHeader>Agregar Contenedor</DialogHeader>
-            <form>
+            <form onSubmit={onSubmitAddCon}>
                <DialogBody divider>
                   <div className='flex gap-2'>
                      <Input label='Nombre Contenedor' type='text' name='nombreContenedor' value={contenedorCont.nombreContenedor} onChange={onChangeAddCon} />
                      <Input label='Fecha RDM' type='date' name='fechaRDM' value={contenedorCont.fechaRDM} onChange={onChangeAddCon} />
                      <Input label='Fecha EDC' type='date' name='fechaEDC' value={contenedorCont.fechaEDC} onChange={onChangeAddCon} />
                      <Input label='Importacion Tipo' type='text' name='tipo' value={contenedorCont.tipo} onChange={onChangeAddCon} />
-                     <Input label='Package Tipo' type='text' name='packageTipo' />
+                     <Input label='Package Tipo' type='text' name='packageTipo' value={contenedorCont.packageTipo} onChange={onChangeAddCon} />
                   </div>
                </DialogBody>
                <DialogBody>
@@ -74,6 +74,16 @@ const AddImportacion = ({ addHandleOpenCon, addOpenCon }) => {
                                     <Typography variant='small' color='blue-gray' className='font-normal'>
                                        {cliente.nombreEmpresa}
                                     </Typography>
+                                 </td>
+                                 <td className='p-2'>
+                                    <EtiquetaComponente key={index} />
+                                    {/* <select className='w-full h-[50px] max-w-[250px] bg-gray-400'>
+                                       <option className='w-full h-[50px]'></option>
+                                       <option>Uno</option>
+                                       <option>Dos</option>
+                                       <option>Tres</option>
+                                       <option>Cuatro</option>
+                                    </select> */}
                                  </td>
                                  <td className='p-2'>
                                     <Typography variant='small' color='blue-gray' className='font-normal'>
@@ -157,7 +167,7 @@ const AddImportacion = ({ addHandleOpenCon, addOpenCon }) => {
                   <Button variant='text' color='red' onClick={addHandleOpenCon} className='mr-1'>
                      <span>Cancel</span>
                   </Button>
-                  <Button variant='gradient' color='green' onClick={addHandleOpenCon}>
+                  <Button type='submit' variant='gradient' color='green' onClick={onClickAddCon}>
                      <span>Agregar</span>
                   </Button>
                </DialogFooter>

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { List, ListItem, ListItemPrefix, ListItemSuffix, Chip, Card, Typography, Button } from '@material-tailwind/react';
 import AddImportacion from '@/components/importForm/AddImportacion';
 import { useContenedores } from '@/customHooks/useContenedores';
+import { contSetError, contSetSuccess } from '@/redux/reducer/reducerContenedor';
 
 const importaciones = () => {
    const [addOpenCon, setAddOpenCon] = useState(false);
    const addHandleOpenCon = () => setAddOpenCon(!addOpenCon);
 
-   const { cardsCon, errorCon, successCon, loadingCon, contenedoresCont, onClickCardsCon, onUseEffectCon, setSuccessCon, setErrorCon } = useContenedores();
+   const { cardsCon, errorCont, successCont, loadingCont, contenedoresCont, onClickCardsCon, onUseEffectCon, dispatch } = useContenedores();
 
    useEffect(() => {
       onUseEffectCon();
@@ -15,19 +16,19 @@ const importaciones = () => {
 
    useEffect(() => {
       return () => {
-         if (errorCon) {
-            setErrorCon('');
+         if (errorCont) {
+            dispatch(contSetError(''));
          }
       };
-   }, [errorCon]);
+   }, [errorCont]);
 
    useEffect(() => {
       return () => {
-         if (successCon) {
-            setSuccessCon('');
+         if (successCont) {
+            dispatch(contSetSuccess(''));
          }
       };
-   }, [successCon]);
+   }, [successCont]);
 
    return (
       <>

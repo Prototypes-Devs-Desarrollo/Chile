@@ -10,6 +10,7 @@ const initialState = {
       tipo: '',
       importaciones: [],
       id: '',
+      packageTipo: '',
    },
    loadingCont: true,
    successCont: '',
@@ -37,13 +38,13 @@ const reducerContenedor = createSlice({
       contAddImpContenedor(state, action) {
          return {
             ...state,
-            contenedorCont: { ...state.contenedorCont, importaciones: [ ...state.contenedorCont.importaciones, ...action.payload ] },
+            contenedorCont: { ...state.contenedorCont, importaciones: [...state.contenedorCont.importaciones, ...action.payload] },
          };
       },
       contDelImpContenedor(state, action) {
          return {
             ...state,
-            contenedorCont: { ...state.contenedorCont, importaciones: state.contenedorCont.importaciones.filter(x => x.ordenCompra.numero !== action.payload) },
+            contenedorCont: { ...state.contenedorCont, importaciones: state.contenedorCont.importaciones.filter((x) => x.ordenCompra.numero !== action.payload) },
          };
       },
       contLimpiarImpContenedor(state, action) {
@@ -52,11 +53,35 @@ const reducerContenedor = createSlice({
             contenedorCont: { ...state.contenedorCont, importaciones: [] },
          };
       },
+      contLimpiarContenedor(state, action) {
+         return {
+            ...state,
+            contenedorCont: { ...state.contenedorCont, nombreContenedor: '', fechaRDM: '', fechaEDC: '', tipo: '', importaciones: [], id: '', packageTipo: '' },
+         };
+      },
+      contSetLoading(state, action) {
+         return {
+            ...state,
+            loadingCont: action.payload,
+         };
+      },
+      contSetError(state, action) {
+         return {
+            ...state,
+            errorCont: action.payload,
+         };
+      },
+      contSetSuccess(state, action) {
+         return {
+            ...state,
+            successCont: action.payload,
+         };
+      },
    },
 });
 
 //ACA SE EXPORTAN LAS ACTIONS QUE SE CREAN AUTOMATICAMENTE MAS ARRIVA
-export const { contSetContenedores, contSetContenedor, contAddImpContenedor, contLimpiarImpContenedor, contDelImpContenedor } = reducerContenedor.actions;
+export const { contSetContenedores, contSetContenedor, contAddImpContenedor, contLimpiarImpContenedor, contDelImpContenedor, contSetLoading, contSetError, contSetSuccess, contLimpiarContenedor } = reducerContenedor.actions;
 
 //ACA SE EXPORTAN O EXPORTA EL REDUCER
 export default reducerContenedor.reducer;
