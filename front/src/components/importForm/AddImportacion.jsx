@@ -4,11 +4,17 @@ import { useImportForm } from '@/customHooks/useImportForm';
 import SelOrden from '../oredenForm/SelOrden';
 import { useContenedores } from '@/customHooks/useContenedores';
 import EtiquetaComponente from '../etiquetas/EtiquetaComponente';
+import { contLimpiarContenedor } from '@/redux/reducer/reducerContenedor';
 
 const AddImportacion = ({ addHandleOpenCon, addOpenCon }) => {
    const [selOpenOrd, setAddOpenPro] = useState(false);
    const selHandleOpenOrd = () => setAddOpenPro(!selOpenOrd);
-   const { contenedorCont, loadingCont, onChangeAddCon, onSubmitAddCon, onClickAddCon } = useContenedores(addHandleOpenCon);
+   const { contenedorCont, loadingCont, onChangeAddCon, onSubmitAddCon, onClickAddCon, dispatch } = useContenedores(addHandleOpenCon);
+
+   const cancelar = () => {
+      dispatch(contLimpiarContenedor())
+      addHandleOpenCon()
+   }
 
    const TABLE_HEAD = ['Desacripcion Producto', 'Codigo', 'N° OC', 'Responsable', 'Fecha RDM', 'Cliente Requisitor', 'Tester Etiqueta', 'Proveedor Adjudicado', 'Fecha Cot.', 'Dias de Entrega', 'Cantidad', 'Cajas/Rollos', 'Kg', 'CBM', 'C.U. (USD FOB)', 'Total FOB', 'Adelanto Proveedor', 'Cuenta por Pagar', 'C.U. Venta', 'Total Venta', 'Adelanto Cliente'];
 
@@ -164,7 +170,7 @@ const AddImportacion = ({ addHandleOpenCon, addOpenCon }) => {
                   </Card>
                </DialogBody>
                <DialogFooter>
-                  <Button variant='text' color='red' onClick={addHandleOpenCon} className='mr-1'>
+                  <Button variant='text' color='red' onClick={cancelar} className='mr-1'>
                      <span>Cancel</span>
                   </Button>
                   <Button type='submit' variant='gradient' color='green' onClick={onClickAddCon}>

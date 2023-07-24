@@ -8,6 +8,7 @@ const contenedoresSchema = new Schema<IContenedor>({
   fechaRDM: { type: String },
   fechaEDC: { type: String },
   tipo: { type: String },
+  packageTipo: { type: String },
   importaciones: Array<IImportacion>,
 });
 

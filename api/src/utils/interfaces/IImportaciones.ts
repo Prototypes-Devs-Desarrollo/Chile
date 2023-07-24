@@ -1,15 +1,18 @@
-import { IOrdenCompraCompleta } from './IOrdenCompras';
+import { IOrdenCompra, IOrdenCompraCompleta } from './IOrdenCompras';
 import { IProducto } from './IProductos';
 import { IEtiqueta } from './IEtiquetas';
+import { ICliente } from './IClientes';
+import { IProveedor } from './IProveedores';
 
-export interface IImportacion extends Pick<IProducto, 'descripcionProducto' | 'cantidadSolicitada' | 'valor' | 'precioUnitario'>, Pick<IOrdenCompraCompleta, 'ordenCompra' | 'cliente' | 'proveedor'> {
+export interface IImportacion extends Pick<IProducto, 'descripcionProducto' | 'cantidadSolicitada' | 'valor' | 'precioUnitario'> {
   id?: string;
+  codigo: string;
   fechaRDM: string;
-  etiquetas: Array<IEtiqueta>;
   totalFOB: number;
   totalVenta: number;
   cuentaCliente: number;
   cuentaPorPagar: number;
+  etiquetas: Array<IEtiqueta>;
   fechaCOT: string;
   diasEntregas: number;
   cajasRollos: number;
@@ -18,6 +21,9 @@ export interface IImportacion extends Pick<IProducto, 'descripcionProducto' | 'c
   adelantoProveedor: number;
   cuVenta: number;
   adelantoCliente: number;
+  cliente: ICliente;
+  proveedor: IProveedor;
+  ordenCompra: IOrdenCompra;
 }
 
 //ORDENADO
