@@ -7,7 +7,7 @@ export const ProductList = () => {
   const [currentPage, setCurrentPage] = useState(1);
 const [loading, setLoading] = useState(false)
   const productsPerPage = 20;
-
+  const [totalPages, setTotalPages] = useState()
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -22,51 +22,67 @@ const [loading, setLoading] = useState(false)
             },
           }
         );
-        console.log(response.data)
-        
-        setProductList(response.data.data.products);
         setLoading(false)
-
+        setProductList(response.data.data.products);
+        setTotalPages(response.data.meta.total_pages)
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
     fetchProducts();
-  }, [currentPage]);
+  }, []);
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-    setCurrentPage(1); // Reset page number when searching
-  };
-
-  const filteredProducts = productList.filter((product) =>
+  const filteredProducts = productList?.filter((product) =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const lastProductIndex = currentPage * productsPerPage;
-  const firstProductIndex = lastProductIndex - productsPerPage;
-  const currentProducts = filteredProducts.slice(
-    firstProductIndex,
-    lastProductIndex
-  );
 
-  const totalPages = 190;
+  const handlePreviousPage = async () => {
+    setCurrentPage(currentPage - 1);
+    const response = await axios.get(
+      `https://api.relbase.cl/api/v1/productos?page=${currentPage + 1}`,
+      {
+        headers: {
+          Authorization: "Cdhmq8tLQSG2KZiRyoofppXL",
+          "Content-Type": "application/json",
+          company: "BaxMZkD5n13cNpKAjyqKAeE4",
+        },
+      }
+    );
+    setProductList(response.data.data.products);  };
 
-  const handlePreviousPage = () => {
-    setCurrentPage( currentPage - 1);
-  };
-
-  const handleNextPage = () => {
+  const handleNextPage = async () => {
     setCurrentPage(currentPage + 1);
-  };
+    const response = await axios.get(
+      `https://api.relbase.cl/api/v1/productos?page=${currentPage + 1}`,
+      {
+        headers: {
+          Authorization: "Cdhmq8tLQSG2KZiRyoofppXL",
+          "Content-Type": "application/json",
+          company: "BaxMZkD5n13cNpKAjyqKAeE4",
+        },
+      }
+    );
+    setProductList(response.data.data.products);
 
-  const handleSelectPage = (event) => {
+}
+
+  const handleSelectPage = async(event) => {
     const selectedPage = parseInt(event.target.value);
-    setCurrentPage(selectedPage);
+    const response = await axios.get(
+      `https://api.relbase.cl/api/v1/productos?page=${selectedPage}`,
+      {
+        headers: {
+          Authorization: "Cdhmq8tLQSG2KZiRyoofppXL",
+          "Content-Type": "application/json",
+          company: "BaxMZkD5n13cNpKAjyqKAeE4",
+        },
+      }
+    );
+    setProductList(response.data.data.products);
   };
 
   return (
-    <section className="py-1 bg-blueGray-50 h-full">
       <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
           <div className="rounded-t mb-0 px-4 py-3 border-0">
@@ -94,7 +110,7 @@ const [loading, setLoading] = useState(false)
               </thead>
               <tbody>
 
-                {loading ? <p>cargando</p> : currentProducts.map((product) => (
+                {loading ? <p>cargando</p> : productList.map((product) => (
                   <tr key={product.id}>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-blueGray-700">
                       {product?.name}
@@ -138,6 +154,5 @@ const [loading, setLoading] = useState(false)
           </div>
         </div>
       </div>
-    </section>
   );
 };
