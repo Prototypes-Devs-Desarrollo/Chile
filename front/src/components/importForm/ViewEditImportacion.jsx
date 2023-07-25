@@ -4,13 +4,12 @@ import SelOrden from '../oredenForm/SelOrden';
 import { useContenedores } from '@/customHooks/useContenedores';
 import EtiquetaComponente from '../etiquetas/EtiquetaComponente';
 import { contLimpiarContenedor } from '@/redux/reducer/reducerContenedor';
-import { useImportForm } from '@/customHooks/useImportForm';
-import { EditInputs } from './EditInputs';
+import { EditInputs } from '../all/EditInputs';
 
 const ViewEditImportacion = ({ viewEditHandleOpenCon, viewEditOpenCon, id }) => {
    const [selOpenOrd, setOpenOrd] = useState(false);
    const selHandleOpenOrd = () => setOpenOrd(!selOpenOrd);
-   const { contenedorCont, loadingCont, onChangeAddCon, onSubmitAddCon, onClickAddCon, dispatch, onViewOneCon } = useContenedores(viewEditHandleOpenCon);
+   const { contenedorCont, loadingCont, onChangeAddCon, onSubmitEditCon, onClickAddCon, dispatch, onViewOneCon } = useContenedores(viewEditHandleOpenCon);
 
    useEffect(() => {
       onViewOneCon(id);
@@ -21,15 +20,11 @@ const ViewEditImportacion = ({ viewEditHandleOpenCon, viewEditOpenCon, id }) => 
       viewEditHandleOpenCon();
    };
 
-     
    // console.log("fuera del map", codigo)
 
-
-contenedorCont.importaciones.map((ele, index) => {
-
-<EditInputs ele={ele}/>
-})
-
+   contenedorCont.importaciones.map((ele, index) => {
+      <EditInputs ele={ele} />;
+   });
 
    const TABLE_HEAD = ['Desacripcion Producto', 'Codigo', 'N° OC', 'Responsable', 'Fecha RDM', 'Cliente Requisitor', 'Tester Etiqueta', 'Proveedor Adjudicado', 'Fecha Cot.', 'Dias de Entrega', 'Cantidad', 'Cajas/Rollos', 'Kg', 'CBM', 'C.U. (USD FOB)', 'Total FOB', 'Adelanto Proveedor', 'Cuenta por Pagar', 'C.U. Venta', 'Total Venta', 'Adelanto Cliente'];
 
@@ -42,7 +37,7 @@ contenedorCont.importaciones.map((ele, index) => {
                   <Spinner className='h-20 w-20 mx-auto my-10' />
                </DialogBody>
             ) : (
-               <form onSubmit={onSubmitAddCon}>
+               <form onSubmit={onSubmitEditCon}>
                   <DialogBody divider>
                      <div className='flex gap-2'>
                         <Input label='Nombre Contenedor' type='text' name='nombreContenedor' value={contenedorCont.nombreContenedor} onChange={onChangeAddCon} />
@@ -69,8 +64,9 @@ contenedorCont.importaciones.map((ele, index) => {
                               </tr>
                            </thead>
                            <tbody>
-
-                     <EditInputs />
+                              {contenedorCont.importaciones.map((imp, index) => (
+                                 <EditInputs key={index} imp={imp} idx={index} />
+                              ))}
                            </tbody>
                         </table>
                      </Card>
@@ -79,7 +75,7 @@ contenedorCont.importaciones.map((ele, index) => {
                      <Button variant='text' color='red' onClick={cancelar} className='mr-1'>
                         <span>Cancel</span>
                      </Button>
-                     <Button type='submit' variant='gradient' color='green' onClick={onClickAddCon} disabled>
+                     <Button type='submit' variant='gradient' color='green' onClick={onClickAddCon} /* disabled */>
                         <span>Agregar</span>
                      </Button>
                   </DialogFooter>

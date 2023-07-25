@@ -10,7 +10,7 @@ const importaciones = () => {
    const [viewEditOpenCon, setViewEditOpenCon] = useState(false);
    const addHandleOpenCon = () => setAddOpenCon(!addOpenCon);
    const viewEditHandleOpenCon = (id) => {
-      setIdCon(id)
+      setIdCon(id);
       setViewEditOpenCon(!viewEditOpenCon);
    };
 
@@ -19,7 +19,9 @@ const importaciones = () => {
    const { cardsCon, errorCont, successCont, loadingCont, contenedoresCont, onClickCardsCon, onUseEffectCon, dispatch } = useContenedores();
 
    useEffect(() => {
-      onUseEffectCon();
+      if (contenedoresCont.length == 0) {
+         onUseEffectCon();
+      }
    }, []);
 
    useEffect(() => {

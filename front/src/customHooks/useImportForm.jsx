@@ -1,3 +1,4 @@
+import { contEditImpContenedor } from '@/redux/reducer/reducerContenedor';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -50,9 +51,36 @@ const initial = {
    adelantoCliente: 0,
 };
 
-export const useImportForm = () => {
+export const useImportForm = (imp) => {
    const dispatch = useDispatch();
-   const [inputImp, setInputImp] = useState(initial);
+   // console.log(imp);
+   const [inputImp, setInputImp] = useState(imp ? imp : initial);
+
+   const onChangeConImp = (e, idx) => {
+      setInputImp({
+         ...inputImp,
+         [e.target.name]: e.target.value,
+      })
+      // dispatch(
+      //    contEditImpContenedor({
+      //       idx,
+      //       i: {
+      //          ...imp,
+      //          [e.target.name]: e.target.value,
+      //       },
+      //    })
+      // );
+      // onClickAddCon(e);
+   };
+
+   // const onClickAddCon = (e) => {
+   //    setErroresCon(
+   //       ValidoAddContenedor({
+   //          ...contenedorCont,
+   //          [e.target.name]: e.target.value,
+   //       })
+   //    );
+   // };
 
    const setImpInitialInput = () => setInputImp(initial);
    const setImpOC = (ordenCompra) => setInputImp({ ...inputImp, ordenCompra });
@@ -101,6 +129,7 @@ export const useImportForm = () => {
    const setImpAdelantoCliente = (adelantoCliente) => setInputImp({ ...inputImp, adelantoCliente });
 
    return {
+      onChangeConImp,
       inputImp,
       setImpInitialInput,
       setImpOC,
@@ -151,67 +180,48 @@ export const useImportForm = () => {
 };
 
 const ejemplo = {
-   fechaRDM: 'string',
-   descripcionProducto: 'string',
-   cantidadSolicitada: 'string',
-   valor: 'string',
+   codigo: 'A-S2-546839',
+   fechaRDM: '',
+   descripcionProducto: 'SIKAFLEX 221 CAJA POR 12 CARTUCHOS 300ML Sellador de poliuretano color gris',
+   cantidadSolicitada: '240',
+   precioUnitario: '7.083,333',
+   valor: '1.700.000',
    ordenCompra: {
-      numero: '104',
-      fechaEmision: 'string',
-      formaPago: 'string',
-      fechaEntrega: 'string',
-      moneda: 'string',
-      solicitante: 'string',
+      numero: '741',
+      fechaEmision: '28 de junio de 2023',
+      formaPago: 'Cheque',
+      fechaEntrega: '03 de julio de 2023',
+      moneda: 'Pesos',
+      solicitante: 'Ana Sanchez',
    },
    cliente: {
-      id: 'string',
-      nombreEmpresa: 'string',
-      rut: 'string',
-      giro: 'string',
-      direccion: 'string',
-      email: 'string',
-      telefono: 'string',
+      nombreEmpresa: 'Algo',
+      rut: '76.823.233-4',
+      giro: '',
+      direccion: 'R.5 SUR CHINQUIHUE ALTO KM1029, Puerto Montt',
+      email: 'daraya@sasfa.cl',
+      telefono: 'Teléfono(s): ',
    },
    proveedor: {
-      id: 'string',
-      nombreEmpresa: 'string',
-      rut: 'string',
-      direccion: 'string',
-      comuna: 'string',
-      giro: 'string',
-      ciudad: 'string',
-      contacto: 'string',
+      nombreEmpresa: 'Sika S.A Chile',
+      rut: '91.947.000-3',
+      direccion: 'Avda. Pdte. Salvador Allende 85, San Joaquin 8941077 Santiago',
+      comuna: 'Buin',
+      giro: 'Comercializacion',
+      ciudad: 'Santiago',
+      contacto: '',
    },
-   etiquetas: [
-      {
-         id: 'string',
-         tipo: 'string',
-         color: 'string',
-         texto: 'string',
-      },
-      {
-         id: 'string',
-         tipo: 'string',
-         color: 'string',
-         texto: 'string',
-      },
-      {
-         id: 'string',
-         tipo: 'string',
-         color: 'string',
-         texto: 'string',
-      },
-   ],
-   totalFOB: 1,
-   totalVenta: 11,
-   cuentaCliente: 1,
-   cuentaPorPagar: 1,
-   fechaCOT: 'string',
-   diasEntregas: 1,
-   cajasRollos: 1,
-   kg: 1,
-   cbm: 1,
-   adelantoProveedor: 1,
-   cuVenta: 1,
-   adelantoCliente: 1,
+   etiquetas: [],
+   totalFOB: 0,
+   totalVenta: 0,
+   cuentaCliente: 0,
+   cuentaPorPagar: 0,
+   fechaCOT: '',
+   diasEntregas: 0,
+   cajasRollos: 0,
+   kg: 0,
+   cbm: 0,
+   adelantoProveedor: 0,
+   cuVenta: 0,
+   adelantoCliente: 0,
 };
