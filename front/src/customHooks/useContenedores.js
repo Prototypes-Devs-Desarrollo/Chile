@@ -24,7 +24,7 @@ export const useContenedores = (addHandleOpenCon) => {
       });
    };
 
-   const onViewOneCon = async (id) =>{
+   const onViewOneCon = async (id) => {
       await ViewContenedorMethod({
          id,
          loading: (v) => dispatch(contSetLoading(v)),
@@ -33,7 +33,7 @@ export const useContenedores = (addHandleOpenCon) => {
             dispatch(contSetContenedor(res.payload));
          },
       });
-   }
+   };
 
    const onChangeAddCon = (e) => {
       dispatch(
@@ -52,6 +52,31 @@ export const useContenedores = (addHandleOpenCon) => {
             [e.target.name]: e.target.value,
          })
       );
+   };
+
+   const onSubmitEditCon = async (e) => {
+      e.preventDefault();
+      console.log(e.target)
+      // if (errorCont) {
+      //    dispatch(contSetError(''));
+      // }
+      // if (successCont) {
+      //    dispatch(contSetSuccess(''));
+      // }
+
+      // if (erroresCon.valido) {
+      //    console.log(contenedorCont);
+      //    await AddContenedorMethod({
+      //       con: contenedorCont,
+      //       loading: (v) => dispatch(contSetLoading(v)),
+      //       error: (msg) => dispatch(contSetError(msg)),
+      //       success: async (res) => {
+      //          await onUseEffectCon();
+      //          dispatch(contLimpiarContenedor());
+      //          addHandleOpenCon();
+      //       },
+      //    });
+      // }
    };
 
    const onSubmitAddCon = async (e) => {
@@ -95,6 +120,7 @@ export const useContenedores = (addHandleOpenCon) => {
       successCont,
       loadingCont,
       dispatch,
+      onSubmitEditCon,
    };
 };
 

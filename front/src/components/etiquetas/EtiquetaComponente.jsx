@@ -10,7 +10,7 @@ const EtiquetaComponente = () => {
       <div className='relative bg-gray-400 h-[60px] w-full min-w-[130px] max-w-[250px]'>
          <Typography className='p-2 h-full text-center'  onClick={onClickOpenEti}>Selec</Typography>
          {openEti && (
-            <ul className='absolute bg-blue-gray-300 top-[60px] z-10 w-full h-fit'>
+            <ul className='absolute bg-blue-gray-300 top-[60px] -z-10 w-full h-fit'>
                <li className='w-full h-[60px] bg-red-500'>
                   <Typography className='p-2 h-full text-center'>Texto 1</Typography>
                </li>
