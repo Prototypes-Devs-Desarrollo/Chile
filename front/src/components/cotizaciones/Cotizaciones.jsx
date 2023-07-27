@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-export const ProductList = () => {
+export const Cotizaciones = () => {
   const [productList, setProductList] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -9,7 +9,6 @@ const [loading, setLoading] = useState(false)
   const productsPerPage = 20;
   const [totalPages, setTotalPages] = useState()
 
-  console.log(productList)
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -25,7 +24,7 @@ const [loading, setLoading] = useState(false)
           }
         );
         setLoading(false)
-        setProductList(response.data.data.products);
+        setProductList(response.data.data.estimates);
         setTotalPages(response.data.meta.total_pages)
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -51,7 +50,7 @@ const [loading, setLoading] = useState(false)
         },
       }
     );
-    setProductList(response.data.data.products);  };
+    setProductList(response.data.data.estimates);  };
 
   const handleNextPage = async () => {
     setCurrentPage(currentPage + 1);
@@ -65,7 +64,7 @@ const [loading, setLoading] = useState(false)
         },
       }
     );
-    setProductList(response.data.data.products);
+    setProductList(response.data.data.estimates);
 
 }
 
@@ -81,7 +80,7 @@ const [loading, setLoading] = useState(false)
         },
       }
     );
-    setProductList(response.data.data.products);
+    setProductList(response.data.data.estimates);
   };
 
   return (
@@ -89,7 +88,7 @@ const [loading, setLoading] = useState(false)
           <div className="rounded-t mb-0 px-4 py-3 border-0">
             <div className="flex flex-wrap items-center">
               <div className="relative w-full px-4 max-w-full flex-grow flex-1 ">
-                <h3 className="font-semibold text-base text-blueGray-700">Product List</h3>
+                <h3 className="font-semibold text-base text-blueGray-700">Cotizaciones</h3>
               </div>
             </div>
           </div>
@@ -99,7 +98,7 @@ const [loading, setLoading] = useState(false)
               <thead>
                 <tr>
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                    Nombre
+                    Producto
                   </th>
 
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
@@ -118,14 +117,13 @@ const [loading, setLoading] = useState(false)
               </thead>
               <tbody>
 
-                {loading ? <p>cargando</p> : productList.map((product) => (
+                {loading ? <p>cargando</p> : productList?.map((product) => (
                   <tr key={product.id}>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-blueGray-700">
                       {product?.name}
                     </td>
 
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-blueGray-700">
-                      ${product?.unit_cost}
                     </td>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-blueGray-700">
                       ${product?.code}

@@ -13,7 +13,7 @@ const [loading, setLoading] = useState(false)
       try {
         setLoading(true)
         const response = await axios.get(
-          `https://api.relbase.cl/api/v1/proveedores?page=${currentPage}`,
+          `https://api.relbase.cl/api/v1/clientes?page=${currentPage}`,
           {
             headers: {
               Authorization: "Cdhmq8tLQSG2KZiRyoofppXL",
@@ -22,17 +22,15 @@ const [loading, setLoading] = useState(false)
             },
           }
         );
-        console.log(response.data)
         
-        setProviderList(response.data.data.providers);
+        setProviderList(response.data.data.customers);
         setLoading(false)
-
       } catch (error) {
         console.error("Error fetching providers:", error);
       }
     };
     fetchProducts();
-  }, [currentPage]);
+  }, []);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -52,13 +50,49 @@ const [loading, setLoading] = useState(false)
 
   const totalPages = 190;
 
-  const handlePreviousPage = () => {
-    setCurrentPage( currentPage - 1);
-  };
+  const handlePreviousPage = async () => {
+    try{
+    const response = await axios.get(
+      `https://api.relbase.cl/api/v1/clientes?page=${currentPage - 1}`,
+      {
+        headers: {
+          Authorization: "Cdhmq8tLQSG2KZiRyoofppXL",
+          "Content-Type": "application/json",
+          company: "BaxMZkD5n13cNpKAjyqKAeE4",
+        },
+      }
+    );
+    
+    setProviderList(response.data.data.costumers);
+    setLoading(false)
 
-  const handleNextPage = () => {
-    setCurrentPage(currentPage + 1);
-  };
+  } catch (error) {
+    console.error("Error fetching providers:", error);
+  }  
+
+}
+
+  const handleNextPage = async () => {
+    try{
+      const response = await axios.get(
+        `https://api.relbase.cl/api/v1/clientes?page=${currentPage + 1}`,
+        {
+          headers: {
+            Authorization: "Cdhmq8tLQSG2KZiRyoofppXL",
+            "Content-Type": "application/json",
+            company: "BaxMZkD5n13cNpKAjyqKAeE4",
+          },
+        }
+      );
+      
+      setProviderList(response.data.data.costumers);
+      setLoading(false)
+  
+    } catch (error) {
+      console.error("Error fetching providers:", error);
+    }  
+  
+  }
 
   const handleSelectPage = (event) => {
     const selectedPage = parseInt(event.target.value);
@@ -66,13 +100,11 @@ const [loading, setLoading] = useState(false)
   };
 
   return (
-    <section className="py-1 bg-blueGray-50 h-full">
-      <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
           <div className="rounded-t mb-0 px-4 py-3 border-0">
             <div className="flex flex-wrap items-center">
               <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                <h3 className="font-semibold text-base text-blueGray-700">Provider List</h3>
+                <h3 className="font-semibold text-base text-blueGray-700">Lista de clientes</h3>
               </div>
             </div>
           </div>
@@ -82,11 +114,18 @@ const [loading, setLoading] = useState(false)
               <thead>
                 <tr>
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                    Proveedor
+                    Cliente
                   </th>
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                    Product
+                  Rut
                   </th>
+                  <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                    Direccion
+                  </th>
+                  <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                    Actividad
+                  </th>
+   
                 </tr>
               </thead>
               <tbody>
@@ -97,10 +136,13 @@ const [loading, setLoading] = useState(false)
                       {provider?.name}
                     </td>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-blueGray-700">
-                      {provider?.description}
+                      {provider?.rut}
                     </td>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-blueGray-700">
-                      ${provider?.price}
+                      {provider?.address}
+                    </td>
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-blueGray-700">
+                      {provider?.business_activity}
                     </td>
                   </tr>
                 ))}
@@ -134,7 +176,5 @@ const [loading, setLoading] = useState(false)
             </button>
           </div>
         </div>
-      </div>
-    </section>
   );
 };
