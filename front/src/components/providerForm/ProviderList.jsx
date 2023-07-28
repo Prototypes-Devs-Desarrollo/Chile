@@ -7,6 +7,7 @@ export const ProviderList = () => {
   const [currentPage, setCurrentPage] = useState(1);
 const [loading, setLoading] = useState(false)
   const productsPerPage = 20;
+  const [totalPages, setTotalPages] = useState()
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -23,8 +24,9 @@ const [loading, setLoading] = useState(false)
           }
         );
         
-        setProviderList(response.data.data.customers);
         setLoading(false)
+        setProviderList(response.data.data.customers);
+        setTotalPages(response.data.meta.total_pages)
       } catch (error) {
         console.error("Error fetching providers:", error);
       }
@@ -48,7 +50,6 @@ const [loading, setLoading] = useState(false)
     lastProductIndex
   );
 
-  const totalPages = 190;
 
   const handlePreviousPage = async () => {
     try{
@@ -155,7 +156,7 @@ const [loading, setLoading] = useState(false)
               className="bg-blue-500 text-white px-4 py-2 rounded-l"
               onClick={handlePreviousPage}
             >
-              Previous
+              Atras
             </button>
             <select
               className="border mx-2 px-2 py-1 rounded"
@@ -172,7 +173,7 @@ const [loading, setLoading] = useState(false)
               className="bg-blue-500 text-white px-4 py-2 rounded-r"
               onClick={handleNextPage}
             >
-              Next
+              Siguiente
             </button>
           </div>
         </div>
