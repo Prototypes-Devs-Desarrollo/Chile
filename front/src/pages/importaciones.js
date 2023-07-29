@@ -5,7 +5,7 @@ import { useContenedores } from '@/customHooks/useContenedores';
 import { contSetError, contSetSuccess } from '@/redux/reducer/reducerContenedor';
 import ViewEditImportacion from '@/components/importForm/ViewEditImportacion';
 
-const importaciones = () => {
+const Importaciones = () => {
    const [addOpenCon, setAddOpenCon] = useState(false);
    const [viewEditOpenCon, setViewEditOpenCon] = useState(false);
    const addHandleOpenCon = () => setAddOpenCon(!addOpenCon);
@@ -63,4 +63,4 @@ const importaciones = () => {
    );
 };
 
-export default importaciones;
+export default Importaciones;

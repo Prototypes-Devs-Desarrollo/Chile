@@ -3,7 +3,7 @@ import AddProducto from '@/components/productForm/AddProducto';
 import { Button, Typography } from '@material-tailwind/react';
 import React, { useState } from 'react';
 
-const productos = () => {
+const Productos = () => {
    const [addOpenPro, setAddOpenPro] = useState(false);
    const addHandleOpenPro = () => setAddOpenPro(!addOpenPro);
 
@@ -20,4 +20,4 @@ const productos = () => {
    );
 };
 
-export default productos;
+export default Productos;
