@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { List, ListItem, ListItemPrefix, ListItemSuffix, Chip, Card, Typography, Button } from '@material-tailwind/react';
 import AddProvider from '@/components/providerForm/AddProvider';
 
-const proveedores = () => {
+const Proveedores = () => {
    
    const [addProv, setAddProv] = useState(false);
    const addHandleProd = () => setAddProv(!addProv);
 
-   useEffect(()=>{
+   // useEffect(()=>{
 
-   }, [])
+   // }, [])
 
    const addHandleProv = () => setAddProv(!addProv);
 
@@ -25,4 +25,4 @@ const proveedores = () => {
    );
 };
 
-export default proveedores;
+export default Proveedores;

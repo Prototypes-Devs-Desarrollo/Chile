@@ -2,7 +2,7 @@ import { useToJson } from '@/customHooks/useToJson';
 import { Button, Typography } from '@material-tailwind/react';
 import React, { useEffect, useRef, useState } from 'react';
 
-const odenestester = () => {
+const Odenestester = () => {
    const canvasRef = useRef(null);
    const [texto, setTexto] = useState('');
    const { sendMessage, chat } = useToJson();
@@ -140,4 +140,4 @@ const odenestester = () => {
    );
 };
 
-export default odenestester;
+export default Odenestester;

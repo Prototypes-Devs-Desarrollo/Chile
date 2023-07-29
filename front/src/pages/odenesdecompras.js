@@ -4,7 +4,7 @@ import { Squares2X2Icon, TableCellsIcon } from '@heroicons/react/24/solid';
 import { useOrdenes } from '@/customHooks/useOrdenes';
 import AddOrdenIA from '@/components/oredenForm/AddOrdenIA';
 
-const odenesdecompras = () => {
+const Odenesdecompras = () => {
    // EXPERIMENTAL
    const [addOpenIa, setAddOpenIa] = useState(false);
    const addHandleOpenIa = () => setAddOpenIa(!addOpenIa);
@@ -135,4 +135,4 @@ const odenesdecompras = () => {
    );
 };
 
-export default odenesdecompras;
+export default Odenesdecompras;
