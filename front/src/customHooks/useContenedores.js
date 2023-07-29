@@ -79,7 +79,7 @@ export const useContenedores = (addHandleOpenCon) => {
       // }
    };
 
-   const onSubmitAddCon = async (e) => {
+   const onSubmitAddCon = async (e, ) => {
       e.preventDefault();
       if (errorCont) {
          dispatch(contSetError(''));

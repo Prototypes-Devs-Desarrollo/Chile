@@ -10,7 +10,7 @@ const ViewEditImportacion = ({ viewEditHandleOpenCon, viewEditOpenCon, id }) => 
    const [selOpenOrd, setOpenOrd] = useState(false);
    const selHandleOpenOrd = () => setOpenOrd(!selOpenOrd);
    const { contenedorCont, loadingCont, onChangeAddCon, onSubmitEditCon, onClickAddCon, dispatch, onViewOneCon } = useContenedores(viewEditHandleOpenCon);
-
+ 
    useEffect(() => {
       onViewOneCon(id);
    }, []);
@@ -20,14 +20,8 @@ const ViewEditImportacion = ({ viewEditHandleOpenCon, viewEditOpenCon, id }) => 
       viewEditHandleOpenCon();
    };
 
-   // console.log("fuera del map", codigo)
-
-   contenedorCont.importaciones.map((ele, index) => {
-      <EditInputs ele={ele} />;
-   });
 
    const TABLE_HEAD = ['Desacripcion Producto', 'Codigo', 'N° OC', 'Responsable', 'Fecha RDM', 'Cliente Requisitor', 'Tester Etiqueta', 'Proveedor Adjudicado', 'Fecha Cot.', 'Dias de Entrega', 'Cantidad', 'Cajas/Rollos', 'Kg', 'CBM', 'C.U. (USD FOB)', 'Total FOB', 'Adelanto Proveedor', 'Cuenta por Pagar', 'C.U. Venta', 'Total Venta', 'Adelanto Cliente'];
-
    return (
       <>
          <Dialog open={viewEditOpenCon} size='xxl' handler={viewEditHandleOpenCon} dismiss={{ enabled: false }}>
@@ -65,7 +59,7 @@ const ViewEditImportacion = ({ viewEditHandleOpenCon, viewEditOpenCon, id }) => 
                            </thead>
                            <tbody>
                               {contenedorCont.importaciones.map((imp, index) => (
-                                 <EditInputs key={index} imp={imp} idx={index} />
+                                 <EditInputs contenedorCont={contenedorCont} key={index} imp={imp} idx={index} />
                               ))}
                            </tbody>
                         </table>
@@ -75,7 +69,10 @@ const ViewEditImportacion = ({ viewEditHandleOpenCon, viewEditOpenCon, id }) => 
                      <Button variant='text' color='red' onClick={cancelar} className='mr-1'>
                         <span>Cancel</span>
                      </Button>
-                     <Button type='submit' variant='gradient' color='green' onClick={onClickAddCon} /* disabled */>
+                     <Button type='submit' variant='gradient' color='green' onClick={() => onClickAddCon(editImportacion) } /* disabled */>
+                        <span>Agregar</span>
+                     </Button>
+                                          <Button type='submit' variant='gradient' color='green' onClick={() => onClickAddCon(editImportacion) } /* disabled */>
                         <span>Agregar</span>
                      </Button>
                   </DialogFooter>
