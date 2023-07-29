@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 
 export const EditInputs = ({ imp, idx, contenedorCont }) => {
    const dispatch = useDispatch()
+   const [update, setUpdate] = useState(false)
   const [editImportacion, setEditImportacion] = useState({
     codigo: '',
     fechaRDM: '',
@@ -66,11 +67,15 @@ export const EditInputs = ({ imp, idx, contenedorCont }) => {
       ...editImportacion,
       [e.target.name]: e.target.value,
     });
+    setUpdate(true)
+
   };
-console.log(contenedorCont)
-const editImport = () => {
+
+useEffect(() => {
    dispatch(contEditImportacion(editImportacion));
- };
+   setUpdate(false)
+}, [update])
+
 
 
   const handleSelectEtiqueta = (selectedEtiqueta) => {
@@ -86,11 +91,15 @@ const editImport = () => {
        ...editImportacion,
        etiquetas: etiquetasActualizadas,
      });
+     setUpdate(true)
+
    } else {
      setEditImportacion({
        ...editImportacion,
        etiquetas: [...editImportacion.etiquetas, selectedEtiqueta],
      });
+     setUpdate(true)
+
    }
  };
  const etiquetas = [
@@ -135,9 +144,7 @@ const editImport = () => {
           {editImportacion.cliente.nombreEmpresa}
         </Typography>
       </td>
-      <Button type='submit' variant='gradient' color='green' onClick={() => editImport(editImportacion) } /* disabled */>
-                        <span>Editar</span>
-                     </Button>
+
       <td className='p-2'>
          <select
           className='w-full h-[60px] max-w-[250px] bg-gray-400'
@@ -145,7 +152,7 @@ const editImport = () => {
         >
           <option value=''>Seleccione una etiqueta</option>
           {etiquetas.map((etiqueta) => (
-            <option key={etiqueta.value} value={etiqueta.value}>
+            <option defaultValue={editImportacion.etiquetas[0]} key={etiqueta.value} value={etiqueta.value}>
               {etiqueta.label}
             </option>
           ))}
@@ -189,6 +196,7 @@ const editImport = () => {
         <input
           type='number'
           name='kg'
+          defaultValue={editImportacion.kg}
           value={editImportacion.kg}
           onChange={(e) => onChangeConImp(e, idx)}
         />
