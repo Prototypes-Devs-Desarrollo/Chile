@@ -1,29 +1,43 @@
 import { Typography } from '@material-tailwind/react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 
-const EtiquetaComponente = () => {
-   const [openEti, setOpenEti] = useState(false);
+const EtiquetaComponente = ({ AddEtiqueta }) => {
+  const [selectedOption, setSelectedOption] = useState('');
 
-   const onClickOpenEti = () => setOpenEti(!openEti);
+  const etiquetas = [
+    { label: 'Pendiente', value: 'pendiente' },
+    { label: 'En Camino', value: 'en camino' },
+    { label: 'Completado', value: 'completado' },
+  ];
 
-   return (
-      <div className='relative bg-gray-400 h-[60px] w-full min-w-[130px] max-w-[250px]'>
-         <Typography className='p-2 h-full text-center'  onClick={onClickOpenEti}>Selec</Typography>
-         {openEti && (
-            <ul className='absolute bg-blue-gray-300 top-[60px] -z-10 w-full h-fit'>
-               <li className='w-full h-[60px] bg-red-500'>
-                  <Typography className='p-2 h-full text-center'>Texto 1</Typography>
-               </li>
-               <li className='w-full h-[60px] bg-green-500'>
-                  <Typography className='p-2 h-full text-center'>Texto 2</Typography>
-               </li>
-               <li className='w-full h-[60px] bg-blue-500'>
-                  <Typography className='p-2 h-full text-center'>Texto 3</Typography>
-               </li>
-            </ul>
-         )}
-      </div>
-   );
+  const onClickOpenEti = () => setOpenEti(!openEti);
+
+  const handleSelectOption = (option) => {
+    setSelectedOption(option);
+    AddEtiqueta(option);
+    setOpenEti(false);
+  };
+
+  return (
+    <div className='relative bg-gray-400 h-[60px] w-full min-w-[130px] max-w-[250px]'>
+      <Typography className='p-2 h-full text-center' onClick={onClickOpenEti}>
+        {selectedOption ? selectedOption.label : 'Selec'}
+      </Typography>
+      {openEti && (
+        <ul className='absolute bg-blue-gray-300 top-[60px] -z-10 w-full h-fit'>
+          {etiquetas.map((etiqueta) => (
+            <li
+              key={etiqueta.value}
+              className='w-full h-[60px] cursor-pointer'
+              onClick={() => handleSelectOption(etiqueta)}
+            >
+              <Typography className='p-2 h-full text-center'>{etiqueta.label}</Typography>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 };
 
 export default EtiquetaComponente;
