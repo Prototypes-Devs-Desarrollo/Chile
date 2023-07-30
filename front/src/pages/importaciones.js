@@ -39,7 +39,7 @@ const Importaciones = () => {
          }
       };
    }, [successCont]);
-
+console.log(contenedoresCont)
    return (
       <>
          <div className='w-[calc(100%-256px)] h-screen overflow-y-auto p-2'>
@@ -47,13 +47,16 @@ const Importaciones = () => {
             <Button onClick={addHandleOpenCon}>Agregar</Button>
             <div className='flex flex-row flex-wrap gap-3 justify-stretch pt-3'>
                {contenedoresCont.map((x, idx) => (
-                  <Card className='w-full max-w-[16rem] cursor-pointer' key={idx} color='blue' onClick={() => viewEditHandleOpenCon(x.id)}>
-                     <CardBody>
-                        <Typography>{x.nombreContenedor}</Typography>
-                        <Typography>Cant. Importaciones {x.importaciones.length}</Typography>
-                        {/* <Typography>Total {x.importaciones.map()}</Typography> */}
-                     </CardBody>
-                  </Card>
+                  <Card className="w-full max-w-[16rem] cursor-pointer bg-white shadow-md rounded-lg" key={idx} color="blue" onClick={() => viewEditHandleOpenCon(x.id)}>
+    <Typography variant="h6" className="text-gray-800 font-semibold mb-2">{x.nombreContenedor}</Typography>
+    <Typography className="text-gray-600 mb-1">Cant. Importaciones {x.importaciones.length}</Typography>
+    <Typography className="text-gray-600 mb-1">fechaRDM {x?.fechaRDM}</Typography>
+    <Typography className="text-blue-600 font-medium">
+      Valor total{' '}
+      {x?.importaciones.reduce((total, ele) => total + parseInt(ele.valor.replace(/\./g, ''), 10), 0).toLocaleString('es-CL', { style: 'currency', currency: 'CLP' })}
+    </Typography>
+    {/* Additional content or styling can be added here */}
+</Card>
                ))}
             </div>
             {addOpenCon && <AddImportacion addOpenCon={addOpenCon} addHandleOpenCon={addHandleOpenCon} />}
