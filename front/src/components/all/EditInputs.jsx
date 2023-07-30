@@ -148,13 +148,14 @@ useEffect(() => {
 
       <td className='p-2'>
          <select
+          value={editImportacion.etiquetas[0]}
           className='w-full h-[60px] max-w-[250px] bg-gray-400'
           onChange={(e) => handleSelectEtiqueta(e.target.value)}
         >
           <option value=''>Seleccione una etiqueta</option>
           {etiquetas.map((etiqueta) => (
             <option defaultValue={editImportacion.etiquetas[0]} key={etiqueta.value} value={etiqueta.value}>
-              {etiqueta.label}
+              {editImportacion.etiquetas[0]} 
             </option>
           ))}
         </select>   

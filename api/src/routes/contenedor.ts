@@ -11,7 +11,6 @@ router.post('/create', isLoggedIn, catchedAsync(contenedoresControllers.createOn
 router.get('/all', isLoggedIn, catchedAsync(contenedoresControllers.findAll));
 router.get('/:id', isLoggedIn, catchedAsync(contenedoresControllers.findId));
 
-
 // router.post('/', /* isLoggedIn, */ catchedAsync(p1.crear));
 // router.put('/', /* isLoggedIn, */ catchedAsync(p1.editar));
 
