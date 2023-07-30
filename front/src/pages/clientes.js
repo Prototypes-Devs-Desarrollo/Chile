@@ -8,9 +8,6 @@ const Proveedores = () => {
    const [addProv, setAddProv] = useState(false);
    const addHandleProd = () => setAddProv(!addProv);
 
-   // useEffect(()=>{
-
-   // }, [])
 
    const addHandleProv = () => setAddProv(!addProv);
 

@@ -50,8 +50,10 @@ const AddImportacion = ({ addHandleOpenCon, addOpenCon }) => {
                         </thead>
                         <tbody>
                         {contenedorCont.importaciones.map((imp, index) => (
-                                 <EditInputs contenedorCont={contenedorCont} key={index} imp={imp} idx={index} />
-                              ))}
+  index !== contenedorCont.importaciones.length - 1 && index >= 0 ? (
+    <EditInputs contenedorCont={contenedorCont} key={index} imp={imp} idx={index} />
+  ) : null
+))}
                         </tbody>
                      </table>
                   </Card>
