@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 const ViewEditImportacion = ({ viewEditHandleOpenCon, viewEditOpenCon, id }) => {
    const [selOpenOrd, setOpenOrd] = useState(false);
    const selHandleOpenOrd = () => setOpenOrd(!selOpenOrd);
-   const { contenedorCont, loadingCont, onChangeAddCon, onSubmitEditCon, onClickAddCon, onViewOneCon } = useContenedores(viewEditHandleOpenCon);
+   const { contenedorCont, loadingCont, onChangeAddCon, onClickAddCon, onViewOneCon } = useContenedores(viewEditHandleOpenCon);
  
    useEffect(() => {
       onViewOneCon(id);
@@ -22,17 +22,25 @@ const ViewEditImportacion = ({ viewEditHandleOpenCon, viewEditOpenCon, id }) => 
       viewEditHandleOpenCon();
    };
 const dispatch = useDispatch()
-   const onSubmitAddCon = async (e, ) => {
-    
-         await AddContenedorMethod({
-            con: contenedorCont,
-            loading: (v) => dispatch(contSetLoading(v)),
-            error: (msg) => dispatch(contSetError(msg)),
-            success: async (res) => {
-               dispatch(contLimpiarImpContenedor());
-            },
-         });
-      }
+
+
+const onSubmitAddCon = async (e, ) => {
+      await AddContenedorMethod({
+         con: contenedorCont,
+         loading: (v) => dispatch(contSetLoading(v)),
+         error: (msg) => dispatch(contSetError(msg), console.log(msg)),
+         success: async (res) => {
+            console.log(res)
+
+            await onUseEffectCon();
+            dispatch(contLimpiarContenedor());
+            addHandleOpenCon();
+         },
+      });
+   }
+
+
+
    const TABLE_HEAD = ['Desacripcion Producto', 'Codigo', 'N° OC', 'Responsable', 'Fecha RDM', 'Cliente Requisitor', 'Tester Etiqueta', 'Proveedor Adjudicado', 'Fecha Cot.', 'Dias de Entrega', 'Cantidad', 'Cajas/Rollos', 'Kg', 'CBM', 'C.U. (USD FOB)', 'Total FOB', 'Adelanto Proveedor', 'Cuenta por Pagar', 'C.U. Venta', 'Total Venta', 'Adelanto Cliente'];
    return (
       <>
@@ -43,7 +51,7 @@ const dispatch = useDispatch()
                   <Spinner className='h-20 w-20 mx-auto my-10' />
                </DialogBody>
             ) : (
-               <form onSubmit={onSubmitEditCon}>
+               <div >
                   <DialogBody divider>
                      <div className='flex gap-2'>
                         <Input label='Nombre Contenedor' type='text' name='nombreContenedor' value={contenedorCont.nombreContenedor} onChange={onChangeAddCon} />
@@ -81,12 +89,12 @@ const dispatch = useDispatch()
                      <Button variant='text' color='red' onClick={cancelar} className='mr-1'>
                         <span>Cancel</span>
                      </Button>
-                     <Button type='submit' variant='gradient' color='green' onClick={() => onClickAddCon(onSubmitAddCon) } /* disabled */>
-                        <span>Editar</span>
-                     </Button>
+                     <Button  variant='gradient' color='green' onClick={() => onSubmitAddCon()}>
+                     <span>Editar</span>
+                  </Button>
                             
                   </DialogFooter>
-               </form>
+               </div>
             )}
             {selOpenOrd && <SelOrden selHandleOpenOrd={selHandleOpenOrd} selOpenOrd={selOpenOrd} />}
          </Dialog>
