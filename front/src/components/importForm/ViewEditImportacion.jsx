@@ -3,13 +3,15 @@ import { Button, Dialog, DialogHeader, DialogBody, DialogFooter, Input, Typograp
 import SelOrden from '../oredenForm/SelOrden';
 import { useContenedores } from '@/customHooks/useContenedores';
 import EtiquetaComponente from '../etiquetas/EtiquetaComponente';
-import { contLimpiarContenedor } from '@/redux/reducer/reducerContenedor';
+import { contLimpiarContenedor, contLimpiarImpContenedor, contSetError, contSetLoading } from '@/redux/reducer/reducerContenedor';
 import { EditInputs } from '../all/EditInputs';
+import { AddContenedorMethod } from '../../../utils/metodos/metodosContenedores';
+import { useDispatch } from 'react-redux';
 
 const ViewEditImportacion = ({ viewEditHandleOpenCon, viewEditOpenCon, id }) => {
    const [selOpenOrd, setOpenOrd] = useState(false);
    const selHandleOpenOrd = () => setOpenOrd(!selOpenOrd);
-   const { contenedorCont, loadingCont, onChangeAddCon, onSubmitEditCon, onClickAddCon, dispatch, onViewOneCon } = useContenedores(viewEditHandleOpenCon);
+   const { contenedorCont, loadingCont, onChangeAddCon, onSubmitEditCon, onClickAddCon, onViewOneCon } = useContenedores(viewEditHandleOpenCon);
  
    useEffect(() => {
       onViewOneCon(id);
@@ -19,8 +21,18 @@ const ViewEditImportacion = ({ viewEditHandleOpenCon, viewEditOpenCon, id }) => 
       dispatch(contLimpiarContenedor());
       viewEditHandleOpenCon();
    };
-
-
+const dispatch = useDispatch()
+   const onSubmitAddCon = async (e, ) => {
+    
+         await AddContenedorMethod({
+            con: contenedorCont,
+            loading: (v) => dispatch(contSetLoading(v)),
+            error: (msg) => dispatch(contSetError(msg)),
+            success: async (res) => {
+               dispatch(contLimpiarImpContenedor());
+            },
+         });
+      }
    const TABLE_HEAD = ['Desacripcion Producto', 'Codigo', 'N° OC', 'Responsable', 'Fecha RDM', 'Cliente Requisitor', 'Tester Etiqueta', 'Proveedor Adjudicado', 'Fecha Cot.', 'Dias de Entrega', 'Cantidad', 'Cajas/Rollos', 'Kg', 'CBM', 'C.U. (USD FOB)', 'Total FOB', 'Adelanto Proveedor', 'Cuenta por Pagar', 'C.U. Venta', 'Total Venta', 'Adelanto Cliente'];
    return (
       <>
@@ -69,12 +81,10 @@ const ViewEditImportacion = ({ viewEditHandleOpenCon, viewEditOpenCon, id }) => 
                      <Button variant='text' color='red' onClick={cancelar} className='mr-1'>
                         <span>Cancel</span>
                      </Button>
-                     <Button type='submit' variant='gradient' color='green' onClick={() => onClickAddCon(editImportacion) } /* disabled */>
-                        <span>Agregar</span>
+                     <Button type='submit' variant='gradient' color='green' onClick={() => onClickAddCon(onSubmitAddCon) } /* disabled */>
+                        <span>Editar</span>
                      </Button>
-                                          <Button type='submit' variant='gradient' color='green' onClick={() => onClickAddCon(editImportacion) } /* disabled */>
-                        <span>Agregar</span>
-                     </Button>
+                            
                   </DialogFooter>
                </form>
             )}
