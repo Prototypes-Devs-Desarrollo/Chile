@@ -23,7 +23,7 @@ const EtiquetaComponente = ({ AddEtiqueta }) => {
       <Typography className='p-2 h-full text-center' onClick={onClickOpenEti}>
         {selectedOption ? selectedOption.label : 'Selec'}
       </Typography>
-      {openEti && (
+     
         <ul className='absolute bg-blue-gray-300 top-[60px] -z-10 w-full h-fit'>
           {etiquetas.map((etiqueta) => (
             <li
@@ -35,7 +35,6 @@ const EtiquetaComponente = ({ AddEtiqueta }) => {
             </li>
           ))}
         </ul>
-      )}
     </div>
   );
 };

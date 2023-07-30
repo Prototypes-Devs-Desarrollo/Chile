@@ -42,6 +42,7 @@ export const EditInputs = ({ imp, idx, contenedorCont }) => {
       contacto: '',
     },
     etiquetas: [],
+
     totalFOB: 0,
     totalVenta: 0,
     cuentaCliente: 0,
@@ -55,7 +56,7 @@ export const EditInputs = ({ imp, idx, contenedorCont }) => {
     cuVenta: 0,
     adelantoCliente: 0,
   });
-
+console.log(contenedorCont)
 
   // useEffect para establecer los valores de editImportacion a partir de imp
   useEffect(() => {
