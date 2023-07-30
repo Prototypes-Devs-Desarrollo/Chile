@@ -89,19 +89,23 @@ const reducerContenedor = createSlice({
       },
       contEditImportacion(state, action) {
          const editImportacion = action.payload;
-         const filteredImportaciones = state.contenedorCont.importaciones.filter(
-           (ele) => ele.codigo !== editImportacion.codigo
-         );
-         filteredImportaciones.push(editImportacion);
    
-         return {
-           ...state,
-           contenedorCont: {
-             ...state.contenedorCont,
-             importaciones: filteredImportaciones,
-           },
-         };
+         // Buscamos el índice del objeto que tiene el mismo código que el objeto editado
+         const indexToReplace = state.contenedorCont.importaciones.findIndex(
+           (ele) => ele.codigo === editImportacion.codigo
+         );
+   
+         if (indexToReplace !== -1) {
+           // Si encontramos el objeto, lo eliminamos y luego insertamos el objeto editado en su posición
+           state.contenedorCont.importaciones.splice(indexToReplace, 1, editImportacion);
+         } else {
+           // Si no encontramos el objeto, simplemente lo agregamos al final del arreglo
+           state.contenedorCont.importaciones.push(editImportacion);
+         }
        },
+   
+       // ... otros reducers ...
+     
      },
    });
 
