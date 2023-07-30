@@ -39,12 +39,11 @@ const Odenesdecompras = () => {
          <div className='w-[calc(100%-256px)] h-screen overflow-y-auto p-2'>
             <div className='flex justify-between items-center pb-3'>
                <Typography variant='h4'>Odenes de Compras</Typography>
-               <Button onClick={addHandleOpenIa}>Add</Button>
                {cards ? <Squares2X2Icon className='h-9 w-9 text-black' onClick={onClickCards} /> : <TableCellsIcon className='h-9 w-9 text-black' onClick={onClickCards} />}
             </div>
             {loading ? (
                <Spinner className='h-20 w-20 mx-auto my-10' />
-            ) : cards ? (
+            ) : !cards ? (
                <div className='flex flex-row flex-wrap gap-3 justify-items-stretch pt-3'>
                   {ordenesOrde.map((o, idx) => (
                      <Card className='w-full max-w-[16rem]' key={idx} color='blue'>
@@ -60,6 +59,8 @@ const Odenesdecompras = () => {
                         </CardBody>
                      </Card>
                   ))}
+                                 <Button onClick={addHandleOpenIa}>Add</Button>
+
                </div>
             ) : (
                <Card className='overflow-scroll h-[100%-36px] w-full'>
@@ -130,6 +131,10 @@ const Odenesdecompras = () => {
                </Card>
             )}
             {addOpenIa && <AddOrdenIA addHandleOpenIa={addHandleOpenIa} addOpenIa={addOpenIa} listarOrdenes={onUseEffectOrd} />}
+            <div className='flex justify-center'>
+            <Button onClick={addHandleOpenIa}>Importar nueva orden</Button>
+            </div>
+
          </div>
       </>
    );
