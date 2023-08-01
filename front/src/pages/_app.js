@@ -7,7 +7,7 @@ import axios from 'axios';
 import Layout from '@/components/Layout';
 
 // axios.defaults.baseURL = 'http://localhost:8080/v1/';
-axios.defaults.baseURL = 'https://chile-produccion-production.up.railway.app/v1/';
+ axios.defaults.baseURL = 'https://chile-produccion-production.up.railway.app/v1/';
 
 export default function App({ Component, pageProps }) {
    const router = useRouter();
