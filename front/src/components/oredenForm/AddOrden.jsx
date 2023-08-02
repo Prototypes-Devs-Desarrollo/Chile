@@ -4,9 +4,11 @@ import { AddOrdenMethod } from '../../../utils/metodos/metodosOrdenes';
 import { useRouter } from 'next/router';
 import { setProducts } from '@/redux/reducer/reducerProduc';
 import axios from 'axios';
+import { clieSetCliente } from '@/redux/reducer/reducerClient';
 
 export const AddOrden = () => {
   const productosFromRedux = useSelector((state) => state.reducerProduc.productos);
+  const clients = useSelector((state) => state.reducerClient.clienteClie); // Renamed clientes to clients
 
   const [orden, setOrden] = useState({
     cliente: {
@@ -50,6 +52,8 @@ export const AddOrden = () => {
 
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [searchResultsClients, setSearchResultsClients] = useState([]);
+  const [searchValueClient, setSearchValueClient] = useState('');
 
   const debounce = (func, delay) => {
     let timer;
@@ -57,6 +61,60 @@ export const AddOrden = () => {
       clearTimeout(timer);
       timer = setTimeout(() => func.apply(this, args), delay);
     };
+  };
+
+  const handleClienteSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchValueClient(value);
+
+    if (value.length >= 3) {
+      // Perform client search in the 'clients' array from Redux state
+      const clientesEncontrados = buscarCliente(value);
+      setSearchResultsClients(clientesEncontrados);
+    } else {
+        setSearchResultsClients([]);
+    }
+
+    // Reset the selected client when the search value changes
+    setOrden((prevOrden) => ({
+      ...prevOrden,
+      cliente: {
+        nombreEmpresa: '',
+        rut: '',
+        giro: '',
+        direccion: '',
+        email: '',
+        telefono: '',
+      },
+    }));
+  };
+
+  // Function to perform client search based on the searchValue
+  const buscarCliente = (searchValueClient) => {
+    if (!clients || clients.length === 0) {
+      return [];
+    }
+    return clients.filter((cliente) => {
+      return (
+        cliente.nombreEmpresa.toLowerCase().includes(searchValueClient.toLowerCase()) ||
+        cliente.rut.toLowerCase().includes(searchValueClient.toLowerCase())
+      );
+    });
+  };
+
+  // Function to handle selecting a client from search results
+  const handleSeleccionarCliente = (cliente) => {
+    setOrden((prevOrden) => ({
+      ...prevOrden,
+      cliente: {
+        nombreEmpresa: cliente.nombreEmpresa,
+        rut: cliente.rut,
+        giro: cliente.giro,
+        direccion: cliente.direccion,
+        email: cliente.email,
+        telefono: cliente.telefono,
+      },
+    }));
   };
 
   const handleSearchChange = (e) => {
@@ -78,7 +136,7 @@ export const AddOrden = () => {
       }, 300);
       delayedSearch();
     } else {
-      setSearchResults([]);
+    //   setSearchResults([]);
     }
   }, [searchValue]);
 
@@ -154,61 +212,84 @@ export const AddOrden = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        setLoading(true);
         const response = await axios.get(`product/getAll`);
-        setLoading(false);
         dispatch(setProducts(response.data.payload));
+        const response2 = await axios.get("client/getAll");
+        dispatch(clieSetCliente(response2.data.payload));
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
     fetchProducts();
   }, []);
+
   const opcionesObservacionesGenerales = ['Aérea', 'Marítima', 'Terrestre'];
 
   return (
-    <div className="container mx-auto">
-      <h2 className="text-xl font-bold mb-4">Agregar Orden</h2>
-      <form onSubmit={handleSubmit}>
-        {/* Sección Cliente */}
-        <h3 className="text-lg font-bold mb-2">Cliente</h3>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <input
-            type="text"
-            name="cliente.nombreEmpresa"
-            value={orden.cliente.nombreEmpresa}
-            onChange={handleChange}
-            placeholder="Nombre de la empresa"
-            className="w-full p-2 border border-gray-300 rounded"
-          />
-          <input
-            type="text"
-            name="cliente.direccion"
-            value={orden.cliente.direccion}
-            onChange={handleChange}
-            placeholder="Direccion de la empresa"
-            className="w-full p-2 border border-gray-300 rounded"
-          />
-          <input
-            type="text"
-            name="cliente.rut"
-            value={orden.cliente.rut}
-            onChange={handleChange}
-            placeholder="Rut de la empresa"
-            className="w-full p-2 border border-gray-300 rounded"
-          />
-          <input
-            type="text"
-            name="cliente.giro"
-            value={orden.cliente.giro}
-            onChange={handleChange}
-            placeholder="Forma de pago"
-            className="w-full p-2 border border-gray-300 rounded"
-          />
-          {/* Agrega los demás campos del cliente */}
-          {/* <input ... /> */}
-        </div>
-
+        <div className="container mx-auto">
+          <h2 className="text-xl font-bold mb-4">Agregar Orden</h2>
+          <form onSubmit={handleSubmit}>
+            {/* Sección Cliente */}
+            <h3 className="text-lg font-bold mb-2">Cliente</h3>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <input
+                type="text"
+                name="clienteSearch"
+                value={searchValue}
+                placeholder="Buscar cliente por nombre o rut"
+                onChange={handleClienteSearchChange}
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+              {searchResultsClients.length > 0 && (
+                <div className="col-span-2 border border-gray-300 rounded p-4 mt-4">
+                  <h4 className="text-lg font-bold mb-2">Resultados de la búsqueda</h4>
+                  <ul>
+                    {searchResultsClients.map((cliente) => (
+                      <li
+                        key={cliente.rut}
+                        className="cursor-pointer p-2 hover:bg-blue-200"
+                        onClick={() => handleSeleccionarCliente(cliente)}
+                      >
+                        {cliente.rut} - {cliente.nombreEmpresa}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {/* Render the selected client details */}
+              <input
+                type="text"
+                name="cliente.nombreEmpresa"
+                value={orden.cliente.nombreEmpresa}
+                onChange={handleChange}
+                placeholder="Nombre de la empresa"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+              <input
+                type="text"
+                name="cliente.direccion"
+                value={orden.cliente.direccion}
+                onChange={handleChange}
+                placeholder="Direccion de la empresa"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+              <input
+                type="text"
+                name="cliente.rut"
+                value={orden.cliente.rut}
+                onChange={handleChange}
+                placeholder="Rut de la empresa"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+              <input
+                type="text"
+                name="cliente.giro"
+                value={orden.cliente.giro}
+                onChange={handleChange}
+                placeholder="Forma de pago"
+                className="w-full p-2 border border-gray-300 rounded"
+              />
+            </div>
         {/* Sección Proveedor */}
         <h3 className="text-lg font-bold mb-2">Proveedor</h3>
         <div className="grid grid-cols-2 gap-4 mb-4">
@@ -294,8 +375,8 @@ export const AddOrden = () => {
           />
         </div>
 
-        {/* Sección Productos */}
-        <h3 className="text-lg font-bold mb-2">Productos</h3>
+             {/* Sección Productos */}
+             <h3 className="text-lg font-bold mb-2">Productos</h3>
         <input
           type="text"
           name="productoSearch"
@@ -304,7 +385,6 @@ export const AddOrden = () => {
           onChange={handleSearchChange}
           className="w-full p-2 border border-gray-300 rounded mb-4"
         />
-
         {searchResults.length > 0 && (
           <div className="border border-gray-300 rounded p-4 mt-4">
             <h4 className="text-lg font-bold mb-2">Resultados de la búsqueda</h4>
@@ -321,7 +401,6 @@ export const AddOrden = () => {
             </ul>
           </div>
         )}
-
         <table className="w-full table-auto text-left">
           <thead>
             <tr>
@@ -352,7 +431,6 @@ export const AddOrden = () => {
             ))}
           </tbody>
         </table>
-
         {/* Sección Otros */}
         <h3 className="text-lg font-bold mb-2">Otros</h3>
         <div className="grid grid-cols-2 gap-4 mb-4">
