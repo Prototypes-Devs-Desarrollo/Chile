@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { setProducts } from '@/redux/reducer/reducerProduc';
 import axios from 'axios';
 import { clieSetCliente } from '@/redux/reducer/reducerClient';
+import CircularJSON from 'circular-json';
 
 export const AddOrden = () => {
   const productosFromRedux = useSelector((state) => state.reducerProduc.productos);
@@ -202,9 +203,10 @@ export const AddOrden = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const clonedOrden = CircularJSON.parse(CircularJSON.stringify(orden));
     AddOrdenMethod({
-      ord: orden,
-      loading: (v) => console.log(v),
+        ord:  CircularJSON.parse(CircularJSON.stringify(orden)),
+        loading: (v) => console.log(v),
       error: (msg) => console.log(msg),
       success: (res) => {
         router.push("/odenesdecompras");
@@ -227,11 +229,73 @@ export const AddOrden = () => {
   }, []);
 
   const opcionesObservacionesGenerales = ['Aérea', 'Marítima', 'Terrestre'];
-
+ 
+  const setProveedorNombreEmpresa = (nombreEmpresa) => {
+    setOrden({ ...orden, proveedor: { ...orden.proveedor, nombreEmpresa } });
+  };
+  
+  const setProveedorRut = (rut) => {
+    setOrden({ ...orden, proveedor: { ...orden.proveedor, rut } });
+  };
+  
+  const setProveedorDireccion = (direccion) => {
+    setOrden({ ...orden, proveedor: { ...orden.proveedor, direccion } });
+  };
+  
+  const setOrdenCompraNumero = (numero) => {
+    setOrden({ ...orden, ordenCompra: { ...orden.ordenCompra, numero } });
+  };
+  
+  const setOrdenCompraFechaEmision = (fechaEmision) => {
+    setOrden({ ...orden, ordenCompra: { ...orden.ordenCompra, fechaEmision } });
+  };
+  
+  const setOrdenCompraFormaPago = (formaPago) => {
+    setOrden({ ...orden, ordenCompra: { ...orden.ordenCompra, formaPago } });
+  };
+  
+  const setOrdenCompraFechaEntrega = (fechaEntrega) => {
+    setOrden({ ...orden, ordenCompra: { ...orden.ordenCompra, fechaEntrega } });
+  };
+  
+  const setOrdenCompraMoneda = (moneda) => {
+    setOrden({ ...orden, ordenCompra: { ...orden.ordenCompra, moneda } });
+  };
+  
+  const setOrdenCompraSolicitante = (solicitante) => {
+    setOrden({ ...orden, ordenCompra: { ...orden.ordenCompra, solicitante } });
+  };
+  
+  const setSubTotal = (subTotal) => {
+    setOrden({ ...orden, subTotal });
+  };
+  
+  const setDescuentoGlobal = (descuentoGlobal) => {
+    setOrden({ ...orden, descuentoGlobal });
+  };
+  
+  const setMontoNeto = (montoNeto) => {
+    setOrden({ ...orden, montoNeto });
+  };
+  
+  const setMontoExento = (montoExento) => {
+    setOrden({ ...orden, montoExento });
+  };
+  
+  const setIva = (iva) => {
+    setOrden({ ...orden, iva });
+  };
+  
+  const setTotal = (total) => {
+    setOrden({ ...orden, total });
+  };
+  
+  const setObservacionesGenerales = (observacionesGenerales) => {
+    setOrden({ ...orden, observacionesGenerales });
+  };
   return (
         <div className="container mx-auto">
           <h2 className="text-xl font-bold mb-4">Agregar Orden</h2>
-          <form onSubmit={handleSubmit}>
             {/* Sección Cliente */}
             <h3 className="text-lg font-bold mb-2">Cliente</h3>
             <div className="grid grid-cols-2 gap-4 mb-4">
@@ -299,24 +363,21 @@ export const AddOrden = () => {
           <input
             type="text"
             name="proveedor.nombreEmpresa"
-            value={orden.proveedor.nombreEmpresa}
-            onChange={handleChange}
+            onChange={setProveedorNombreEmpresa}
             placeholder="Nombre de la empresa"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="proveedor.direccion"
-            value={orden.proveedor.direccion}
-            onChange={handleChange}
+            onChange={setProveedorDireccion}
             placeholder="Direccion del proveedor"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="proveedor.rut"
-            value={orden.proveedor.rut}
-            onChange={handleChange}
+            onChange={setProveedorRut}
             placeholder="Rut o identificador fiscal"
             className="w-full p-2 border border-gray-300 rounded"
           />
@@ -330,8 +391,7 @@ export const AddOrden = () => {
           <input
             type="text"
             name="ordenCompra.numero"
-            value={orden.ordenCompra.numero}
-            onChange={handleChange}
+            onChange={setOrdenCompraNumero}
             placeholder="Número de orden de compra"
             className="w-full p-2 border border-gray-300 rounded"
           />
@@ -339,40 +399,34 @@ export const AddOrden = () => {
           <input
             type="text"
             name="ordenCompra.fechaEmision"
-            value={orden.ordenCompra.fechaEmision}
-            onChange={handleChange}
+            onChange={setOrdenCompraFechaEmision}
             placeholder="Fecha de emisión"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="ordenCompra.formaPago"
-            value={orden.ordenCompra.formaPago}
-            onChange={handleChange}
+            onChange={setOrdenCompraFormaPago}
             placeholder="Forma de pago"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
-            name="ordenCompra.fechaEntrega"
-            value={orden.ordenCompra.fechaEntrega}
-            onChange={handleChange}
+            onChange={setOrdenCompraFechaEntrega}
             placeholder="Fecha de entrega"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="ordenCompra.moneda"
-            value={orden.ordenCompra.moneda}
-            onChange={handleChange}
+            onChange={setOrdenCompraMoneda}
             placeholder="Moneda"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="ordenCompra.solicitante"
-            value={orden.ordenCompra.solicitante}
-            onChange={handleChange}
+            onChange={setOrdenCompraSolicitante}
             placeholder="Solicitante"
             className="w-full p-2 border border-gray-300 rounded"
           />
@@ -440,48 +494,42 @@ export const AddOrden = () => {
           <input
             type="text"
             name="subTotal"
-            value={orden.subTotal}
-            onChange={handleChange}
+            onChange={setSubTotal}
             placeholder="Subtotal"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="descuentoGlobal"
-            value={orden.descuentoGlobal}
-            onChange={handleChange}
+            onChange={setDescuentoGlobal}
             placeholder="Descuento Global"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="montoNeto"
-            value={orden.montoNeto}
-            onChange={handleChange}
+            onChange={setMontoNeto}
             placeholder="Monto Neto"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="montoExento"
-            value={orden.montoExento}
-            onChange={handleChange}
+            onChange={setMontoExento}
             placeholder="Monto Exento"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="iva"
-            value={orden.iva}
-            onChange={handleChange}
+            onChange={setIva}
             placeholder="IVA"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="total"
-            value={orden.total}
-            onChange={handleChange}
+            onChange={setTotal}
             placeholder="Total"
             className="w-full p-2 border border-gray-300 rounded"
           />
@@ -491,8 +539,7 @@ export const AddOrden = () => {
         <h3 className="text-lg font-bold mb-2">Observaciones Generales</h3>
         <select
           name="observacionesGenerales"
-          value={orden.observacionesGenerales}
-          onChange={handleChange}
+          onChange={setObservacionesGenerales}
           className="w-full p-2 border border-gray-300 rounded mb-4"
         >
           <option value="">Seleccionar</option>
@@ -507,17 +554,15 @@ export const AddOrden = () => {
         <h3 className="text-lg font-bold mb-2">Observaciones de Pago</h3>
         <textarea
           name="observacionesPago"
-          value={orden.observacionesPago}
           onChange={handleChange}
           placeholder="Escribe las observaciones de pago..."
           className="w-full p-2 border border-gray-300 rounded mb-4"
         ></textarea>
 
         {/* Botón para enviar el formulario */}
-        <button type="submit" className="w-full mt-4 px-4 py-2 bg-green-500 text-white rounded">
+        <button onClick={handleSubmit} className="w-full mt-4 px-4 py-2 bg-green-500 text-white rounded">
           Guardar Orden
         </button>
-      </form>
     </div>
   );
 };

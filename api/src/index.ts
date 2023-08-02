@@ -26,8 +26,7 @@ const server = express();
 //Lo configuramos con Middlewares generales:
 server.use(morgan('dev'));
 server.use(cors({ origin: '*' }));
-server.use(globalLimit); //limite 150 peticiones por minuto
-server.use(express.json({ limit: '50mb' }));
+server.use(express.json({ limit: '500mb' }));
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(express.static('public'));
 //Le agregamos las rutas:
