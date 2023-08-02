@@ -66,6 +66,7 @@ export const AddOrden = () => {
   const handleClienteSearchChange = (e) => {
     const value = e.target.value;
     setSearchValueClient(value);
+    setSearchResultsClients([]);
 
     if (value.length >= 3) {
       // Perform client search in the 'clients' array from Redux state
@@ -155,6 +156,8 @@ export const AddOrden = () => {
       productoSeleccionado: producto,
       productos: [],
     }));
+    setSearchResults([]);
+
   };
 
   const buscarProducto = (searchValue) => {
@@ -235,7 +238,7 @@ export const AddOrden = () => {
               <input
                 type="text"
                 name="clienteSearch"
-                value={searchValue}
+                value={searchValueClient}
                 placeholder="Buscar cliente por nombre o rut"
                 onChange={handleClienteSearchChange}
                 className="w-full p-2 border border-gray-300 rounded"
@@ -244,7 +247,7 @@ export const AddOrden = () => {
                 <div className="col-span-2 border border-gray-300 rounded p-4 mt-4">
                   <h4 className="text-lg font-bold mb-2">Resultados de la búsqueda</h4>
                   <ul>
-                    {searchResultsClients.map((cliente) => (
+                    {orden.cliente.direccion ? null : searchResultsClients.map((cliente) => (
                       <li
                         key={cliente.rut}
                         className="cursor-pointer p-2 hover:bg-blue-200"
