@@ -26,9 +26,7 @@ const server = express();
 //Lo configuramos con Middlewares generales:
 server.use(morgan('dev'));
 server.use(cors({ origin: '*' }));
-server.use(express.json({ limit: '500mb' }));
-server.use(bodyParser.urlencoded({ extended: true }));
-server.use(express.static('public'));
+server.use(bodyParser.urlencoded({limit: '500mb', extended: true, parameterLimit: 1000000}));server.use(express.static('public'));
 //Le agregamos las rutas:
 server.use(routes);
 

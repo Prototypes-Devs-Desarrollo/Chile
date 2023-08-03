@@ -6,6 +6,7 @@ import { setProducts } from '@/redux/reducer/reducerProduc';
 import axios from 'axios';
 import { clieSetCliente } from '@/redux/reducer/reducerClient';
 import CircularJSON from 'circular-json';
+import { cloneDeep } from 'lodash';
 
 export const AddOrden = () => {
   const productosFromRedux = useSelector((state) => state.reducerProduc.productos);
@@ -48,7 +49,6 @@ export const AddOrden = () => {
     observacionesGenerales: '',
     observacionesPago: '',
   });
-
   const [selectedProducts, setSelectedProducts] = useState([]);
 
   const [searchValue, setSearchValue] = useState('');
@@ -103,7 +103,7 @@ export const AddOrden = () => {
       );
     });
   };
-
+const [clintSelect, setClientSelect] = useState()
   // Function to handle selecting a client from search results
   const handleSeleccionarCliente = (cliente) => {
     setOrden((prevOrden) => ({
@@ -118,7 +118,7 @@ export const AddOrden = () => {
       },
     }));
   };
-
+  console.log(orden)
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchValue(value);
@@ -149,27 +149,57 @@ export const AddOrden = () => {
       [name]: value,
     }));
   };
-
+  const handleKgChange = (e, product) => {
+    const kg = e.target.value;
+    const updatedProduct = cloneDeep(product); // Clonar el objeto productoSeleccionado
+    updatedProduct.kg = kg; // Actualizar el kg en el objeto clonado
+  
+    const updatedProducts = selectedProducts.map((item) =>
+      item.product.codigo === product.codigo ? { ...item, product: updatedProduct } : item
+    );
+    setSelectedProducts(updatedProducts);
+  };
+  
+  const handleVolumenChange = (e, product) => {
+    const volumen = e.target.value;
+    const updatedProduct = cloneDeep(product); // Clonar el objeto productoSeleccionado
+    updatedProduct.volumen = volumen; // Actualizar el volumen en el objeto clonado
+  
+    const updatedProducts = selectedProducts.map((item) =>
+      item.product.codigo === product.codigo ? { ...item, product: updatedProduct } : item
+    );
+    setSelectedProducts(updatedProducts);
+  };
   const handleSeleccionarProducto = (producto) => {
-    setSelectedProducts((prevProducts) => [...prevProducts, { product: producto, quantity: 1 }]);
+    setSelectedProducts((prevProducts) => [
+      ...prevProducts,
+      { product: producto, quantity: 1, kg: 0, volumen: 0 }, // Add KG and Volumen with initial values
+    ]);
     setOrden((prevOrden) => ({
       ...prevOrden,
+      productos: [...prevOrden.productos, producto],
       productoSeleccionado: producto,
-      productos: [],
     }));
-    setSearchResults([]);
-
+    setSearchResults([]); // Clear the search results after selecting a product
   };
-
   const buscarProducto = (searchValue) => {
     if (!productosFromRedux || productosFromRedux.length === 0) {
       return [];
     }
     return productosFromRedux.filter((producto) => {
-      return (
+      const found =
         producto.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-        producto.codigo.toLowerCase().includes(searchValue.toLowerCase())
-      );
+        producto.codigo.toLowerCase().includes(searchValue.toLowerCase());
+  
+      if (found) {
+        return {
+          ...producto,
+          kg: 0, // Add KG with initial value
+          volumen: 0, // Add Volumen with initial value
+        };
+      }
+  
+      return null;
     });
   };
 
@@ -201,18 +231,23 @@ export const AddOrden = () => {
 
   const router = useRouter();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const clonedOrden = CircularJSON.parse(CircularJSON.stringify(orden));
-    AddOrdenMethod({
-        ord:  CircularJSON.parse(CircularJSON.stringify(orden)),
-        loading: (v) => console.log(v),
-      error: (msg) => console.log(msg),
-      success: (res) => {
-        router.push("/odenesdecompras");
+  const handleSubmit = async () => {
+    const token = localStorage.getItem('Token');
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-    });
-  };
+    };
+    const clonedOrd = CircularJSON.stringify(orden); // Use stringify method for serialization
+    try {
+      const response = await axios.post('orden/create', clonedOrd, config);
+      console.log(response);
+      // Do something with the response if needed.
+    } catch (error) {
+      console.log(error);
+    }
+  };;
+
   const dispatch = useDispatch()
   useEffect(() => {
     const fetchProducts = async () => {
@@ -296,6 +331,52 @@ export const AddOrden = () => {
   return (
         <div className="container mx-auto">
           <h2 className="text-xl font-bold mb-4">Agregar Orden</h2>
+              {/* Sección Orden de Compra */}
+        <h3 className="text-lg font-bold mb-2">Orden de Compra</h3>
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          <input
+            type="text"
+            name="ordenCompra.numero"
+            onChange={(e) => setOrdenCompraNumero(e.target.value)}
+            placeholder="Número de orden de compra"
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+          {/* Agrega los demás campos de la orden de compra */}
+          <input
+            type="text"
+            name="ordenCompra.fechaEmision"
+            onChange={(e ) =>setOrdenCompraFechaEmision(e.target.value)}
+            placeholder="Fecha de emisión"
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+          <input
+            type="text"
+            name="ordenCompra.formaPago"
+            onChange={(e) => setOrdenCompraFormaPago(e.target.value)}
+            placeholder="Forma de pago"
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+          <input
+            type="text"
+            onChange={(e) => setOrdenCompraFechaEntrega(e.target.value)}
+            placeholder="Fecha de entrega"
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+          <input
+            type="text"
+            name="ordenCompra.moneda"
+            onChange={(e )=> setOrdenCompraMoneda(e.target.value)}
+            placeholder="Moneda"
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+          <input
+            type="text"
+            name="ordenCompra.solicitante"
+            onChange={(e )=>setOrdenCompraSolicitante(e.target.value)}
+            placeholder="Solicitante"
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
             {/* Sección Cliente */}
             <h3 className="text-lg font-bold mb-2">Cliente</h3>
             <div className="grid grid-cols-2 gap-4 mb-4">
@@ -363,21 +444,21 @@ export const AddOrden = () => {
           <input
             type="text"
             name="proveedor.nombreEmpresa"
-            onChange={setProveedorNombreEmpresa}
+            onChange={(e) =>setProveedorNombreEmpresa(e.target.value)}
             placeholder="Nombre de la empresa"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="proveedor.direccion"
-            onChange={setProveedorDireccion}
+            onChange={() =>setProveedorDireccion(e.target.value)}
             placeholder="Direccion del proveedor"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="proveedor.rut"
-            onChange={setProveedorRut}
+            onChange={(e )=>setProveedorRut(e.target.value)}
             placeholder="Rut o identificador fiscal"
             className="w-full p-2 border border-gray-300 rounded"
           />
@@ -385,52 +466,7 @@ export const AddOrden = () => {
           {/* <input ... /> */}
         </div>
 
-        {/* Sección Orden de Compra */}
-        <h3 className="text-lg font-bold mb-2">Orden de Compra</h3>
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <input
-            type="text"
-            name="ordenCompra.numero"
-            onChange={setOrdenCompraNumero}
-            placeholder="Número de orden de compra"
-            className="w-full p-2 border border-gray-300 rounded"
-          />
-          {/* Agrega los demás campos de la orden de compra */}
-          <input
-            type="text"
-            name="ordenCompra.fechaEmision"
-            onChange={setOrdenCompraFechaEmision}
-            placeholder="Fecha de emisión"
-            className="w-full p-2 border border-gray-300 rounded"
-          />
-          <input
-            type="text"
-            name="ordenCompra.formaPago"
-            onChange={setOrdenCompraFormaPago}
-            placeholder="Forma de pago"
-            className="w-full p-2 border border-gray-300 rounded"
-          />
-          <input
-            type="text"
-            onChange={setOrdenCompraFechaEntrega}
-            placeholder="Fecha de entrega"
-            className="w-full p-2 border border-gray-300 rounded"
-          />
-          <input
-            type="text"
-            name="ordenCompra.moneda"
-            onChange={setOrdenCompraMoneda}
-            placeholder="Moneda"
-            className="w-full p-2 border border-gray-300 rounded"
-          />
-          <input
-            type="text"
-            name="ordenCompra.solicitante"
-            onChange={setOrdenCompraSolicitante}
-            placeholder="Solicitante"
-            className="w-full p-2 border border-gray-300 rounded"
-          />
-        </div>
+    
 
              {/* Sección Productos */}
              <h3 className="text-lg font-bold mb-2">Productos</h3>
@@ -465,28 +501,47 @@ export const AddOrden = () => {
               <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">Nombre</th>
               <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">Precio</th>
               <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">Cantidad</th>
+              <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">KG</th>
+              <th className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">Volumen</th>
+
             </tr>
           </thead>
           <tbody>
-            {selectedProducts.map((item, index) => (
-              <tr
-                key={index}
-                className={index % 2 === 0 ? 'bg-blue-gray-50 cursor-pointer' : 'cursor-pointer'}
-              >
-                <td className="p-4">{item.product.codigo}</td>
-                <td className="p-4">{item.product.name}</td>
-                <td className="p-4">{item.product.price}</td>
-                <td className="p-4">
-                  <input
-                    type="number"
-                    value={item.quantity}
-                    onChange={(e) => handleQuantityChange(e, item.product)}
-                    className="w-full p-2 border border-gray-300 rounded"
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
+  {selectedProducts.map((item, index) => (
+    <tr
+      key={index}
+      className={index % 2 === 0 ? 'bg-blue-gray-50 cursor-pointer' : 'cursor-pointer'}
+    >
+      <td className="p-4">{item.product.codigo}</td>
+      <td className="p-4">{item.product.name}</td>
+      <td className="p-4">{item.product.price}</td>
+      <td className="p-4">
+        <input
+          type="number"
+          value={item.quantity}
+          onChange={(e) => handleQuantityChange(e, item.product)}
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </td>
+      <td className="p-4">
+        <input
+          type="number"
+          value={item.kg}
+          onChange={(e) => handleKgChange(e, item.product)}
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </td>
+      <td className="p-4">
+        <input
+          type="number"
+          value={item.volumen}
+          onChange={(e) => handleVolumenChange(e, item.product)}
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </td>
+    </tr>
+  ))}
+</tbody>
         </table>
         {/* Sección Otros */}
         <h3 className="text-lg font-bold mb-2">Otros</h3>
@@ -494,42 +549,42 @@ export const AddOrden = () => {
           <input
             type="text"
             name="subTotal"
-            onChange={setSubTotal}
+            onChange={(e ) =>setSubTotal(e.target.value)}
             placeholder="Subtotal"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="descuentoGlobal"
-            onChange={setDescuentoGlobal}
+            onChange={(e ) => setDescuentoGlobal(e.target.value)}
             placeholder="Descuento Global"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="montoNeto"
-            onChange={setMontoNeto}
+            onChange={(e ) => setMontoNeto(e.target.value)}
             placeholder="Monto Neto"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="montoExento"
-            onChange={setMontoExento}
+            onChange={(e) => setMontoExento(e.target.value)}
             placeholder="Monto Exento"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="iva"
-            onChange={setIva}
+            onChange={(e) =>setIva(e.target.value)}
             placeholder="IVA"
             className="w-full p-2 border border-gray-300 rounded"
           />
           <input
             type="text"
             name="total"
-            onChange={setTotal}
+            onChange={(e)=> setTotal(e.target.value)}
             placeholder="Total"
             className="w-full p-2 border border-gray-300 rounded"
           />
@@ -539,7 +594,7 @@ export const AddOrden = () => {
         <h3 className="text-lg font-bold mb-2">Observaciones Generales</h3>
         <select
           name="observacionesGenerales"
-          onChange={setObservacionesGenerales}
+          onChange={(e ) => setObservacionesGenerales(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded mb-4"
         >
           <option value="">Seleccionar</option>

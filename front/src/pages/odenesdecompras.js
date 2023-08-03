@@ -34,7 +34,7 @@ const Odenesdecompras = () => {
   }, [success]);
 
   const TABLE_HEAD = ['Orden N°', 'Cliente', 'Proveedor', 'Solicitante', 'Cant. Productos', 'Neto', 'IVA', 'Total'];
-
+console.log(ordenesOrde)
   return (
     <>
     
@@ -53,17 +53,17 @@ const Odenesdecompras = () => {
           </div>
         ) : !cards ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-3">
-            {ordenesOrde.map((o, idx) => (
+            {ordenesOrde?.map((o, idx) => (
               <Card key={idx} color="blue">
                 <CardBody>
-                  <Typography className="text-center font-extrabold">Orden N° {o.ordenCompra.numero}</Typography>
-                  <Typography>Cliente: {o.cliente.nombreEmpresa}</Typography>
-                  <Typography>Proveedor: {o.proveedor.nombreEmpresa}</Typography>
-                  <Typography>Solicitante: {o.ordenCompra.solicitante}</Typography>
-                  <Typography>Cantidad de Productos: {o.productos.length}</Typography>
-                  <Typography className="text-right font-bold">Neto: {o.subTotal}</Typography>
-                  <Typography className="text-right font-bold">IVA: {o.iva}</Typography>
-                  <Typography className="text-right font-bold">Total: {o.total}</Typography>
+                  <Typography className="text-center font-extrabold">Orden N° {o?.ordenCompra?.numero}</Typography>
+                  <Typography>Cliente: {o.cliente?.nombreEmpresa}</Typography>
+                  <Typography>Proveedor: {o.proveedor?.nombreEmpresa}</Typography>
+                  <Typography>Solicitante: {o.ordenCompra?.solicitante}</Typography>
+                  <Typography>Cantidad de Productos: {o.productos?.length}</Typography>
+                  <Typography className="text-right font-bold">Neto: {o?.subTotal}</Typography>
+                  <Typography className="text-right font-bold">IVA: {o?.iva}</Typography>
+                  <Typography className="text-right font-bold">Total: {o?.total}</Typography>
                 </CardBody>
               </Card>
             ))}
@@ -88,46 +88,46 @@ const Odenesdecompras = () => {
                 </tr>
               </thead>
               <tbody>
-                {ordenesOrde.map((o, idx) => (
+                {ordenesOrde?.map((o, idx) => (
                   <tr key={idx} className={idx % 2 === 0 ? 'bg-blue-gray-50' : ''}>
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {o.ordenCompra.numero}
+                        {o.ordenCompra?.numero}
                       </Typography>
                     </td>
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {o.cliente.nombreEmpresa}
+                        {o.cliente?.nombreEmpresa}
                       </Typography>
                     </td>
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {o.proveedor.nombreEmpresa}
+                        {o.proveedor?.nombreEmpresa}
                       </Typography>
                     </td>
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {o.ordenCompra.solicitante}
+                        {o.ordenCompra?.solicitante}
                       </Typography>
                     </td>
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {o.productos.length}
+                        {o.productos?.length}
                       </Typography>
                     </td>
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {o.subTotal}
+                        {o?.subTotal}
                       </Typography>
                     </td>
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {o.iva}
+                        {o?.iva}
                       </Typography>
                     </td>
                     <td className="p-4">
                       <Typography variant="small" color="blue-gray" className="font-normal">
-                        {o.total}
+                        {o?.total}
                       </Typography>
                     </td>
                   </tr>
